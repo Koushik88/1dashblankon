@@ -1,0 +1,3 @@
+[submodule "vendor/rashed/database-backup"]
+	path = vendor/rashed/database-backup
+	url = https://github.com/shuvrow/database-backup
