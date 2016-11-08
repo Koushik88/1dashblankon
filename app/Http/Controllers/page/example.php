@@ -5,7 +5,7 @@
 
 // define("MANI", "Manigandan Dharmalingam");
 // class example {
-// 	public function Examples() {
-// 		return "Manigandan Laravel Master";
-// 	}
+function Examples() {
+	return "Manigandan Laravel Master";
+}
 // }
