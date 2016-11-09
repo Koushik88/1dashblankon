@@ -44,7 +44,7 @@ class HomeController extends Controller {
 			return redirect('/home');
 		}
 		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', '1Dash-1View');
+		$this->addTemplateVar('pageTitle', '1View');
 		$this->addTemplateVar('page', 'page/index');
 		return view('general.index', $this->template_vars);
 	}
@@ -121,20 +121,6 @@ class HomeController extends Controller {
 		$this->addTemplateVar('csrf_token', csrf_token());
 		$this->addTemplateVar('pageTitle', 'Gmail');
 		$this->addTemplateVar('page', 'module/gmail_up');
-		return view('general.index', $this->template_vars);
-	}
-	/**
-	 * [ecommerce description]
-	 * @return [type] [description]
-	 */
-	public function ecommerce() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Ecommerce');
-		$this->addTemplateVar('page', 'module/ecommerce');
 		return view('general.index', $this->template_vars);
 	}
 

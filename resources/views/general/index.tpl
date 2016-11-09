@@ -21,7 +21,7 @@
         <meta name="description" content="Violate Responsive Admin Template">
         <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
         <link rel="shortcut icon" href="{$smarty.const.IMAGESLOCATION}/favicon.png" type="image/x-icon" /> 
-        <title>{$smarty.const.title}{$pageTitle nocache}</title>
+        <title>{$smarty.const.title} - {$pageTitle nocache}</title>
         {include 'general/css-js-general.tpl' nocache}
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
