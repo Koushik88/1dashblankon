@@ -38,7 +38,7 @@ Route::post('doLogin', 'LoginController@doLogin');
 Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('logout', 'LoginController@logout')->name('logout');
 	Route::get('home', 'page\HomeController@home')->name('home');
-	Route::get('widget', 'page\HomeController@widget')->name('widget');
+	Route::get('widget', 'plugin\OneviewController@widget')->name('widget');
 	Route::get('socialstream', 'page\HomeController@socialstream')->name('socialstream');
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
 	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');

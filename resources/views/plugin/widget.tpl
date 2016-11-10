@@ -318,7 +318,9 @@
    
     {literal}      
       loadToDoAjax();
-       customPeriodSelection();
+       
+        customPeriodSelection();
+        
        
     function customPeriodSelection()
     {
@@ -376,9 +378,10 @@ function qbcompanyInfo()
     
          $.post(portalLocation+controller+"/widget_ajax.php", {"companyInfo":"companyInfo"}, function(data){    
              //alert(data);
-             $("#cmpInfo").html(data);       
+             $("#cmpInfo").html(data);   
+             swich_companyList();
          });
-
+    
 }  
 
     
@@ -395,10 +398,20 @@ function lablevalue()
               $("#expensess_lable").html("<i class='social-count animated'>$"+chartValue.expenses+"</i>");
               $("#recevable_lable").html("<i class='social-count animated'>$"+chartValue.arreceivable+"</i>");
               $("#payable_lable").html("<i class='social-count animated'>$"+chartValue.arpayable+"</i>");
-
+             
          });
 
 }  
+
+function swich_companyList()
+{
+         $.post(portalLocation+controller+"/switch_qbo_companies.php", {"swich_company":"swich_company"}, function(data){    
+             $("#switch_company_list").html(data);
+             $("#switch_company_list_icon").show(); 
+         });
+
+}  
+
     
  
 function exportExcel(format) {
@@ -702,3 +715,159 @@ $('#sidebar').css('height',document.body.scrollHeight);
             </div>
         </div>
 </div>
+
+
+
+
+<!---Finicity-->
+
+<div class="modal fade" id="bank" data-backdrop="static" data-keyboard="false" >
+                     <div class="modal-dialog">
+                         <div class="modal-content">
+                             
+                              <form class="form-validation" role="form" id="form_id" name="form_id" method="post" action="" >
+                                  
+                                    <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">Search Bank</h4>
+                                      </div>
+                                 <div class="modal-body">
+                                         <div class="form-group">
+                                              <label for="Search">Search</label>
+                                              <input type="text" class="input-sm form-control validate[required]" required name="searchbyname" id="searchbyname" placeholder="...">
+                                         </div>
+                                   </div>
+                             
+                                    <div class="modal-footer">                                   
+                                    <input type="button" class="btn btn-info btn-sm" name="search" id="search"  value="Search" >
+                                        </div>
+                              </form>
+       <div class="table-responsive overflow" id="loadBankData_ajax" style="overflow: hidden; height: 270px !important; outline: none;" tabindex="5001"> 
+             
+    <table id="userdata" class="table table-bordered tile pltable" tabindex="5003" style="overflow: hidden; outline: none; border-right: 4px solid rgba(255,255,255,.8);" border="0">
+    <thead>
+        <th style="min-width: 175px !important;">Name</th>
+        <th style="min-width: 275px !important;">Account Type Description</th>
+        <th style="min-width: 50px !important;">Action</th>
+       
+    </thead>
+    <tbody>
+        </tbody>
+</table>
+       </div>
+                             
+                             <div class="tile p-15">
+                             
+                             <div id="loginform" >
+                                 
+                                 <form role="form" name="bankloginForm" id="bankloginForm" method="post" action="">
+                                     
+                                     
+                                 </form>
+                                
+                             </div>    
+                             </div>
+                             
+                             
+                             
+                             
+                         </div>
+                     </div>
+   </div>
+{literal}
+    <script type="text/javascript">
+        $("#bankbtn").on('click', function() {    
+          $('#bank').modal('show'); 
+        });
+        
+        
+    $("#search").click(function() {          
+         var Search=$("#searchbyname").val();
+       SearchBank(Search);
+         
+     });
+    
+  
+    
+    function SearchBank(searchdata){
+     
+         var searchbyname = searchdata;
+          $.post(portalLocation+"/module/banklist.php", {"searchbyname":searchbyname}, function(data){    
+                  
+        var response = jQuery.parseJSON(data); 
+        console.log(response);
+         
+          var trHTML = '';
+          
+          trHTML='';
+            for(var f=0;f<response.length;f++) {
+
+              var url=portalLocation+"/module/user_login.php?institutionId="+response[f]['id'];
+
+              var login='Login';
+              trHTML +='<tr><td>'+response[f]['name']+'</td><td>'+response[f]['accountTypeDescription']+'</td><td><a href=# onclick=Loginform("'+url+'");  >'+login+'</a></td></tr>';
+
+              $(trHTML).appendTo("#userdata tbody");     
+                }
+            
+        });
+        
+    }
+    
+    
+    
+function Loginform(url){
+        var strx   = url.split('=');    
+    
+   var institutionId=strx[1];
+       
+    $("#loadBankData_ajax").hide();          
+     
+    $.get(portalLocation+"/module/user_login.php", {"institutionId":institutionId}, function(data){
+       
+        console.log('data');        
+        console.log(data);        
+          var formdata = jQuery.parseJSON(data);           
+           console.log(formdata);           
+           var form='';           
+          for(var i=0;i<formdata.length;i++) {
+                          
+              console.log(formdata[i]['mask']);
+          // form +='<label>'+formdata[i]['description']+'<input type=text name=loginForm["'+i+'"][value] ></label><br><input type=hidden name=loginForm["'+i+'"][id] value="'+formdata[i]['id']+'"><input type=hidden name=loginForm["'+i+'"][name] value="'+formdata[i]['name']+'">';   
+           if(formdata[i]['mask'] =='true'){
+               form +='<div class=form-group><label>'+formdata[i]['description']+'<input type=password class=form-control input-sm name=loginForm["'+i+'"][value] ></label></div><input type=hidden name=loginForm["'+i+'"][id] value="'+formdata[i]['id']+'"><input type=hidden name=loginForm["'+i+'"][name] value="'+formdata[i]['name']+'">';   
+           }else{
+               form +='<div class=form-group><label>'+formdata[i]['description']+'<input type=text class=form-control input-sm name=loginForm["'+i+'"][value] ></label></div><input type=hidden name=loginForm["'+i+'"][id] value="'+formdata[i]['id']+'"><input type=hidden name=loginForm["'+i+'"][name] value="'+formdata[i]['name']+'">';   
+           }
+                           
+          }  
+           form +='<br><input type=submit class=btn btn-sm m-t-10 value=Login> <button type="button" class="btn btn-info btn-sm" id="close" data-dismiss="modal">Close</button>';
+             $(form).appendTo("#bankloginForm"); 
+         
+    });
+    
+       
+        
+    }
+    
+      $(".close").click(function() { 
+         $("#userdata tbody").empty();    
+        // alert('test'); 
+      $("#bankloginForm").empty();   
+      
+          
+    });
+    
+    
+    $("#close").click(function() { 
+        
+        
+         $("#userdata tbody").empty();    
+         //alert('test'); 
+      $("#bankloginForm").empty();   
+      
+          
+    });
+        
+    </script>
+{/literal}    

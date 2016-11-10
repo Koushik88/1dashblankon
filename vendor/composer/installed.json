@@ -4779,5 +4779,60 @@
             "laravel db auto backup",
             "php"
         ]
+    },
+    {
+        "name": "beanworks/quickbooks-online-v3-sdk",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/beanworks/quickbooks-online-v3-sdk.git",
+            "reference": "3cabab867d154b2e5875d195ee1664ad901c3d0a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/beanworks/quickbooks-online-v3-sdk/zipball/3cabab867d154b2e5875d195ee1664ad901c3d0a",
+            "reference": "3cabab867d154b2e5875d195ee1664ad901c3d0a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.2.*"
+        },
+        "time": "2015-04-30 18:24:58",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "src/config.php",
+                "src/Core/ServiceContext.php",
+                "src/DataService/DataService.php",
+                "src/PlatformService/PlatformService.php",
+                "src/Utility/Configuration/ConfigurationManager.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nigel Albert",
+                "email": "nigel.albert@beanworks.com"
+            },
+            {
+                "name": "Rollie Ma",
+                "email": "rollie.ma@beanworks.com"
+            }
+        ],
+        "description": "QBO v3 API SDK for PHP. Supported and used by BeanworksAP.",
+        "homepage": "https://beanworks.com",
+        "keywords": [
+            "beanworks",
+            "qbo",
+            "quickbooks"
+        ]
     }
 ]

@@ -66,20 +66,7 @@ class HomeController extends Controller {
 		$this->addTemplateVar('page', 'plugin/widget');
 		return view('general.index', $this->template_vars);
 	}
-	/**
-	 * [widget description]
-	 * @return [type] [description]
-	 */
-	public function widget() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', '1View');
-		$this->addTemplateVar('page', 'plugin/widget');
-		return view('general.index', $this->template_vars);
-	}
+	
 	/**
 	 * [socialstream description]
 	 * @param  string $value [description]
