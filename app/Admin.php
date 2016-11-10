@@ -84,6 +84,18 @@ class Admin extends Model {
 		}
 		return $_children;
 	}
+	/**
+	 * [getAllPluginData description]
+	 * @param  [type] $userId [description]
+	 * @return [json]         [all plugin details]
+	 */
+	public function getAllPluginData($userId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$result = $DB->select("select name,data from plugin_details where userID = ?", $userId);
+		}
+		return $this->returnJson($result);
+	}
 
 	/*
 		    *
