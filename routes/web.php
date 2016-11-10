@@ -42,12 +42,21 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('socialstream', 'page\HomeController@socialstream')->name('socialstream');
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
 	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
+	/*
+		Ecommerce Routes
+	*/
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
+	Route::post('ecommerce_ajax', 'ecommerce\EcommerceAjaxController@ecommerce_ajax');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
+	/*
+		Profile Page
+	*/
+	Route::get('profile', 'page\HomeController@home');
 
 	/*
 		Dummy Routes
 	*/
+	Route::post('testAjax', 'TestController@testAjax');
 	Route::get('wel', 'LoginController@wel');
 	Route::get('demo', 'page\HomeController@demodb');
 	Route::get('demo1', 'page\HomeController@demodb1');
