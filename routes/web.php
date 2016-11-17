@@ -39,23 +39,33 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('logout', 'LoginController@logout')->name('logout');
 	Route::get('home', 'page\HomeController@home')->name('home');
 	Route::get('widget', 'page\HomeController@widget')->name('widget');
-	Route::get('socialstream', 'page\HomeController@socialstream')->name('socialstream');
+	/**
+	 * Social Stream Page
+	 */
+	Route::get('socialstream', 'socialstream\SocialStreamController@socialstream')->name('socialstream');
+	Route::post('socialstreamAjax', 'socialstream\SocialStreamController@socialstreamAjax')->name('socialstream');
+	/**
+	 * Calendar Page
+	 */
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
+	/**
+	 * Gmail Page
+	 */
 	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
-	/*
-		Ecommerce Routes
-	*/
+	/**
+	 * Ecommerce Routes
+	 */
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
 	Route::post('ecommerce_ajax', 'ecommerce\EcommerceAjaxController@ecommerce_ajax');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
-	/*
-		Profile Page
-	*/
+	/**
+	 * Profile Page
+	 */
 	Route::get('profile', 'page\HomeController@home');
 
-	/*
-		Dummy Routes
-	*/
+	/**
+	 * Dummy Routes
+	 */
 	Route::post('testAjax', 'TestController@testAjax');
 	Route::get('wel', 'LoginController@wel');
 	Route::get('demo', 'page\HomeController@demodb');

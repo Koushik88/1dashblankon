@@ -96,6 +96,30 @@ class Admin extends Model {
 		}
 		return $this->returnJson($result);
 	}
+	/**
+	 * [getRefreshToken description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getRefreshToken($userId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$result = $DB->select("select * from gmail_api_users where user_id = ?", $userId);
+		}
+		return $this->returnJson($result);
+	}
+	/**
+	 * [getRssFeedTab description]
+	 * @return [type] [description]
+	 */
+	public function getRssFeedTab() {
+		$DB = DB::connection('dynamic_mysql');
+		$uid = [$_SESSION["userId"]];
+		if ($DB->getPdo()) {
+			$result = $DB->select("select * from rss_feed where uid = ?", $uid);
+		}
+		return $this->returnJson($result);
+	}
 
 	/*
 		    *

@@ -81,21 +81,6 @@ class HomeController extends Controller {
 		return view('general.index', $this->template_vars);
 	}
 	/**
-	 * [socialstream description]
-	 * @param  string $value [description]
-	 * @return [type]        [description]
-	 */
-	public function socialstream() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Social Stream');
-		$this->addTemplateVar('page', 'module/socialstream');
-		return view('general.index', $this->template_vars);
-	}
-	/**
 	 * [calendar description]
 	 * @return [type] [description]
 	 */
