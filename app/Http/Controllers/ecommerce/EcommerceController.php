@@ -33,9 +33,9 @@ class EcommerceController extends Controller {
 			$woocomm_msg = "You have not linked your woocommerce account with us, please click to add";
 			$bigcomm_config = "no";
 			$bigcomm_msg = "You have not linked your bigcommerce account with us, please click to add";
-			$amazon_config = "no";
+			$amazon_config = "yes";
 			$amazon_msg = "You have not linked your amazon account with us, please click to add";
-			$ebay_config = "no";
+			$ebay_config = "yes";
 			$ebay_msg = "You have not linked your ebay account with us, please click to add";
 
 			foreach ($dbres as $val) {

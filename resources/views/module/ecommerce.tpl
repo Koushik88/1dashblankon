@@ -198,9 +198,12 @@ function changeEcommerce(id){
     $("#active_plugin").val(id); 
     var widgetPeriod = $("#widgetPeriod option:selected").val();
     var report_type = $("#active_report_type").val(); 
-    // if(id == "shopify"){
-    //   $("#refunds_widget").hide();
-    // }
+    if((id == "amazon") || (id == "ebay")){
+      $("#prtour_customer").hide();
+      report_type = "orders";
+    } else {
+      $("#prtour_customer").show();
+    }
     // if(id == "woocommerce"){
     //   $("#refunds_widget").show();
     // }
