@@ -28,7 +28,7 @@
             <div class="media-body">
                 <div class="media" id="top-menu">
                     <div class="pull-left tm-icon">
-                        <a  id="prtour_profile" href="{$smarty.const.PORTALLOCATION}page/profile.php?mid=1334&nav=12">
+                        <a  id="prtour_profile" href="profile">
                             <img src="{$smarty.const.IMAGESLOCATION}icon/icon-02.png" style="padding-top:10px;">
                             {*<i class="sa-profile-img"></i>*}
                             {*<i class="n-count animated"></i>*}
