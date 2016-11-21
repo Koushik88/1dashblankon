@@ -62,7 +62,59 @@ foreach ($dbres as $val) {
 		define('API_PATH', $pluginsData['bigcom_api_path']);
 		define('API_TOKEN', $pluginsData['bigcom_api_token']);
 	}
+	if ($val['name'] == "Amazon") {
+		$amazon_config = "yes";
+		// CREDENTIALS
+		$pluginsData = json_decode($val['data'], true);
+		// define('USERNAME', $pluginsData['bigcom_username']);
+		// define('API_PATH', $pluginsData['bigcom_api_path']);
+		// define('API_TOKEN', $pluginsData['bigcom_api_token']);
+	}
+	if ($val['name'] == "Ebay") {
+		$ebay_config = "yes";
+		// CREDENTIALS
+		$pluginsData = json_decode($val['data'], true);
+		// define('USERNAME', $pluginsData['bigcom_username']);
+		// define('API_PATH', $pluginsData['bigcom_api_path']);
+		// define('API_TOKEN', $pluginsData['bigcom_api_token']);
+	}
 }
+/**
+ * Ebay Credentials
+ * these keys can be obtained by registering at http://developer.ebay.com
+ */
+
+$production = FALSE; // toggle to true if going against production
+$compatability_level = 717; // eBay API version
+if ($production) {
+	// production (live) environment
+	$devID = ''; // these prod keys are different from sandbox keys
+	$appID = '';
+	$certID = '';
+	//set the Server URL to use (Sandbox or Production)
+	$server_url = 'https://api.ebay.com/ws/api.dll';
+	//the token representing the eBay user to assign the call with
+	$user_token = '';
+} else {
+	// sandbox (test) environment
+	$devID = 'b4ca5cf8-648d-49c3-af22-c4c24435edfb'; // these SB keys are different from prod keys
+	$appID = 'LisaSiev-1Dash-SBX-7bff0c33e-bffc1ee8';
+	$certID = 'SBX-bff0c33e79cc-74c4-43d3-8056-905a';
+	//set the Server URL to use (Sandbox or Production)
+	$server_url = 'https://api.sandbox.ebay.com/ws/api.dll';
+	// the token representing the eBay user to assign the call with
+	$user_token = 'AgAAAA**AQAAAA**aAAAAA**LYcdWA**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GjAJOLow6dj6x9nY+seQ**VvsDAA**AAMAAA**cvht4/pdWhn4oxU6cDDP2WjxZccsfeHRNv9OPuHoKTeEBc0zBCirr1LIlB6V6EXMOWvqNa0g0sopWSBx8gGcBsBjKoKkwP2nm7i0AJUWV2inztqu3146TBnzLAU1fxwlsBCNy4RlSIC/dNJ5Vv+7PQNsgUbYspURf0T8TDjpfD3xof9w+T3DnKu1opI5cBo/5q3wtNepIepas7CdDxCGPCOoYLkg2TXKw9BXRqsLoDeisQ0r460q5j0Omk+OlMK6hhKdigRbFepLrMrMvwo32MjLAY3Cx1NhtuzTv//dG4aVq9WvTDo9XSomztMjWy7KWmXQHzc/GztzP4qCMpGNavc/xZucDLdzDaJ22x/T7QioK6uXvLXjtTdnNlBnPUBQVazXkntejOEUrGPiNPoDGETej9RPjSh57+47Ktre80WlRAzEZUz8uL9VORoLucZsfCcQfO6ss1OuDrPZ3AX7swr/yOu281Qf7nK3vBxpZDaIYbTF3w/Pl3Nu9Zho4UHtOunGmic/Cup4xUHkI27EXK5ED5IdPCZK9CygXO+2B6EDX9+1qk5jhi2sk2jz8R21MgCXbZlJINte/Rfagh2lAE30X2Ite0mRTtEKq9Ey6dTk30lr19soExKrXk7fOqXv5ewzKbEu5A4IB6oWaln8B4vT0ix4sU5xp8WvXDv1/N3drb6YrW2Qy813aUGrhCYHIrqt5pY6vTd23j7MmeYI1tC+FT39f29ZA9gIYPwZ4peVYBt6t630MNdkt1/dlHiO';
+}
+define('compatability_level', $compatability_level);
+define('devID', $devID);
+define('appID', $appID);
+define('certID', $certID);
+define('server_url', $server_url);
+define('user_token', $user_token);
+
+/**
+ * End
+ */
 
 /*
  * curl function
@@ -96,6 +148,27 @@ function httpGetBigCommerce($api_url) {
 
 	curl_close($ch);
 
+	return $response;
+}
+/*
+ * curl function
+ * make call to ebay orders api
+ * returns orders from ebay for a seller with user token
+ */
+function ebayOrdersAPI($request_body, $headers, $server_url) {
+	//initialise a CURL session
+	$connection = curl_init();
+	//set the server we are using (could be Sandbox or Production server)
+	curl_setopt($connection, CURLOPT_URL, $server_url);
+	curl_setopt($connection, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($connection, CURLOPT_SSL_VERIFYHOST, 0);
+	//set the headers using the array of headers
+	curl_setopt($connection, CURLOPT_HTTPHEADER, $headers);
+	curl_setopt($connection, CURLOPT_POST, 1);
+	curl_setopt($connection, CURLOPT_POSTFIELDS, $request_body);
+	curl_setopt($connection, CURLOPT_RETURNTRANSFER, 1);
+	$response = curl_exec($connection);
+	curl_close($connection);
 	return $response;
 }
 /**

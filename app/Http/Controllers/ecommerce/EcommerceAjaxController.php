@@ -118,7 +118,7 @@ class EcommerceAjaxController extends Controller {
                 	<th>Transaction</th>
                 	<th>Fulfillments</th>
                 	<th>Refunds</th>
-            	</thead></tr><tbody>';
+            		</thead></tr><tbody>';
 
 					foreach ($result['orders'] as $value) {
 						$date = strtotime($value['created_at']);
@@ -280,9 +280,9 @@ class EcommerceAjaxController extends Controller {
 					}
 				}
 			}
-/*
- * WooCommerce API Ajax calls
- */
+			/*
+				 * WooCommerce API Ajax calls
+			*/
 			if ($plugin_type == "woocommerce") {
 				if ($woocomm_config == "no") {
 					echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$woocomm_msg</div>";
@@ -586,7 +586,121 @@ class EcommerceAjaxController extends Controller {
 				}
 				exit();
 			}
+			/**
+			 * Ebay API Ajax calls
+			 */
+			if ($plugin_type == "amazon") {
+				if ($amazon_config == "no") {
+					echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$amazon_msg</div>";
+					exit();
+				}
+				echo "amazon";
+				exit();
+			}
+			/**
+			 * Ebay API Ajax calls
+			 */
+			if ($plugin_type == "ebay") {
+				// if ($ebay_config == "no") {
+				// 	echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$ebay_msg</div>";
+				// 	exit();
+				// }
+				if ($report_type == "orders") {
+					/**
+					 * [$orders description]
+					 * needs to pass timestamp to get order details
+					 * @var [type]
+					 */
+					$orders = get_ebay_orders();
+					// $result = json_decode($orders, true);
+					$noresults = true;
+					echo "<pre>";
+					print_r($orders);
+					exit();
+					if ($result['errors']) {
+						echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>
+								<p>" . $result['errors'] . "</p>
+								<p>Oops! Something went wrong. Please check your shopify credentials. </p>
+								</div>";
+						exit();
+					}
 
+					$html = '<table class="table table-bordered tile pltable" style="min-width:600px;/*max-width:1000px;*/">';
+					$html .= '<thead><tr>
+					<th>ORDER ID</th>
+                	<th>Order Details</th>
+                	<th>Product Details</th>
+                	<th>Tracking Info</th>
+                	<th>Payment Status</th>
+
+                	<th>Transaction</th>
+                	<th>Fulfillments</th>
+                	<th>Refunds</th>
+            		</thead></tr><tbody>';
+
+					foreach ($result['orders'] as $value) {
+						$date = strtotime($value['created_at']);
+						$order_date = date("Y-m-d", $date);
+						if (($order_date >= $Since) && ($order_date <= $today)) {
+							$noresults = false;
+							$currency = $value['currency'];
+							$html .= '<tr>';
+							$html .= '<td><a href="https://' . HOSTNAME . '/admin/orders/' . $value['id'] . '" target="_blank" title="ORDER ID">' . $value['name'] . '</a></td>';
+							$html .= '<td>
+							<a href="https://' . HOSTNAME . '/admin/orders/' . $value['id'] . '" target="_blank" title="ORDER ID">' . $value['name'] . '</a>
+							, <span title="ORDER DATE: ' . date("Y-m-d H:i:s", $date) . '">' . $order_date . '</span><br/>
+							<span title="TOTAL PRICE">' . $currency_symbols["$currency"] . $value['total_price'] . '</span>
+							, <span title="TOTAL DISCOUNT">' . $currency_symbols["$currency"] . $value['total_discounts'] . ' discount</span><br/>
+							<span title="TOTAL TAX">Tax: ' . $currency_symbols["$currency"] . $value['total_tax'] . '</span><br/>
+							<a href="https://' . HOSTNAME . '/admin/customers/' . $value['customer']['id'] . '" target="_blank" title="CUSTOMER ID">' . $value['customer']['id'] . '</a>
+							, <span title=" CUSTOMER NAME">' . $value['customer']['default_address']['name'] . '</span><br/>
+							<span title=" CUSTOMER ADDRESS">' . $value['customer']['default_address']['address1'] . '<br />' . $value['customer']['default_address']['address2'] . '</span><br />
+							<a href="mailto:' . $value['email'] . '" target="_top" title=" CUSTOMER EMAIL">' . $value['email'] . '</a> <br />
+							<span title=" CUSTOMER PHONE">' . $value['customer']['default_address']['phone'] . '</span>
+							</td>';
+							$html .= '<td><div style="overflow: hidden;max-height: 130px !important;overflow-y: auto;" id="style-3">';
+							foreach ($value['line_items'] as $itemdetail) {
+								$html .= '<a href="https://' . HOSTNAME . '/admin/products/' . $itemdetail['product_id'] . '" target="_blank" title="PRODUCT ID">#' . $itemdetail['product_id'] . '</a> <br />
+							  <span title="PRODUCT NAME">' . $itemdetail['name'] . '</span><br/>
+							  <span title="QUANTITY">Quantity: ' . $itemdetail['quantity'] . '</span>,
+							  <span title="PRICE">' . $currency_symbols["$currency"] . $itemdetail['price'] . '</span><br/>
+							  <span title="TOTAL DISCOUNT">' . $itemdetail['total_discount'] . '% discount</span>
+							  ';
+								if (count($value['line_items']) != 1) {
+									$html .= '<hr>';
+								}
+
+							}
+							$html .= '</div></td>';
+							$html .= '<td>';
+							foreach ($value['fulfillments'] as $trackdetail) {
+								$html .= '
+						<span title="TRACKING COMPANY">' . $trackdetail['tracking_company'] . '</span> -
+						<span title="TRACKING NUMBER">#' . $trackdetail['tracking_number'] . '</span> <br/>
+						<a href="' . $trackdetail['tracking_url'] . '" title="TRACK ORDER">Track <i class="fa fa-external-link"></i></a><br/>';
+								if (count($value['fulfillments']) != 1) {
+									$html .= '<hr>';
+								}
+
+							}
+							$html .= '</td>';
+							$html .= '<td>' . $value['financial_status'] . '</td>';
+
+							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("transactions",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
+							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("fulfillments",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
+							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("refunds",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
+							$html .= '</tr>';
+						}
+						$i++;
+					}
+					if ($noresults) {
+						$html .= '<tr><td colspan="8" style="text-align: center;">No orders data found for last ' . $periodindays . ' days</td></tr>';
+					}
+					$html .= '</tbody></table>';
+					echo $html;
+					exit();
+				}
+			}
 			/*******
 				 *
 				 * Save Credentials
@@ -621,6 +735,26 @@ class EcommerceAjaxController extends Controller {
 					$data['bigcom_api_token'] = $request->input('bigcom_api_token');
 
 					$admin_obj->savePluginCredentials('BigCommerce', json_encode($data));
+					echo "success";
+					exit();
+				}
+				if ($request->input('ecommerce_plugin') == "amazon") {
+					$data = array();
+					// $data['bigcom_username'] = $request->input('bigcom_username');
+					// $data['bigcom_api_path'] = $request->input('bigcom_api_path');
+					// $data['bigcom_api_token'] = $request->input('bigcom_api_token');
+
+					$admin_obj->savePluginCredentials('Amazon', json_encode($data));
+					echo "success";
+					exit();
+				}
+				if ($request->input('ecommerce_plugin') == "ebay") {
+					$data = array();
+					// $data['bigcom_username'] = $request->input('bigcom_username');
+					// $data['bigcom_api_path'] = $request->input('bigcom_api_path');
+					// $data['bigcom_api_token'] = $request->input('bigcom_api_token');
+
+					$admin_obj->savePluginCredentials('Ebay', json_encode($data));
 					echo "success";
 					exit();
 				}

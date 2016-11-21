@@ -61,7 +61,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	/**
 	 * Profile Page
 	 */
-	Route::get('profile', 'page\HomeController@home');
+	Route::get('profile', 'page\HomeController@profile_page')->name('profile');
 
 	/**
 	 * Dummy Routes
