@@ -1391,7 +1391,7 @@
         {literal} 
              function switchCompany_info(changeCompanyId)
              {
-                 $.post(portalLocation+controller+"/switch_qbo_companies.php", {"changeCompanyId":changeCompanyId}, function(data){    
+                 $.post("ChangeQBOList", {"changeCompanyId":changeCompanyId}, function(data){    
                     window.location.href = window.location.href;
                  });
              }

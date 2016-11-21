@@ -208,18 +208,18 @@
                         </label>
                      </div>
                 </div>
-                        <div class="row">
-                            <div class="col-md-7">
-                                    <div class="form-group">
-                                        <label for="Message">Explain in Detail</label>
-                                        <textarea class="form-control overflow" rows="4" placeholder="" tabindex="5003" style="overflow: hidden; outline: none;"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="paswd">Account password</label>
-                                       <input type="password" class="form-control input-sm"  placeholder="">
-                                   </div>
+                <div class="row">
+                    <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="Message">Explain in Detail</label>
+                                <textarea class="form-control overflow" rows="4" placeholder="" tabindex="5003" style="overflow: hidden; outline: none;"></textarea>
                             </div>
-                        </div>
+                            <div class="form-group">
+                               <label for="paswd">Account password</label>
+                               <input type="password" class="form-control input-sm"  placeholder="">
+                            </div>
+                    </div>
+                </div>
                              <button type="submit" disabled class="btn btn-sm m-t-10">Submit</button>
                    </div>
             </div>

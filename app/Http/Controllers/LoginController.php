@@ -106,7 +106,7 @@ class LoginController extends Controller {
 			// print_r($errors);
 			// print_r($userData);
 			// die();
-			return redirect()->route('home');
+			return redirect()->route('widget');
 		}
 	}
 	/**

@@ -67,18 +67,16 @@
             <img alt="" src="{$smarty.const.IMAGESLOCATION}social/googledrive1.svg">
             <small class="t-overflow">Bank</small></img>
         </a> 
-            
-            
-            
            
-                {if !isset($quickbook_error_msg)}     
-                    <span class="pull-right dropdown" id="switch_company_list_icon" style="display:none;">    
-                        <img data-toggle="dropdown" src="{$smarty.const.IMAGESLOCATION}shortcuts/settings.png" style="padding-top:10px;cursor:pointer;" title="Switch Company" width="26" height="36">
-                        <ul class="dropdown-menu pull-right text-left" id="switch_company_list">
+        {if !isset($quickbook_error_msg)}     
+            <span class="pull-right dropdown" id="switch_company_list_icon" style="display:none;">    
+                <img data-toggle="dropdown" src="{$smarty.const.IMAGESLOCATION}shortcuts/settings.png" style="padding-top:10px;cursor:pointer;" title="Switch Company" width="26" height="36">
+                <ul class="dropdown-menu pull-right text-left" id="switch_company_list">
 
-                        </ul>
-                    </span>
-                 {/if}       
+                </ul>
+            </span>
+         {/if}  
+         
     </div>
         
         
