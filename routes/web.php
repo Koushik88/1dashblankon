@@ -41,7 +41,10 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('widget', 'page\HomeController@widget')->name('widget');
 	Route::get('socialstream', 'page\HomeController@socialstream')->name('socialstream');
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
-	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
+	/**
+	* Gmail Routes
+	*/
+	Route::get('gmail_up', 'gmail\GmailController@gmail_up')->name('gmail_up');
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
 

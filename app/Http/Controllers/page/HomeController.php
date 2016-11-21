@@ -109,20 +109,7 @@ class HomeController extends Controller {
 		$this->addTemplateVar('page', 'module/calendar');
 		return view('general.index', $this->template_vars);
 	}
-	/**
-	 * [gmail_up description]
-	 * @return [type] [description]
-	 */
-	public function gmail_up() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Gmail');
-		$this->addTemplateVar('page', 'module/gmail_up');
-		return view('general.index', $this->template_vars);
-	}
+	
 
 	/**
 	 * [demodb dummy functions]
