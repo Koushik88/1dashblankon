@@ -68,9 +68,10 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 */
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
 	/**
-	 * Gmail Page
-	 */
-	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
+	* Gmail Routes
+	*/
+	Route::get('gmail_up', 'gmail\GmailController@gmail_up')->name('gmail_up');
+
 	/**
 	 * Ecommerce Routes
 	 */
