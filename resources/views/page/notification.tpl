@@ -11,7 +11,7 @@
 <div id="notifications" class="tile drawer animated" style="margin-left:10px;">
     <div class="listview narrow">
         <div class="media">
-            <a href="">Notification</a>
+            <a href="">&nbsp;&nbsp;Notification</a>
             <span class="drawer-close">&times;</span>
         </div>
         

@@ -1177,7 +1177,7 @@
   {if $chartType eq 'line'}  
     
     {if !$chartHeader}
-           <center>   No chat found. </center>
+           <center>   No chart found. </center>
     {else}    
        <script type="text/javascript">
     
@@ -1265,7 +1265,7 @@
   {else}
       
       {if !$chartHeader}
-           <center>   No chat found. </center>
+           <center>   No chart found. </center>
        {else}    
                 <script type="text/javascript">
 
@@ -1374,6 +1374,31 @@
        {/if}
   {/if}
 {/if}    
+
+
+
+{if isset($realemId_Array)}
+   {if $realemId_Array} 
+            {foreach $realemId_Array as $key=>$value}
+                <li><a href="javascript:void();" {if $smarty.session.active_company_pid eq $pid_Array[$key]} style="background-color:#ccc;" {/if}onclick="switchCompany_info('{$pid_Array[$key]}')">{$value}</a></li>    
+            {/foreach}
+    {else}
+        No companies found.
+    {/if}
+    
+    
+    <script type="text/javascript"> 
+        {literal} 
+             function switchCompany_info(changeCompanyId)
+             {
+                 $.post("ChangeQBOList", {"changeCompanyId":changeCompanyId}, function(data){    
+                    window.location.href = window.location.href;
+                 });
+             }
+        {/literal}
+    </script>
+{/if}
+
 
  
 

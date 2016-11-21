@@ -92,7 +92,17 @@
            </form>          
      {/if}
     
-    
+     
+    {if isset($qbcompanyInfo)}   
+           {foreach $qbcompanyInfo["cmp_info"] as $key=>$value}
+               <div style="vertical-align:text-top;">
+                   <div style="display:inline-block;"> <input type="radio" style="opacity:1;" {if $key eq '0'} checked="checked" {/if} class="cmp_list" name="cmp_list" value="{$value}##$$##{$qbcompanyInfo['pid'][$key]}##$$##{$qbcompanyInfo['realmId'][$key]}"> </div>
+                   <div style="display:inline-block;vertical-align:top;padding-top:2px;"> &nbsp;{$value} </div>
+               </div>
+           {/foreach}
+    {/if}
+     
+     
     
 {literal}  
     <script type="text/javascript">
