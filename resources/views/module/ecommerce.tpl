@@ -1,5 +1,42 @@
 <script src="{$smarty.const.JSLOCATION}/charts/jquery.flot.categories.js"></script> 
-{include "{$smarty.const.TEMPLATE_PATH}module/ecommerce_config.tpl"  nocache}
+<style type="text/css">
+.not-logged {
+    height: 25px;
+    top: -10px; right:-10px;
+    background: none;
+    font-size: 11px !important;
+    position: absolute;
+    text-align: center;
+    padding: 2px 3px 3px;
+    line-height: 100%;
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+}
+.ecomactive {
+    background: rgba(0,0,0,0.6);
+    opacity: 1;
+}
+#style-3::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: transparent !important;
+}
+
+#style-3::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: transparent !important;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+    background-color: rgba(0,0,0,0.5);
+}
+</style>
+<div class="block-area shortcut-area" id="loadAllEcommercePlugins">
+{$html}
+</div>
+<hr class="whiter" />
     
 {if !isset($quickbook_error_msg)}     
   <div class="block-area shortcut-area">
@@ -125,7 +162,7 @@
   </div>              
                 
                 
-<script src="{$smarty.const.JSLOCATION}jquery.loader.js"></script> 
+<script src="{$smarty.const.JSLOCATION}/jquery.loader.js"></script> 
 <link href="{$smarty.const.CSSLOCATION}/jquery.loader.css" rel="stylesheet"> 
 <!-- Export Table -->
 <script src="{$smarty.const.JSLOCATION}/export-table/tableExport.js"></script>
@@ -137,7 +174,7 @@
 <script src="{$smarty.const.JSLOCATION}/datetimepicker.min.js"></script> 
 {literal}               
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function() {  
   $('body').addClass('loading').loader('show', {overlay: true});
   /*
   *
@@ -145,8 +182,7 @@ $(document).ready(function() {
   */  
   var plugin = $("#active_plugin").val();
   var report_type = $("#active_report_type").val(); 
-  $.post(portalLocation+"module/ecommerce_ajax.php", {"plugin":plugin,"report_type":report_type,"period":"thismonth"}, function(data){ 
-    // console.log(data);
+  $.post("ecommerce_ajax", {"plugin":plugin,"report_type":report_type,"period":"thismonth"}, function(data){
     $("#loadata_ajax").html(data);
     $('body').removeClass('loading').loader('hide');
   });  
@@ -162,9 +198,12 @@ function changeEcommerce(id){
     $("#active_plugin").val(id); 
     var widgetPeriod = $("#widgetPeriod option:selected").val();
     var report_type = $("#active_report_type").val(); 
-    // if(id == "shopify"){
-    //   $("#refunds_widget").hide();
-    // }
+    if((id == "amazon") || (id == "ebay")){
+      $("#prtour_customer").hide();
+      report_type = "orders";
+    } else {
+      $("#prtour_customer").show();
+    }
     // if(id == "woocommerce"){
     //   $("#refunds_widget").show();
     // }
@@ -173,7 +212,7 @@ function changeEcommerce(id){
     /*
     * Load for selected plugin -> report_type Data for widgetPeriod
     */
-    $.post(portalLocation+"module/ecommerce_ajax.php", {"plugin":id,"report_type":report_type,"period":widgetPeriod}, function(data){ 
+    $.post("ecommerce_ajax", {"plugin":id,"report_type":report_type,"period":widgetPeriod}, function(data){ 
       // console.log(data);
       $("#loadata_ajax").html(data);
       $('body').removeClass('loading').loader('hide');
@@ -192,7 +231,7 @@ function chartSelected(report_type,headerTxt) {
   /*
   * Load default plugin -> report_type Data for widgetPeriod
   */  
-  $.post(portalLocation+"module/ecommerce_ajax.php", {"plugin":plugin,"report_type":report_type,"period":widgetPeriod}, function(data){ 
+  $.post("ecommerce_ajax", {"plugin":plugin,"report_type":report_type,"period":widgetPeriod}, function(data){ 
     // console.log(data);
     $("#loadata_ajax").html(data);
     $('body').removeClass('loading').loader('hide');
@@ -206,7 +245,7 @@ function getOrderdetails(report_type,order_id){
   var plugin = $("#active_plugin").val();
   $("#oder_details_body").html('');
   $("#loader_graph").show();
-  $.post(portalLocation+"module/ecommerce_ajax.php", {"plugin":plugin,"report_type":report_type,"oder_details":"oder_details","order_id":order_id}, function(data){      
+  $.post("ecommerce_ajax", {"plugin":plugin,"report_type":report_type,"oder_details":"oder_details","order_id":order_id}, function(data){      
       $("#oder_details_body").html(data);     
       $("#loader_graph").hide(); 
   }); 
@@ -223,7 +262,7 @@ function customPeriodSelection(){
   /*
   * Load default plugin -> report_type Data for widgetPeriod
   */  
-  $.post(portalLocation+"module/ecommerce_ajax.php", {"plugin":plugin,"report_type":report_type,"period":widgetPeriod}, function(data){ 
+  $.post("ecommerce_ajax", {"plugin":plugin,"report_type":report_type,"period":widgetPeriod}, function(data){ 
     // console.log(data);
     $("#loadata_ajax").html(data);
     $('body').removeClass('loading').loader('hide');

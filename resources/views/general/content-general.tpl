@@ -99,7 +99,7 @@
                             <span id="min"></span>
                             :
                             <span id="sec"></span>*}
-                            <span> &nbsp;&nbsp;&nbsp;&nbsp;<a  id="prtour_logout" href="{$smarty.const.PORTALLOCATION}page/login.php?lg=1"><i class="fa fa-sign-out" title= "Logout" aria-hidden="true"></i> <span class="sr-only"></span></a> </span>
+                            <span> &nbsp;&nbsp;&nbsp;&nbsp;<a  id="prtour_logout" href="logout"><i class="fa fa-sign-out" title= "Logout" aria-hidden="true"></i> <span class="sr-only"></span></a> </span>
                         
                     </div>
                             <div class="media-body pull-right" style="padding-top:11px !important;"><span style="font-size:17px !important;">{$smarty.session.name|ucfirst} &nbsp;&nbsp;&nbsp;</span></div>

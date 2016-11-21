@@ -56,20 +56,36 @@ Route::group(['middleware' => 'authCheck'], function () {
         Route::post('loadRssFeeds', 'plugin\rssfeedController@loadRssFeeds');
         Route::post('rssbasic', 'plugin\rssfeedController@rssbasic');
         Route::post('rssmodal', 'plugin\rssfeedController@rssmodal');
-        Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl');
+        Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl');        
         
-        /**
-         * Social Stream Routes
-         */
-	Route::get('socialstream', 'page\HomeController@socialstream')->name('socialstream');
+	/**
+	 * Social Stream Page
+	 */
+	Route::get('socialstream', 'socialstream\SocialStreamController@socialstream')->name('socialstream');
+	Route::post('socialstreamAjax', 'socialstream\SocialStreamController@socialstreamAjax')->name('socialstream');
+	/**
+	 * Calendar Page
+	 */
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
+	/**
+	 * Gmail Page
+	 */
 	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
+	/**
+	 * Ecommerce Routes
+	 */
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
+	Route::post('ecommerce_ajax', 'ecommerce\EcommerceAjaxController@ecommerce_ajax');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
+	/**
+	 * Profile Page
+	 */
+	Route::get('profile', 'page\HomeController@profile_page')->name('profile');
 
-	/*
-		Dummy Routes
-	*/
+	/**
+	 * Dummy Routes
+	 */
+	Route::post('testAjax', 'TestController@testAjax');
 	Route::get('wel', 'LoginController@wel');
 	Route::get('demo', 'page\HomeController@demodb');
 	Route::get('demo1', 'page\HomeController@demodb1');

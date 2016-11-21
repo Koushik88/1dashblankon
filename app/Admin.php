@@ -85,7 +85,6 @@ class Admin extends Model {
 		return $_children;
 	}
         
-        
         /**
 	 * [get Active Plugins get all the assoctiated with the user]
 	 * @return [type] [description]
@@ -168,7 +167,7 @@ class Admin extends Model {
                 }
         }
 
-        public function getRssFeedTab()
+        /*public function getRssFeedTab()
         {
              $DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) 
@@ -176,7 +175,7 @@ class Admin extends Model {
                     $datalist = $DB->select("SELECT * FROM rss_feed WHERE  uid = '" . $_SESSION["userId"] ."' "); 
                     return $this->returnJson($datalist);
                 }
-        }
+        }*/
 
         public function saveRssFeed($arr_value)
         {
@@ -195,43 +194,43 @@ class Admin extends Model {
                     
                 }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+	/**
+	 * [getAllPluginData description]
+	 * @param  [type] $userId [description]
+	 * @return [json]         [all plugin details]
+	 */
+	public function getAllPluginData($userId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$result = $DB->select("select name,data from plugin_details where userID = ?", $userId);
+		}
+		return $this->returnJson($result);
+	}
+	/**
+	 * [getRefreshToken description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function getRefreshToken($userId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$result = $DB->select("select * from gmail_api_users where user_id = ?", $userId);
+		}
+		return $this->returnJson($result);
+	}
+	/**
+	 * [getRssFeedTab description]
+	 * @return [type] [description]
+	 */
+	public function getRssFeedTab() {
+		$DB = DB::connection('dynamic_mysql');
+		$uid = [$_SESSION["userId"]];
+		if ($DB->getPdo()) {
+			$result = $DB->select("select * from rss_feed where uid = ?", $uid);
+		}
+		return $this->returnJson($result);
+	}
 
         /*
 		    *
