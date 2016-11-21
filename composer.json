@@ -16,7 +16,8 @@
         "laravel-notification-channels/bearychat": "^1.0",
         "spatie/laravel-analytics": "^2.2",
         "syscover/shopping-cart": "~2.0",
-        "rashed/database-backup": "dev-master"
+        "rashed/database-backup": "dev-master",
+        "woothemes/woocommerce-api": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

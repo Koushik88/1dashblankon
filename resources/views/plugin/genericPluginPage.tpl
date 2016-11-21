@@ -7,22 +7,24 @@
         </ul>
     </div>
                                 
-    <div class="listview narrow">                                   
+    <div class="listview narrow">  
+        {assign var="qb_cnt" value="0"}
         {foreach $plugins as $key=>$value}
-            {if $value eq 'Quickbook'}   
-            <div class="media p-l-5">
-                <div class="pull-left">
-                    <img width="15" src="{$smarty.const.IMAGESLOCATION}plugin-icon/112.png" alt="">
-                </div>
-                <div class="media-body">
-                    <a class="news-title" href="#addCrdentials" {*data-toggle="modal"*} onclick="updateCrderentials('Quickbook');">QuickBooks</a>
-                    <div class="pull-right">
-                        <a href="javascript:void(0)" onclick="deletePluginConnection('Quickbook');"><img width="12" height="12" src="{$smarty.const.IMAGESLOCATION}icon/delete.png" alt=""></a>
-                        &nbsp;&nbsp;
+           {if $value eq 'Quickbook' && $qb_cnt eq '0'}   
+                <div class="media p-l-5">
+                    <div class="pull-left">
+                        <img width="15" src="{$smarty.const.IMAGESLOCATION}plugin-icon/112.png" alt="">
                     </div>
-                    <div class="clearfix"></div>
-                </div>                                        
-            </div>
+                    <div class="media-body">
+                        <a class="news-title" href="#addCrdentials" {*data-toggle="modal"*} onclick="updateCrderentials('Quickbook');">QuickBooks</a>
+                        <div class="pull-right">
+                            <a  href="#deleteQBOCredentails" data-toggle="modal" onclick="deleteCompanyList()"><img width="12" height="12" src="{$smarty.const.IMAGESLOCATION}icon/delete.png" alt=""></a>
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>                                        
+                </div>
+                {$qb_cnt = $qb_cnt+1}    
             {else if $value eq 'LinkedIn'}      
             <div class="media p-l-5">
                 <div class="pull-left">
@@ -394,10 +396,34 @@
     </div>
 </div>  
 
+
+<div class="modal fade" id="deleteQBOCredentails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:rgba(0, 0, 0, 0.99) !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Delete Company</h4>
+            </div>
+            <div class="modal-body" id="QBOCompanyInfo" style="padding-left:30px;">
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm" onclick="deleteQBOCompany('Quickbook')">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{$smarty.const.JSLOCATION}jquery.loader.js"></script> 
+<link href="{$smarty.const.CSSLOCATION}/jquery.loader.css" rel="stylesheet"> 
+
+
 {literal}
     <script type='text/javascript'>
         var isSocialSuccess = "{/literal}{$smarty.session.isSocialSuccess}{literal}";
         var SocialMsg = "{/literal}{$smarty.session.SocialMsg}{literal}";
+        
         $(document).ready(function(){
             if(isSocialSuccess == "yes_display"){
                 alert(SocialMsg);
@@ -408,7 +434,10 @@
                             // alert("Thanks! Your shopify credentials saved successfully."); 
                         }                               
                      });
-            }    
+            } 
+                 $.post(portalLocation+"plugin/switch_qbo_companies.php", {"swich_company":"swich_company"}, function(data){    
+                                 
+                 });
         });
         /*---------------------------------
         -----------~~~~~~~~~~~~~~~~~--------
@@ -671,6 +700,43 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
 
 
         }
+        function deleteCompanyList()
+        {
+            $.post(portalLocation+"plugin/plugin_ajax.php", {"loadCompanyInfo":"loadCompanyInfo"}, function(data)
+                { 
+                    $("#QBOCompanyInfo").html(data);
+                });
+        }
+        
+        function deleteQBOCompany(deletePluginInfo)
+        {
+            
+             var msg =confirm("Are you sure you want to delete a connection?");
+                if (msg == true) {
+                        var cmp_list_info =  $(".cmp_list:checked").val();
+                        
+                         $('body').addClass('loading').loader('show', {
+                                overlay: true
+                            });
+                            
+                        $.post(portalLocation+"plugin/plugin_ajax.php", {"deletePluginInfo":deletePluginInfo,"cmp_list_info":cmp_list_info}, function(data)
+                         { 
+                            if(data === '1')
+                            {
+                               alert("Cannot delete Active Company."); 
+                               $('body').removeClass('loading').loader('hide');
+                            }
+                            else
+                            {
+                                 alert("Your Account has been successfully deleted.");
+                                 location.reload(true);
+                             }
+                             
+                         });
+                } 
+        }
+        
+        
 
     </script>
 {/literal}   

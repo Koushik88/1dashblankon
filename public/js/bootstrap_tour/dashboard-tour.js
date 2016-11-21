@@ -172,7 +172,7 @@ var tour = new Tour({
    
    {
         element: "#prtour_soall",
-        title: "Socail",
+        title: "Social",
         placement: "top",		
         content: "Click here to view latest 30 social feeds.",
         path:"/"+portalloc+"module/socialstream.php?mid=1333&nav=6&prtour=1"

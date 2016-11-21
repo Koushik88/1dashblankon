@@ -7,87 +7,87 @@
         
 {/if}
 
-    <div class="block-area">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <!-- Works -->
-                                <div class="col-md-12" id="prtour_changePswd">
-                                             <div class="alert alert-info alert-dismissable" style="display:none;" id="pssdChgAlert">
-                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                <span id="pssdChgAlertMsg"></span>
-                                            </div>
-                                    <div class="tile">
-                                        <h2 class="tile-title">Change Password</h2>
-                                        <div class="p-10">                                               
-                                                <div class="form-group">
-                                                    <label for="currentPassword">Current Password</label>
-                                                    <input type="password" class="form-control input-sm" id="currentPsw" name="currentPsw" placeholder="Current Password" onblur="checkCurrentPassword();">
-                                                </div>
-
-                                                <div class="form-group">
-                                                     <label for="newPassword">New Password</label>
-                                                    <input type="password" class="form-control input-sm" id="newPsw" name="newPsw" placeholder="New Password" maxlength="50">
-                                                </div>
-
-                                                <div class="form-group">
-                                                     <label for="confirmPassword">Confirm Password</label>
-                                                    <input type="password" class="form-control input-sm" id="confirmPsw" name="confirmPsw" placeholder="Confirm Password" maxlength="50">
-                                                </div>
-                                            
-                                            <input type="hidden" id="validateCurrPsw" value="0">   
-                                            <button type="submit" class="btn btn-sm m-t-10" onclick="chengePassword();">Submit</button>
-                                           
-
-                                        </div>  
-                                    </div>
-                                </div>
-                                                          
-                            </div>                            
-                        </div>
-                        
-                        
-                        
-                        <div class="col-md-6">                            
-                            <!-- About Me -->
-                            <div class="tile">
-                                <h2 class="tile-title">About me</h2>
-                                <div class="tile-config dropdown" id="prtour_aboutme">
-                                   <a  data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
-                                    <ul class="dropdown-menu pull-right text-right"> 
-                                        <li><a  href="#uploadPhoto" data-toggle="modal">Upoad Photo</a></li>                                        
-                                    </ul>
-                                </div>
-                                
-                                <div class="listview icon-list">
-                                    <div class="media">
-                                        <i class="icon pull-left">&#61844;</i>
-                                        <div class="media-body">User : {$smarty.session.name|ucfirst}</div>
-                                    </div>
-                                    
-                                    <div class="media">
-                                        <i class="icon pull-left">&#61880;</i>
-                                        <div class="media-body"> {$smarty.const.login_email} : {$smarty.session.email}</div>
-                                    </div>
-                                    
-                                    <div class="media">
-                                        <i class="icon pull-left">&#61868;</i>
-                                        <div class="media-body">{$smarty.const.tp_Last_login} : {$userinfo['last_login']|date_format:'%d-%b-%Y %H:%M:%S'}</div>
-                                    </div>
-                                    
-                                    <div class="media">
-                                        <i class="icon pull-left">&#61787;</i>
-                                        <div class="media-body"> {$smarty.const.tp_ip} : {$userinfo['ip']}</div>
-                                    </div>
-                                </div>
+  <div class="block-area">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <!-- Works -->
+                <div class="col-md-12" id="prtour_changePswd">
+                             <div class="alert alert-info alert-dismissable" style="display:none;" id="pssdChgAlert">
+                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <span id="pssdChgAlertMsg"></span>
                             </div>
-                           
-                         <!-- Plugin Page-->
-                         {include 'plugin/genericPluginPage.tpl'}
+                    <div class="tile">
+                        <h2 class="tile-title">Change Password</h2>
+                        <div class="p-10">                                               
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" class="form-control input-sm" id="currentPsw" name="currentPsw" placeholder="Current Password" onblur="checkCurrentPassword();">
+                                </div>
+
+                                <div class="form-group">
+                                     <label for="newPassword">New Password</label>
+                                    <input type="password" class="form-control input-sm" id="newPsw" name="newPsw" placeholder="New Password" maxlength="50">
+                                </div>
+
+                                <div class="form-group">
+                                     <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" class="form-control input-sm" id="confirmPsw" name="confirmPsw" placeholder="Confirm Password" maxlength="50">
+                                </div>
                             
-                        </div>
+                            <input type="hidden" id="validateCurrPsw" value="0">   
+                            <button type="submit" class="btn btn-sm m-t-10" onclick="chengePassword();">Submit</button>
+                           
+
+                        </div>  
                     </div>
                 </div>
+                                          
+            </div>                            
+        </div>
+        
+        
+        
+        <div class="col-md-6">                            
+            <!-- About Me -->
+            <div class="tile">
+                <h2 class="tile-title">About me</h2>
+                <div class="tile-config dropdown" id="prtour_aboutme">
+                   <a  data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
+                    <ul class="dropdown-menu pull-right text-right"> 
+                        <li><a  href="#uploadPhoto" data-toggle="modal">Upoad Photo</a></li>                                        
+                    </ul>
+                </div>
+                
+                <div class="listview icon-list">
+                    <div class="media">
+                        <i class="icon pull-left">&#61844;</i>
+                        <div class="media-body">User : {$smarty.session.name|ucfirst}</div>
+                    </div>
+                    
+                    <div class="media">
+                        <i class="icon pull-left">&#61880;</i>
+                        <div class="media-body"> {$smarty.const.login_email} : {$smarty.session.email}</div>
+                    </div>
+                    
+                    <div class="media">
+                        <i class="icon pull-left">&#61868;</i>
+                        <div class="media-body">{$smarty.const.tp_Last_login} : {$userinfo['last_login']|date_format:'%d-%b-%Y %H:%M:%S'}</div>
+                    </div>
+                    
+                    <div class="media">
+                        <i class="icon pull-left">&#61787;</i>
+                        <div class="media-body"> {$smarty.const.tp_ip} : {$userinfo['ip']}</div>
+                    </div>
+                </div>
+            </div>
+           
+         <!-- Plugin Page-->
+         {include 'plugin/genericPluginPage.tpl'}
+            
+        </div>
+    </div>
+  </div>
                                        
                                         
                                         
@@ -208,18 +208,18 @@
                         </label>
                      </div>
                 </div>
-                        <div class="row">
-                            <div class="col-md-7">
-                                    <div class="form-group">
-                                        <label for="Message">Explain in Detail</label>
-                                        <textarea class="form-control overflow" rows="4" placeholder="" tabindex="5003" style="overflow: hidden; outline: none;"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                       <label for="paswd">Account password</label>
-                                       <input type="password" class="form-control input-sm"  placeholder="">
-                                   </div>
+                <div class="row">
+                    <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="Message">Explain in Detail</label>
+                                <textarea class="form-control overflow" rows="4" placeholder="" tabindex="5003" style="overflow: hidden; outline: none;"></textarea>
                             </div>
-                        </div>
+                            <div class="form-group">
+                               <label for="paswd">Account password</label>
+                               <input type="password" class="form-control input-sm"  placeholder="">
+                            </div>
+                    </div>
+                </div>
                              <button type="submit" disabled class="btn btn-sm m-t-10">Submit</button>
                    </div>
             </div>

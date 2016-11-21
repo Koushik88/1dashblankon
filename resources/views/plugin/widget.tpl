@@ -44,7 +44,6 @@
                                     
                                 </div>
                                 
-                                
                                 <div class="p10">
                                     <div class="table-responsive overflow" id="loadata_ajax" style="overflow: hidden; height: 270px !important; outline: none;" tabindex="5001"> 
                                         
@@ -295,9 +294,27 @@
 </div>
 
 
+
+<div class="modal fade" id="modalWider"   tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="exp_table_title"></h4>
+                </div>
+                <div class="modal-body overflow" id="load_table_content" style="height:450px;width:100%">
+
+                </div>
+            </div>
+        </div>
+</div>
+
+
+
+
                  
                 
-<script src="{$smarty.const.JSLOCATION}jquery.loader.js"></script> 
+<script src="{$smarty.const.JSLOCATION}/jquery.loader.js"></script> 
 <link href="{$smarty.const.CSSLOCATION}/jquery.loader.css" rel="stylesheet">  
  
  
@@ -311,28 +328,22 @@
 <script src="{$smarty.const.JSLOCATION}/datetimepicker.min.js"></script>
 
  
- 
-                
-<script type="text/javascript">  
-    var pageToken = "{$pageToken}"; 
-   
-    {literal}      
-      loadToDoAjax();
-       customPeriodSelection();
-       
-    function customPeriodSelection()
-    {
-         chartSelected(this,'proandloss','Profit and Loss');
-         
-    }
-       
+
+{literal}
+    <script type="text/javascript">
         
-        function chartSelected(el,id,headerTxt) {
+       loadToDoAjax();
+        customPeriodSelection();
+            function customPeriodSelection()
+            {
+              
+                 chartSelected(this,'proandloss','Profit and Loss');
 
-
-                      $('body').addClass('loading').loader('show', {
-                                overlay: true
-                            });
+            }
+            
+            function chartSelected(el,id,headerTxt) {
+                
+                
 
 
                     $("#visibleId").val(id);
@@ -341,98 +352,129 @@
                     $("#lablehead").html(headerTxt);
                     //alert(headerTxt);
                     var widgetPeriod = $("#widgetPeriod option:selected").val();
-
-                             $.post(portalLocation+controller+"/widget_ajax.php", {"widgetPeriod":widgetPeriod,"widgetType":id}, function(data){    
-
+                    
+                     if(widgetPeriod)
+                     {
+                         
+                         $('body').addClass('loading').loader('show', {
+                                overlay: true
+                          });
+                         
+                         
+                             $.post("widget_ajax", {"widgetPeriod":widgetPeriod,"widgetType":id}, function(data){    
+                              
                                 chartAjaxLoad();
                                 $("#loadata_ajax").html(data);
                                 $('body').removeClass('loading').loader('hide');
-                                 lablevalue();
+                                lablevalue();
                               });
-
-
-                   // $(".pltable").hide();
-                    $("#"+id).show();
-                    
-                               
-
+                                $("#"+id).show();
+                     }            
                 }
                 
-      function chartAjaxLoad()
-      {
-          
-          
-          $.post(portalLocation+controller+"/widget_ajax.php", {"chartLoad":"chartLoad"}, function(data){    
-              
-                   $("#chart-line").html(data);
-                               
-            });
-      }
+function chartAjaxLoad()
+  {   
+      $.post("chart_ajax", {"chartLoad":"chartLoad"}, function(data){    
 
+               $("#chart-line").html(data);
 
-qbcompanyInfo();
-function qbcompanyInfo()
-{
-    
-         $.post(portalLocation+controller+"/widget_ajax.php", {"companyInfo":"companyInfo"}, function(data){    
-             //alert(data);
-             $("#cmpInfo").html(data);       
-         });
-
-}  
-
-    
-function lablevalue()
-{
-    
-     var period = $("#widgetPeriod option:selected").val();
-     $.post(portalLocation+controller+"/widget_ajax.php", {"lableValue":"lableValue","period":period}, function(data){    
-
-        //alert(data);
-              var chartValue = JSON.parse(data);
-              
-              $("#income_lable").html("<i class='social-count animated'>$"+chartValue.income+"</i>");
-              $("#expensess_lable").html("<i class='social-count animated'>$"+chartValue.expenses+"</i>");
-              $("#recevable_lable").html("<i class='social-count animated'>$"+chartValue.arreceivable+"</i>");
-              $("#payable_lable").html("<i class='social-count animated'>$"+chartValue.arpayable+"</i>");
-
-         });
-
-}  
-    
- 
-function exportExcel(format) {
-        var visibleId =  $("#visibleId").val(); 
-        var cmpInfo = $("#cmpInfo").text();
-        var lablehead = $("#lablehead").text();
-        $("#"+visibleId).tableExport({ type: format, escape: 'false',cmpInfo:cmpInfo,lablehead:lablehead });
-  
-    }
-
-function print() {
-    //var visibleId =  $("#visibleId").val();  
-    $(".export_hide_txt").hide();
-    var divToPrint = document.getElementById("export_report");
-    newWin = window.open("");
-    newWin.document.write(divToPrint.outerHTML);
-    newWin.print();
-    newWin.close();
-    $(".export_hide_txt").show();
-
-}  
-
+        });
+  } 
+      
 function chartChange(chartType)
 {
-     $.post(portalLocation+controller+"/widget_ajax.php", {"chartType":chartType}, function(data){    
+     $.post("change_chartType", {"chartType":chartType}, function(data){    
    
          $(".main-chart").hide(); 
          $("#chart-"+chartType).show();
          $("#chart-"+chartType).html(data);
 
      });
+}   
+ 
+function lablevalue()
+{
+    
+     var period = $("#widgetPeriod option:selected").val();
+     $.post("loadValue_lable", {"lableValue":"lableValue","period":period}, function(data){    
+
+       
+              var chartValue = JSON.parse(data);
+              
+              $("#income_lable").html("<i class='social-count animated'>$"+chartValue.income+"</i>");
+              $("#expensess_lable").html("<i class='social-count animated'>$"+chartValue.expenses+"</i>");
+              $("#recevable_lable").html("<i class='social-count animated'>$"+chartValue.arreceivable+"</i>");
+              $("#payable_lable").html("<i class='social-count animated'>$"+chartValue.arpayable+"</i>");
+             
+         });
+
+}
+
+qbcompanyInfo();
+function qbcompanyInfo()
+{
+    
+         $.post("QBCompanyInfo", {"companyInfo":"companyInfo"}, function(data){    
+             //alert(data);
+             $("#cmpInfo").html(data);   
+             swich_companyList();
+         });
+    
+}  
+
+
+function tableExpand()
+{
+
+   var data = $("#loadata_ajax").html();
+   $("#modalWider").modal("show"); 
+   $("#load_table_content").html(data);
+   var table_title = $("#table_title").text();
+   $("#exp_table_title").html(table_title);
+
 }
 
 
+function print() {
+      
+    var table_height = $(".pltable").height();
+    $(".export_report").css("height", table_height);
+    $("#loadata_ajax").css("height", table_height);
+    $(".export_hide_txt").hide();
+    var divToPrint = document.getElementById("export_report");   
+    newWin = window.open("");
+    newWin.document.write(divToPrint.outerHTML);  
+    $(".export_report").css("height", "270px");
+    $("#loadata_ajax").css("height", "270px");
+    $(".export_hide_txt").show();
+    newWin.print();
+    newWin.close();
+    
+}
+
+function exportExcel(format) 
+{
+        var visibleId =  $("#visibleId").val(); 
+        var cmpInfo = $("#cmpInfo").text();
+        var lablehead = $("#lablehead").text();
+        $("#"+visibleId).tableExport({ type: format, escape: 'false',cmpInfo:cmpInfo,lablehead:lablehead });
+  
+}
+
+function swich_companyList()
+{
+   
+        $.post("switchQB_company", {"swich_company":"swich_company"}, function(data){
+             $("#switch_company_list").html(data);
+             $("#switch_company_list_icon").show(); 
+         });
+
+}   
+   
+ 
+
+ 
+ 
 function loadToDoAjax()
 {
                var date = new Date();
@@ -449,12 +491,13 @@ function loadToDoAjax()
               
                 $("#date").val(cldate);
                 $("#timepicker").val(cstime);
-    
-                $.post(portalLocation+"page/settings.php", {"loadToDo":"loadToDo"}, function(data)
+                
+                $.post("loadToDoList", {"loadToDo":"loadToDo"}, function(data)
                    { 
                         $("#toListAjax").html(data);
                   });
 }
+
 function addZero(number) {
     if (number < 10) {
       return "0" + number.toString();
@@ -472,10 +515,7 @@ function createTodo()
               if(newtodo != "")   
               {  
                 $.ajax({
-                        url: portalLocation+"page/settings.php",
-                        headers: {
-                            'page-token': pageToken,
-                        },
+                        url: "createToDoList",                        
                         method: 'POST',                    
                         data : "newtodo="+newtodo+"&datepicker="+datepicker+"&timepicker="+timepicker,
                         success: function(data){
@@ -518,25 +558,27 @@ $('#newtodo').on("keypress", function(e) {
         }
         
     });
-$('#sidebar').css('height',document.body.scrollHeight);
+    
+    function updateToDoList(id,updateToDo)    {
 
+         $.post("updateToDo", {"updateToDo":updateToDo,"id":id}, function(data){    
+
+                loadToDoAjax();
+          });
+    }
+    function clearTodoList()
+    {
+         $.post("cleartodo", {"cleartodo":"cleartodo"}, function(data){    
+                loadToDoAjax();
+          });
+    }   
+    
+    $('#sidebar').css('height',document.body.scrollHeight);   
+   
+                
+      
+  </script>
 {/literal} 
-</script>  
-
-
-<!--Product tour -->
-<script type="text/javascript">
-        var prtour = "{$smarty.get.prtour}";
-        var last_login = "{$smarty.session.last_login}";
-    {literal} 
-        
-        if(prtour === '1' || last_login === '')
-        {
-          productTour(csslocation);
-        }   
-      {/literal}    
-</script>
-
 
 
 
@@ -545,20 +587,20 @@ $('#sidebar').css('height',document.body.scrollHeight);
     {literal}
     rssbasiconload();
     function rssbasiconload(){
-        $.post(portalLocation+'module/rssfeed.php',{
+         
+        $.post("loadRssFeeds",{
             "data":"data"
         },
         function(data){
-
-           //alert(data);
            document.getElementById("rssFeed-tab-view").innerHTML=data;
            rssbasic();
         });  
     }
-        //------------------------------------------------------- 
+        
+    //------------------------------------------------------- 
         function rssbasic(){ 
         var url= document.getElementById("url").value;
-         $.post(portalLocation+'module/rssfeed.php',{
+         $.post('rssbasic',{
                 "url":url
             },
         function(data){
@@ -587,7 +629,7 @@ $('#sidebar').css('height',document.body.scrollHeight);
         var name5 = document.getElementById("name5").value;
 
 
-            $.post(portalLocation+'module/rssfeed.php',
+            $.post('updateRssFeedsUrl',
             {
                  "insert_url1":url1,
                  "name1":name1,
@@ -613,7 +655,7 @@ $('#sidebar').css('height',document.body.scrollHeight);
     }
     function rssFeed(url){
         
-            $.post(portalLocation+'module/rssfeed.php',{
+            $.post('rssbasic',{
                 "url":url
             },
         function(data){
@@ -622,83 +664,24 @@ $('#sidebar').css('height',document.body.scrollHeight);
         }); 
     }
     
-       function rssmodal(){
-            //alert("sdfsd");
-          
-                $.post(portalLocation+'module/rssfeed.php',{
+       function rssmodal()
+        {
+                $.post('rssmodal',{
                 "rssmodal":"rssmodal"
             },
-        function(data){
-           
-          document.getElementById("rssmodal").innerHTML=data;
-        }); 
-    }
+            function(data){
+              document.getElementById("rssmodal").innerHTML=data;
+            }); 
+        }
   
 
   
     socialMediaCounts();
-        
     
     
  {/literal}    
 </script>
 
 
-<!-- Gdrive -->
-<script src="{$smarty.const.JSLOCATION}/filepicker.js"></script>
-    {literal}
-            <script>
-
-                    function initPicker() {
-                        
-                            var picker = new FilePicker({
-                                    apiKey: 'AIzaSyB6wVxEFDZPE0FaOAlUzT1C07k3OL2LLjE',
-                                    clientId:'171670376228-gkmsmv17bcdr66gfe83sjlluaoeh5311',
-                                    buttonEl: document.getElementById('pick'),
-                                    onSelect: function(file) {
-                                        
-                                        window.open(file.alternateLink, '_blank'); 
-
-                                    }
 
 
-                            });	
-                    }
-            </script>
-      {/literal}      
-<script src="https://www.google.com/jsapi?key=AIzaSyB6wVxEFDZPE0FaOAlUzT1C07k3OL2LLjE"></script>
-<script src="https://apis.google.com/js/client.js?onload=initPicker"></script>
-
-
-{literal}
-    <script type="text/javascript">
-        function tableExpand()
-        {
-          
-           var data = $("#loadata_ajax").html();
-           $("#modalWider").modal("show"); 
-           $("#load_table_content").html(data);
-           var table_title = $("#table_title").text();
-           $("#exp_table_title").html(table_title);
-           
-        }
-         $("#modalCreatTodo").scroll(function () {
-                 $(".bootstrap-datetimepicker-widget").css("display","none");
-        });
-    </script>
-{/literal}
-
-
-<div class="modal fade" id="modalWider"   tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="exp_table_title"></h4>
-                </div>
-                <div class="modal-body overflow" id="load_table_content" style="height:450px;width:100%">
-
-                </div>
-            </div>
-        </div>
-</div>

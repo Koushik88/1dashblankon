@@ -18,8 +18,8 @@
         <meta name="format-detection" content="telephone=no">
         <meta charset="UTF-8">
         <meta name="csrf-token" content="{$csrf_token}">
-        <meta name="description" content="Violate Responsive Admin Template">
-        <meta name="keywords" content="Super Admin, Admin, Template, Bootstrap">
+        <meta name="description" content="1Dash">
+        <meta name="keywords" content="1Dash">
         <link rel="shortcut icon" href="{$smarty.const.IMAGESLOCATION}/favicon.png" type="image/x-icon" /> 
         <title>{$smarty.const.title} - {$pageTitle nocache}</title>
         {include 'general/css-js-general.tpl' nocache}
@@ -30,6 +30,7 @@
         <![endif]-->
     </head>
  <body {if $smarty.session.temeId} id="{$smarty.session.temeId}" {else} id="skin-blur-shaded" {/if}>
+
    
 {*{include 'general/header.tpl' nocache}*}
 {include 'general/content-general.tpl' menus=$menus|default:0 nocache}

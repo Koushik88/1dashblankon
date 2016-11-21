@@ -21,13 +21,13 @@ use Illuminate\Http\Request;
 require_once app_path() . '/Http/Controllers/page/example.php';
 
 class HomeController extends Controller {
-	/*
-		    |--------------------------------------------------------------------------
-		    | Home Controller
-		    |--------------------------------------------------------------------------
-		    |
-		    | Show Login screen
-		    |
+	/**
+	* |--------------------------------------------------------------------------
+	* | Home Controller
+	* |--------------------------------------------------------------------------
+	* |
+	* | Show Login screen
+	* |--------------------------------------------------------------------------										
 	*/
 
 	/**
@@ -66,35 +66,7 @@ class HomeController extends Controller {
 		$this->addTemplateVar('page', 'plugin/widget');
 		return view('general.index', $this->template_vars);
 	}
-	/**
-	 * [widget description]
-	 * @return [type] [description]
-	 */
-	public function widget() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', '1View');
-		$this->addTemplateVar('page', 'plugin/widget');
-		return view('general.index', $this->template_vars);
-	}
-	/**
-	 * [socialstream description]
-	 * @param  string $value [description]
-	 * @return [type]        [description]
-	 */
-	public function socialstream() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Social Stream');
-		$this->addTemplateVar('page', 'module/socialstream');
-		return view('general.index', $this->template_vars);
-	}
+	
 	/**
 	 * [calendar description]
 	 * @return [type] [description]
@@ -108,8 +80,35 @@ class HomeController extends Controller {
 		$this->addTemplateVar('pageTitle', 'Calendar');
 		$this->addTemplateVar('page', 'module/calendar');
 		return view('general.index', $this->template_vars);
+	}	
+
+	/**
+	 * [profile_page description]
+	 * @return [type] [description]
+	 */
+	public function profile_page() {
+		/**
+		 * [$admin_obj description]
+		 * @var Admin model
+		 */
+		$admin_obj = new Admin;
+		$menus = $admin_obj->getMenus();
+
+		$dbres = $admin_obj->getAllPluginData([$_SESSION['userId']]);
+		$plugins = [];
+		foreach ($dbres as $key => $value) {
+			array_push($plugins, $value["name"]);
+		}
+
+		$this->addTemplateVar('menus', $menus);
+		$this->addTemplateVar('plugins', $plugins);
+		$this->addTemplateVar('csrf_token', csrf_token());
+		$this->addTemplateVar('pageTitle', 'Profile Page');
+		$this->addTemplateVar('page', 'page/profile');
+		return view('general.index', $this->template_vars);
 	}
-	
+
+	//=============================================================================
 
 	/**
 	 * [demodb dummy functions]
