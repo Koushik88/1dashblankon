@@ -24,7 +24,7 @@
                         <div class="clearfix"></div>
                     </div>                                        
                 </div>
-                {$qb_cnt = $qb_cnt+1}    
+        {$qb_cnt = $qb_cnt+1}    
             {else if $value eq 'LinkedIn'}      
             <div class="media p-l-5">
                 <div class="pull-left">
@@ -96,7 +96,7 @@
 
                 </div>
             </div>
-    		{else if $value eq 'Instagram'}
+            {else if $value eq 'Instagram'}
             <div class="media p-l-5">
                 <div class="pull-left">
                    <img src="{$smarty.const.IMAGESLOCATION}plugin-icon/instagram-new.png" alt="" width="15px" height="15px">
@@ -240,15 +240,15 @@
 
                         <div class="tab-pane" id="social">
                             <div class="listview narrow">
-                                <!-- Linkedin -->
-                                {*<div class="media">
-                                      <div class="media-body p-t-5">
-                                        <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/83.png" alt="">
-                                          &nbsp;&nbsp; LinkedIn Company Page
-                                         <a href="#addCrdentials" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="loadNewCredentialPage('LinkedIn');">Add</a>
-                                     </div>
-                                </div>*}
-                                <!-- Linkedin End-->
+                               <!-- Linkedin -->
+                               <div class="media">
+                                     <div class="media-body p-t-5">
+                                       <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/83.png" alt="">
+                                         &nbsp;&nbsp; LinkedIn Company Page
+                                        <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addLinkedIn('LinkedIn');">Add</a>
+                                    </div>
+                               </div>
+                               <!-- Linkedin End-->
                                 <!-- Twitter -->                                           
                                 <div class="media">
                                       <div class="media-body p-t-5">
@@ -259,7 +259,7 @@
                                 </div>   
                                 <!-- Twitter End -->
                                 <!-- Facebook -->
-        						<div class="media">
+                                <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/facebook.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Facebook
                                            <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addFacebookConnection('Facebook');">Add</a>   
@@ -458,7 +458,7 @@
             document.body.appendChild(anchor);
             anchor.click();
         }
-	 function addFacebookConnection(socialmedia){            
+     function addFacebookConnection(socialmedia){            
             var anchor = document.createElement('a');
             anchor.href = "../plugin/facebook_ajax.php";
             document.body.appendChild(anchor);
@@ -490,6 +490,15 @@
             document.body.appendChild(anchor);
             anchor.click();
         }
+                
+        function addLinkedIn(socialmedia){  
+
+           var anchor = document.createElement('a');
+           anchor.href = "../plugin/linkedin_ajax.php";
+           document.body.appendChild(anchor);
+           anchor.click();
+       }
+        
         
         function addEcommerceConnection(ecommerce_plugin){
             if(ecommerce_plugin == "shopify"){
