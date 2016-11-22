@@ -245,7 +245,7 @@
                                      <div class="media-body p-t-5">
                                        <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/83.png" alt="">
                                          &nbsp;&nbsp; LinkedIn Company Page
-                                        <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addLinkedIn('LinkedIn');">Add</a>
+                                        <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('LinkedIn');">Add</a>
                                     </div>
                                </div>
                                <!-- Linkedin End-->
@@ -254,7 +254,7 @@
                                       <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/74.png" alt="">
                                           &nbsp;&nbsp; Twitter
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addTwitterConnection('Twitter');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Twitter');">Add</a>   
                                       </div>
                                 </div>   
                                 <!-- Twitter End -->
@@ -262,7 +262,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/facebook.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Facebook
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addFacebookConnection('Facebook');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Facebook');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Facebook End-->
@@ -270,7 +270,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/instagram-new.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Instagram
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addInstagramConnection('Instagram');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Instagram');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Instagram End -->
@@ -278,7 +278,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/Pinterest.svg" alt="" width="16px" height="16px">&nbsp;&nbsp; Pinterest
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addPinterestConnection('Pinterest');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Pinterest');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Pinterest End -->
@@ -286,7 +286,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/vimeo.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Vimeo
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addVimeoConnection('Vimeo');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Vimeo');">Add</a>   
                                     </div>
                                 </div>
                                 <!-- Vimeo End -->
@@ -451,7 +451,16 @@
                   $("#loadCredentialPage").html(data);         
              });
         }
-
+        /**
+         * [addSocialConnections description]
+         * @param {[type]} socialmedia [description]
+         */
+        function addSocialConnections(socialmedia){
+            var anchor = document.createElement('a');
+            anchor.href = "socialconnection/"+socialmedia;
+            document.body.appendChild(anchor);
+            anchor.click();
+        }
         function addTwitterConnection(socialmedia){            
             var anchor = document.createElement('a');
             anchor.href = "../plugin/twitter_ajax.php";

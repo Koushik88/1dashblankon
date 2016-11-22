@@ -66,6 +66,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	/**
 	 * Social Plugings connections
 	 */
+	Route::get('socialconnection/{plugin}', 'socialconnectons\SocialConnectionController@addConnection');
 	/**
 	 * Calendar Page
 	 */
