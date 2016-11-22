@@ -24,7 +24,7 @@
                         <div class="clearfix"></div>
                     </div>                                        
                 </div>
-                {$qb_cnt = $qb_cnt+1}    
+        {$qb_cnt = $qb_cnt+1}    
             {else if $value eq 'LinkedIn'}      
             <div class="media p-l-5">
                 <div class="pull-left">
@@ -96,7 +96,7 @@
 
                 </div>
             </div>
-    		{else if $value eq 'Instagram'}
+            {else if $value eq 'Instagram'}
             <div class="media p-l-5">
                 <div class="pull-left">
                    <img src="{$smarty.const.IMAGESLOCATION}plugin-icon/instagram-new.png" alt="" width="15px" height="15px">
@@ -240,29 +240,29 @@
 
                         <div class="tab-pane" id="social">
                             <div class="listview narrow">
-                                <!-- Linkedin -->
-                                {*<div class="media">
-                                      <div class="media-body p-t-5">
-                                        <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/83.png" alt="">
-                                          &nbsp;&nbsp; LinkedIn Company Page
-                                         <a href="#addCrdentials" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="loadNewCredentialPage('LinkedIn');">Add</a>
-                                     </div>
-                                </div>*}
-                                <!-- Linkedin End-->
+                               <!-- Linkedin -->
+                               <div class="media">
+                                     <div class="media-body p-t-5">
+                                       <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/83.png" alt="">
+                                         &nbsp;&nbsp; LinkedIn Company Page
+                                        <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('LinkedIn');">Add</a>
+                                    </div>
+                               </div>
+                               <!-- Linkedin End-->
                                 <!-- Twitter -->                                           
                                 <div class="media">
                                       <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/74.png" alt="">
                                           &nbsp;&nbsp; Twitter
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addTwitterConnection('Twitter');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Twitter');">Add</a>   
                                       </div>
                                 </div>   
                                 <!-- Twitter End -->
                                 <!-- Facebook -->
-        						<div class="media">
+                                <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/facebook.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Facebook
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addFacebookConnection('Facebook');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Facebook');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Facebook End-->
@@ -270,7 +270,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/instagram-new.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Instagram
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addInstagramConnection('Instagram');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Instagram');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Instagram End -->
@@ -278,7 +278,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/Pinterest.svg" alt="" width="16px" height="16px">&nbsp;&nbsp; Pinterest
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addPinterestConnection('Pinterest');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Pinterest');">Add</a>   
                                     </div>
                                 </div> 
                                 <!-- Pinterest End -->
@@ -286,7 +286,7 @@
                                 <div class="media">
                                     <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/vimeo.png" alt="" width="16px" height="16px">&nbsp;&nbsp; Vimeo
-                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addVimeoConnection('Vimeo');">Add</a>   
+                                           <a href="javascript:void(0);" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Vimeo');">Add</a>   
                                     </div>
                                 </div>
                                 <!-- Vimeo End -->
@@ -451,14 +451,23 @@
                   $("#loadCredentialPage").html(data);         
              });
         }
-
+        /**
+         * [addSocialConnections description]
+         * @param {[type]} socialmedia [description]
+         */
+        function addSocialConnections(socialmedia){
+            var anchor = document.createElement('a');
+            anchor.href = "socialconnection/"+socialmedia+"?source=profile";
+            document.body.appendChild(anchor);
+            anchor.click();
+        }
         function addTwitterConnection(socialmedia){            
             var anchor = document.createElement('a');
             anchor.href = "../plugin/twitter_ajax.php";
             document.body.appendChild(anchor);
             anchor.click();
         }
-	 function addFacebookConnection(socialmedia){            
+     function addFacebookConnection(socialmedia){            
             var anchor = document.createElement('a');
             anchor.href = "../plugin/facebook_ajax.php";
             document.body.appendChild(anchor);
@@ -490,6 +499,15 @@
             document.body.appendChild(anchor);
             anchor.click();
         }
+                
+        function addLinkedIn(socialmedia){  
+
+           var anchor = document.createElement('a');
+           anchor.href = "../plugin/linkedin_ajax.php";
+           document.body.appendChild(anchor);
+           anchor.click();
+       }
+        
         
         function addEcommerceConnection(ecommerce_plugin){
             if(ecommerce_plugin == "shopify"){
