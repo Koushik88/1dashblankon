@@ -457,7 +457,7 @@
          */
         function addSocialConnections(socialmedia){
             var anchor = document.createElement('a');
-            anchor.href = "socialconnection/"+socialmedia;
+            anchor.href = "socialconnection/"+socialmedia+"?source=profile";
             document.body.appendChild(anchor);
             anchor.click();
         }

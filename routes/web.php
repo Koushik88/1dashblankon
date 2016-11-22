@@ -67,6 +67,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 * Social Plugings connections
 	 */
 	Route::get('socialconnection/{plugin}', 'socialconnectons\SocialConnectionController@addConnection');
+	Route::get('twitter_oauth', 'socialconnectons\TwitterController@index');
 	/**
 	 * Calendar Page
 	 */

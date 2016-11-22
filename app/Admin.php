@@ -84,117 +84,143 @@ class Admin extends Model {
 		}
 		return $_children;
 	}
-        
-        /**
+
+	/**
 	 * [get Active Plugins get all the assoctiated with the user]
 	 * @return [type] [description]
 	 */
-        public function getPluginCredentials($pluginName)
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $plugin = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' AND active = '1' ");
-                    return $this->returnJson($plugin);
-                    
-                }
-        }
-        
-        
-        /**
+	public function getPluginCredentials($pluginName) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$plugin = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' AND active = '1' ");
+			return $this->returnJson($plugin);
+
+		}
+	}
+
+	/**
 	 * [get Active Plugins get all the assoctiated with the user]
 	 * @return [type] [description]
 	 */
-        public function getAllPluginCredentials($pluginName)
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $plugin = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' ");
-                    return $this->returnJson($plugin);
-                    
-                }
-        }
-        
-        
-        public function updateActiveQBOCompany($cmp_id)
-        {
-             $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $sql = $DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '".$_SESSION["userId"]."' ");
-                    $sql1 = $DB->update("UPDATE plugin_details SET active = '1'  WHERE name = 'Quickbook'AND userID = '".$_SESSION["userId"]."' AND p_id = '$cmp_id'  ");
-                }    
-        }        
-        /*
-         * [get Active ToDo List get all the assoctiated with the user]
-	 * @return [type] [description]
-         */
-        public function getTodo($action,$limit=10)
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $todo = $DB->select("SELECT `id`, `todo`, DATE_FORMAT(`created`,'%b %d %Y %h:%i %p') as created,DATE_FORMAT(`completed`,'%b %d %Y %h:%i %p') as completed, action  FROM `todo` WHERE `userid`='".$_SESSION['userId']."' AND `action`='$action' ORDER BY created LIMIT 0,$limit");
-                    return $this->returnJson($todo);
-                }
-        }
-        
-        public function createTodo($todo,$datetime){
-        
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                   $DB->update("INSERT INTO `todo`( `userid`, `todo`,`eventdate`) VALUES ('".$_SESSION['userId']."','$todo','$datetime')" );
-                }
-        }
-        
-        public function updateToDoList($data)
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                   $DB->update("update todo SET action = '".$data["updateToDo"]."' WHERE id = '".$data["id"]."' " );
-                }
-        }
-        
-        public function clearTodoList()
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                     $DB->update("update todo SET action = 'D' WHERE userid= '".$_SESSION["userId"]."' AND action = 'C'"); 
-                }
-        }
+	public function getAllPluginCredentials($pluginName) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$plugin = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");
+			return $this->returnJson($plugin);
 
-        /*public function getRssFeedTab()
-        {
-             $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $datalist = $DB->select("SELECT * FROM rss_feed WHERE  uid = '" . $_SESSION["userId"] ."' "); 
-                    return $this->returnJson($datalist);
-                }
-        }*/
+		}
+	}
+	/**
+	 * [savePluginCredentials description]
+	 * @param  [type] $pluginName  [description]
+	 * @param  [type] $data        [description]
+	 * @param  [type] $update_plag [description]
+	 * @param  [type] $pid         [description]
+	 * @return [type]              [description]
+	 */
+	public function savePluginCredentials($pluginName, $data, $update_plag = null, $pid = null) {
 
-        public function saveRssFeed($arr_value)
-        {
-            $DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) 
-                {
-                    $datalist = $DB->select("SELECT uid FROM rss_feed WHERE  uid = '" . $_SESSION["userId"] . "' ");
-                    $result = $this->returnJson($datalist);
-                        if(!$result){
-                            
-                            $DB->update("INSERT INTO rss_feed(id,uid,data,created_on)values('','".$_SESSION["userId"]."','$arr_value',CURDATE())"); 
-                         }
-                         else{                             
-                              $DB->update("UPDATE rss_feed SET data='$arr_value' WHERE uid= '".$_SESSION["userId"]."'  ");
-                         }
-                    
-                }
-        }
-        
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			if ($pluginName == 'Quickbook') {
+				/*$dataencode = json_encode($data, TRUE);
+
+					if ($update_plag == '1') {
+						$sql1 = "UPDATE " . ADMINDB . ".plugin_details SET `releam_id` = '" . $data["realmId"] . "' ,`data` = '$dataencode' WHERE p_id = '$pid' AND  userID = '" . $_SESSION["userId"] . "' ";
+
+					} else {
+						$sql = "UPDATE " . ADMINDB . ".plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '" . $_SESSION["userId"] . "' ";
+						$this->Execute($sql);
+
+						$sql1 = "INSERT INTO " . ADMINDB . ".plugin_details(`name`,`company_id`,`releam_id`,`data`,`userID`,`active`) values('$pluginName','" . $_SESSION["company_id"] . "','" . $data["realmId"] . "','$dataencode','" . $_SESSION["userId"] . "','1') ";
+					}
+				*/
+			} else {
+				$res = $DB->select("SELECT p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");
+				$result = $this->returnJson($res);
+				if (!$result) {
+					$sql1 = "INSERT INTO plugin_details(`name`,`company_id`,`data`,`userID`) values('$pluginName','" . $_SESSION["company_id"] . "','$data','" . $_SESSION["userId"] . "') ";
+					$DB->insert($sql1);
+				} else {
+					$p_id = $result[0]['p_id'];
+					$sql2 = "UPDATE plugin_details SET data='$data' WHERE p_id= '$p_id'";
+					$DB->update($sql2);
+				}
+			}
+		}
+	}
+
+	/**
+	 * [updateActiveQBOCompany description]
+	 * @param  [type] $cmp_id [description]
+	 * @return [type]         [description]
+	 */
+	public function updateActiveQBOCompany($cmp_id) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$sql = $DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '" . $_SESSION["userId"] . "' ");
+			$sql1 = $DB->update("UPDATE plugin_details SET active = '1'  WHERE name = 'Quickbook'AND userID = '" . $_SESSION["userId"] . "' AND p_id = '$cmp_id'  ");
+		}
+	}
+	/*
+		         * [get Active ToDo List get all the assoctiated with the user]
+			 * @return [type] [description]
+	*/
+	public function getTodo($action, $limit = 10) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$todo = $DB->select("SELECT `id`, `todo`, DATE_FORMAT(`created`,'%b %d %Y %h:%i %p') as created,DATE_FORMAT(`completed`,'%b %d %Y %h:%i %p') as completed, action  FROM `todo` WHERE `userid`='" . $_SESSION['userId'] . "' AND `action`='$action' ORDER BY created LIMIT 0,$limit");
+			return $this->returnJson($todo);
+		}
+	}
+
+	public function createTodo($todo, $datetime) {
+
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("INSERT INTO `todo`( `userid`, `todo`,`eventdate`) VALUES ('" . $_SESSION['userId'] . "','$todo','$datetime')");
+		}
+	}
+
+	public function updateToDoList($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("update todo SET action = '" . $data["updateToDo"] . "' WHERE id = '" . $data["id"] . "' ");
+		}
+	}
+
+	public function clearTodoList() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("update todo SET action = 'D' WHERE userid= '" . $_SESSION["userId"] . "' AND action = 'C'");
+		}
+	}
+
+	/*public function getRssFeedTab()
+		        {
+		             $DB = DB::connection('dynamic_mysql');
+				if ($DB->getPdo())
+		                {
+		                    $datalist = $DB->select("SELECT * FROM rss_feed WHERE  uid = '" . $_SESSION["userId"] ."' ");
+		                    return $this->returnJson($datalist);
+		                }
+	*/
+
+	public function saveRssFeed($arr_value) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$datalist = $DB->select("SELECT uid FROM rss_feed WHERE  uid = '" . $_SESSION["userId"] . "' ");
+			$result = $this->returnJson($datalist);
+			if (!$result) {
+
+				$DB->update("INSERT INTO rss_feed(id,uid,data,created_on)values('','" . $_SESSION["userId"] . "','$arr_value',CURDATE())");
+			} else {
+				$DB->update("UPDATE rss_feed SET data='$arr_value' WHERE uid= '" . $_SESSION["userId"] . "'  ");
+			}
+
+		}
+	}
+
 	/**
 	 * [getAllPluginData description]
 	 * @param  [type] $userId [description]
@@ -232,7 +258,7 @@ class Admin extends Model {
 		return $this->returnJson($result);
 	}
 
-        /*
+	/*
 		    *
 		    *  Experimental db calls, it may remove or move to some other place
 	*/
@@ -283,5 +309,5 @@ class Admin extends Model {
 			return $users;
 		}
 	}
-       
+
 }
