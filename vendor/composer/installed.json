@@ -4822,5 +4822,157 @@
             }
         ],
         "description": "A client library for the WooCommerce REST API"
+    },
+    {
+        "name": "facebook/graph-sdk",
+        "version": "5.4.2",
+        "version_normalized": "5.4.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/facebook/php-graph-sdk.git",
+            "reference": "2839246e971aef150650196acbb46d47e5207370"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/facebook/php-graph-sdk/zipball/2839246e971aef150650196acbb46d47e5207370",
+            "reference": "2839246e971aef150650196acbb46d47e5207370",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.4|^7.0"
+        },
+        "require-dev": {
+            "guzzlehttp/guzzle": "~5.0",
+            "mockery/mockery": "~0.8",
+            "phpunit/phpunit": "~4.0"
+        },
+        "suggest": {
+            "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client",
+            "paragonie/random_compat": "Provides a better CSPRNG option in PHP 5"
+        },
+        "time": "2016-11-15 14:34:16",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Facebook\\": "src/Facebook/"
+            },
+            "files": [
+                "src/Facebook/polyfills.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Facebook Platform"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/php-graph-sdk/contributors"
+            }
+        ],
+        "description": "Facebook SDK for PHP",
+        "homepage": "https://github.com/facebook/php-graph-sdk",
+        "keywords": [
+            "facebook",
+            "sdk"
+        ]
+    },
+    {
+        "name": "vimeo/vimeo-api",
+        "version": "1.2.5",
+        "version_normalized": "1.2.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/vimeo/vimeo.php.git",
+            "reference": "43cd6a06f73d1801600d04f2eecb8d1373e3290f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/vimeo/vimeo.php/zipball/43cd6a06f73d1801600d04f2eecb8d1373e3290f",
+            "reference": "43cd6a06f73d1801600d04f2eecb8d1373e3290f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-10-13 15:56:25",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Vimeo\\": "src/Vimeo"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Vimeo",
+                "homepage": "http://vimeo.com"
+            }
+        ],
+        "description": "Official PHP library for the Vimeo API.",
+        "homepage": "https://github.com/vimeo/vimeo.php",
+        "keywords": [
+            "video",
+            "vimeo"
+        ]
+    },
+    {
+        "name": "dirkgroenen/pinterest-api-php",
+        "version": "0.2.11",
+        "version_normalized": "0.2.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dirkgroenen/Pinterest-API-PHP.git",
+            "reference": "afd5e531059c09774e958e142b859d201aa00c79"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dirkgroenen/Pinterest-API-PHP/zipball/afd5e531059c09774e958e142b859d201aa00c79",
+            "reference": "afd5e531059c09774e958e142b859d201aa00c79",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.7.*",
+            "vlucas/phpdotenv": "^2.2"
+        },
+        "time": "2016-05-10 15:36:53",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "DirkGroenen\\Pinterest\\": "src/Pinterest"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Dirk Groenen",
+                "email": "dirk@bitlabs.nl",
+                "homepage": "http://dirkgroenen.nl",
+                "role": "Creator/Developer"
+            }
+        ],
+        "description": "PHP Wrapper for the official Pinterest API",
+        "keywords": [
+            "api",
+            "pinterest",
+            "wrapper"
+        ]
     }
 ]

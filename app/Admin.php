@@ -112,40 +112,22 @@ class Admin extends Model {
 	}
 	/**
 	 * [savePluginCredentials description]
-	 * @param  [type] $pluginName  [description]
-	 * @param  [type] $data        [description]
-	 * @param  [type] $update_plag [description]
-	 * @param  [type] $pid         [description]
-	 * @return [type]              [description]
+	 * @param  [type] $pluginName [description]
+	 * @param  [type] $data       [description]
+	 * @return [type]             [description]
 	 */
-	public function savePluginCredentials($pluginName, $data, $update_plag = null, $pid = null) {
-
+	public function savePluginCredentials($pluginName, $data) {
 		$DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) {
-			if ($pluginName == 'Quickbook') {
-				/*$dataencode = json_encode($data, TRUE);
-
-					if ($update_plag == '1') {
-						$sql1 = "UPDATE " . ADMINDB . ".plugin_details SET `releam_id` = '" . $data["realmId"] . "' ,`data` = '$dataencode' WHERE p_id = '$pid' AND  userID = '" . $_SESSION["userId"] . "' ";
-
-					} else {
-						$sql = "UPDATE " . ADMINDB . ".plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '" . $_SESSION["userId"] . "' ";
-						$this->Execute($sql);
-
-						$sql1 = "INSERT INTO " . ADMINDB . ".plugin_details(`name`,`company_id`,`releam_id`,`data`,`userID`,`active`) values('$pluginName','" . $_SESSION["company_id"] . "','" . $data["realmId"] . "','$dataencode','" . $_SESSION["userId"] . "','1') ";
-					}
-				*/
+			$res = $DB->select("SELECT p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");
+			$result = $this->returnJson($res);
+			if (!$result) {
+				$sql1 = "INSERT INTO plugin_details(`name`,`company_id`,`data`,`userID`) values('$pluginName','" . $_SESSION["company_id"] . "','$data','" . $_SESSION["userId"] . "') ";
+				$DB->insert($sql1);
 			} else {
-				$res = $DB->select("SELECT p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");
-				$result = $this->returnJson($res);
-				if (!$result) {
-					$sql1 = "INSERT INTO plugin_details(`name`,`company_id`,`data`,`userID`) values('$pluginName','" . $_SESSION["company_id"] . "','$data','" . $_SESSION["userId"] . "') ";
-					$DB->insert($sql1);
-				} else {
-					$p_id = $result[0]['p_id'];
-					$sql2 = "UPDATE plugin_details SET data='$data' WHERE p_id= '$p_id'";
-					$DB->update($sql2);
-				}
+				$p_id = $result[0]['p_id'];
+				$sql2 = "UPDATE plugin_details SET data='$data' WHERE p_id= '$p_id'";
+				$DB->update($sql2);
 			}
 		}
 	}
