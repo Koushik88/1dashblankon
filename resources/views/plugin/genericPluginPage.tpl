@@ -428,16 +428,15 @@
             if(isSocialSuccess == "yes_display"){
                 alert(SocialMsg);
                 // unset session variable since you already showed message
-                 $.post(portalLocation+"module/ecommerce_ajax.php", {"unsetSocial":"unset social success session"}, function(data)
+                 $.post("ecommerce_ajax", {"unsetSocial":"unset social success session"}, function(data)
                      { 
                         if(data == "success"){
                             // alert("Thanks! Your shopify credentials saved successfully."); 
                         }                               
                      });
             } 
-                 $.post(portalLocation+"plugin/switch_qbo_companies.php", {"swich_company":"swich_company"}, function(data){    
-                                 
-                 });
+            $.post(portalLocation+"plugin/switch_qbo_companies.php", {"swich_company":"swich_company"}, function(data){  
+            });
         });
         /*---------------------------------
         -----------~~~~~~~~~~~~~~~~~--------
@@ -460,38 +459,7 @@
             anchor.href = "socialconnection/"+socialmedia+"?source=profile";
             document.body.appendChild(anchor);
             anchor.click();
-        }
-        function addTwitterConnection(socialmedia){            
-            var anchor = document.createElement('a');
-            anchor.href = "../plugin/twitter_ajax.php";
-            document.body.appendChild(anchor);
-            anchor.click();
-        }
-     function addFacebookConnection(socialmedia){            
-            var anchor = document.createElement('a');
-            anchor.href = "../plugin/facebook_ajax.php";
-            document.body.appendChild(anchor);
-            anchor.click();
-        }
-
-       function addInstagramConnection(Instagram){            
-            var anchor = document.createElement('a');
-            anchor.href = "../plugin/instagram_ajax.php";
-            document.body.appendChild(anchor);
-            anchor.click();
-        }
-        function addPinterestConnection(Pinterest){
-            var anchor = document.createElement('a');
-            anchor.href = "../plugin/pinterest_ajax.php";
-            document.body.appendChild(anchor);
-            anchor.click();
-        }
-        function addVimeoConnection(Vimeo){
-            var anchor = document.createElement('a');
-            anchor.href = "../plugin/vimeo_ajax.php";
-            document.body.appendChild(anchor);
-            anchor.click();
-        }
+        }  
 
         function addGoogleConnection(google) {
             var anchor = document.createElement('a');
