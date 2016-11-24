@@ -8,10 +8,10 @@ define('OAUTH_CALLBACK', env('APP_URL') . 'twitter_oauth');
 /**
  * Facebook App Credentials
  */
-// define('FB_APP_ID', '314358688908517');
-define('FB_APP_ID', '546632258880173');
-// define('FB_APP_SECRET', 'eb32a4991926f4bfa6045925be1d8d77');
-define('FB_APP_SECRET', '8fe2f5e2700fe69f010fec40f433e145');
+define('FB_APP_ID', '314358688908517');
+// define('FB_APP_ID', '546632258880173'); //local mine
+define('FB_APP_SECRET', 'eb32a4991926f4bfa6045925be1d8d77');
+// define('FB_APP_SECRET', '8fe2f5e2700fe69f010fec40f433e145'); //local mine
 define('FB_OAUTH_CALLBACK', env('APP_URL') . 'facebook_oauth');
 function get_fbPermissions() {
 	$permissions = ['publish_actions', 'user_posts', 'manage_pages'];
@@ -20,10 +20,10 @@ function get_fbPermissions() {
 /**
  * Instagram App Credentials
  */
-// define('INSTAGRAM_CLIENT_ID', 'b10a1bc5a8b44af0b2879ef2509fef52');
-define('INSTAGRAM_CLIENT_ID', 'c63cc56f56924a0e915c8151fc10dec8');
-// define('INSTAGRAM_CLIENT_SECRET', '11dc2114b86e4d46b5e026ed470e9171');
-define('INSTAGRAM_CLIENT_SECRET', 'd62ef3762be247af8aef54d39c57e8fe');
+define('INSTAGRAM_CLIENT_ID', 'b10a1bc5a8b44af0b2879ef2509fef52');
+// define('INSTAGRAM_CLIENT_ID', 'c63cc56f56924a0e915c8151fc10dec8'); //local mine
+define('INSTAGRAM_CLIENT_SECRET', '11dc2114b86e4d46b5e026ed470e9171');
+// define('INSTAGRAM_CLIENT_SECRET', 'd62ef3762be247af8aef54d39c57e8fe'); //local mine
 define('INSTAGRAM_OAUTH_CALLBACK', env('APP_URL') . 'instagram_oauth');
 /**
  * Pinterest App Credentials
