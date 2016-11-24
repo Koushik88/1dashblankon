@@ -415,7 +415,7 @@
 </div>
 
 
-<script src="{$smarty.const.JSLOCATION}jquery.loader.js"></script> 
+<script src="{$smarty.const.JSLOCATION}/jquery.loader.js"></script> 
 <link href="{$smarty.const.CSSLOCATION}/jquery.loader.css" rel="stylesheet"> 
 
 
@@ -435,8 +435,9 @@
                         }                               
                      });
             } 
-            $.post(portalLocation+"plugin/switch_qbo_companies.php", {"swich_company":"swich_company"}, function(data){  
-            });
+            $.post("switchQB_company", {"swich_company":"swich_company"}, function(data){
+
+             });
         });
         /*---------------------------------
         -----------~~~~~~~~~~~~~~~~~--------
@@ -688,7 +689,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
         }
         function deleteCompanyList()
         {
-            $.post(portalLocation+"plugin/plugin_ajax.php", {"loadCompanyInfo":"loadCompanyInfo"}, function(data)
+            $.post("loadQBOCompanyList", {"loadCompanyInfo":"loadCompanyInfo"}, function(data)
                 { 
                     $("#QBOCompanyInfo").html(data);
                 });
@@ -705,8 +706,9 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                                 overlay: true
                             });
                             
-                        $.post(portalLocation+"plugin/plugin_ajax.php", {"deletePluginInfo":deletePluginInfo,"cmp_list_info":cmp_list_info}, function(data)
+                        $.post("deleteQBOCompanyList", {"deletePluginInfo":deletePluginInfo,"cmp_list_info":cmp_list_info}, function(data)
                          { 
+                            // alert(data);
                             if(data === '1')
                             {
                                alert("Cannot delete Active Company."); 
@@ -728,24 +730,26 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
 {/literal}   
    
 <script type="text/javascript" src="https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
- {literal}
+ 
  <script>
-     
-    // Runnable uses dynamic URLs so we need to detect our current //
-    // URL to set the grantUrl value   ########################### //
-    /*######*/ var parser = document.createElement('a');/*#########*/
-    /*######*/parser.href = document.url;/*########################*/
-    // end runnable specific code snipit ##########################//
-    intuit.ipp.anywhere.setup({
-        menuProxy: '',
-        grantUrl: portalLocation+'/plugin/PHPSample/oauth.php?start=t' 
-        // outside runnable you can point directly to the oauth.php page
-    });
+     var oauthredirect_url = "{$oauthredirect_url}";
+     var oauthredirect_function = "{$oauthredirect_function}";
+     var buildUrl = "{$buildUrl}";
+     {literal}
+        // Runnable uses dynamic URLs so we need to detect our current //
+           // URL to set the grantUrl value   ########################### //
+           /*######*/ var parser = document.createElement('a');/*#########*/
+           /*######*/parser.href = document.url;/*########################*/
+           // end runnable specific code snipit ##########################//
+           intuit.ipp.anywhere.setup({
+                   menuProxy: '',
+                   grantUrl: buildUrl+'app/Http/Controllers/plugin/QBCheck/PHPSample/oauth.php?start=t&oauthredirect='+oauthredirect_url+'&oauthredirect_function='+oauthredirect_function
+                   // outside runnable you can point directly to the oauth.php page
+           });
     
-    
-    
+    {/literal}   
   </script>
- {/literal}   
+ 
     
 
 

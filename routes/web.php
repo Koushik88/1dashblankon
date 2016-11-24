@@ -42,22 +42,23 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 * Wideget Routes
 	 */
 	Route::get('widget', 'plugin\OneviewController@widget')->name('widget');
-	Route::post('widget_ajax', 'plugin\OneviewControllerAjax@widget_ajax');
-	Route::post('chart_ajax', 'plugin\OneviewControllerAjax@chart_ajax');
-	Route::post('change_chartType', 'plugin\OneviewControllerAjax@change_chartType');
-	Route::post('loadValue_lable', 'plugin\OneviewControllerAjax@loadValue_lable');
-	Route::post('QBCompanyInfo', 'plugin\OneviewControllerAjax@QBCompanyInfo');
-	Route::post('switchQB_company', 'plugin\OneviewControllerAjax@switchQB_company');
-	Route::post('ChangeQBOList', 'plugin\OneviewControllerAjax@ChangeQBOList');
-	Route::post('loadToDoList', 'plugin\OneviewControllerAjax@loadToDoList');
-	Route::post('createToDoList', 'plugin\OneviewControllerAjax@createToDoList');
-	Route::post('updateToDo', 'plugin\OneviewControllerAjax@updateToDo');
-	Route::post('cleartodo', 'plugin\OneviewControllerAjax@cleartodo');
-	Route::post('loadRssFeeds', 'plugin\rssfeedController@loadRssFeeds');
-	Route::post('rssbasic', 'plugin\rssfeedController@rssbasic');
-	Route::post('rssmodal', 'plugin\rssfeedController@rssmodal');
-	Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl');
-
+        Route::post('widget_ajax', 'plugin\OneviewControllerAjax@widget_ajax');
+        Route::post('chart_ajax', 'plugin\OneviewControllerAjax@chart_ajax');
+        Route::post('change_chartType', 'plugin\OneviewControllerAjax@change_chartType');
+        Route::post('loadValue_lable', 'plugin\OneviewControllerAjax@loadValue_lable');
+        Route::post('QBCompanyInfo', 'plugin\OneviewControllerAjax@QBCompanyInfo');
+        Route::post('switchQB_company', 'plugin\OneviewControllerAjax@switchQB_company');
+        Route::post('ChangeQBOList', 'plugin\OneviewControllerAjax@ChangeQBOList');
+        Route::post('loadToDoList', 'plugin\OneviewControllerAjax@loadToDoList');
+        Route::post('createToDoList', 'plugin\OneviewControllerAjax@createToDoList');
+        Route::post('updateToDo', 'plugin\OneviewControllerAjax@updateToDo');
+        Route::post('cleartodo', 'plugin\OneviewControllerAjax@cleartodo');
+        Route::post('loadRssFeeds', 'plugin\rssfeedController@loadRssFeeds');
+        Route::post('rssbasic', 'plugin\rssfeedController@rssbasic');
+        Route::post('rssmodal', 'plugin\rssfeedController@rssmodal');
+        Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl'); 
+        Route::post('loadQBOCompanyList','plugin\OneviewControllerAjax@loadQBOCompanyList');
+        Route::post('deleteQBOCompanyList','plugin\OneviewControllerAjax@deleteQBOCompanyList');
 	/**
 	 * Social Stream Page
 	 */
@@ -70,8 +71,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('twitter_oauth', 'socialconnectons\TwitterController@index');
 	Route::get('facebook_oauth', 'socialconnectons\FacebookController@index');
 	Route::get('instagram_oauth', 'socialconnectons\InstagramController@index');
-	// Route::get('pinterest_oauth', 'socialconnectons\PinterestController@index');
-	Route::get('pinterest_oauth', ['uses' => 'socialconnectons\InstagramController@index', 'https' => true]);
+	Route::get('pinterest_oauth', 'socialconnectons\PinterestController@index');
 	Route::get('vimeo_oauth', 'socialconnectons\VimeoController@index');
 	/**
 	 * Calendar Page
@@ -92,7 +92,23 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 * Profile Page
 	 */
 	Route::get('profile', 'page\HomeController@profile_page')->name('profile');
+        Route::post('profilePictureUpload', 'page\HomeController@profilePictureUpload');
+        Route::post('currentPasswordValidation', 'page\settingsController@currentPasswordValidation');
+        Route::post('currentPasswordChange', 'page\settingsController@currentPasswordChange');
+        Route::get('QBSaveCredentials', 'page\HomeController@QBSaveCredentials');
 
+        /*
+         * Chat Page 
+         */
+        Route::post('chatCurrentUserList', 'page\settingsController@chatCurrentUserList');
+        Route::post('insertChatMessage', 'page\settingsController@insertChatMessage');
+        Route::post('loadChatMessage', 'page\settingsController@loadChatMessage');
+        Route::post('loadNotifications', 'page\settingsController@loadNotifications');
+        Route::post('getNotificationsCount', 'page\settingsController@getNotificationsCount');
+        
+        
+        
+        
 	/**
 	 * Dummy Routes
 	 */

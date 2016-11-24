@@ -331,9 +331,9 @@
 
 {literal}
     <script type="text/javascript">
-        
+       //swich_companyList();
        loadToDoAjax();
-        customPeriodSelection();
+       customPeriodSelection();
             function customPeriodSelection()
             {
               

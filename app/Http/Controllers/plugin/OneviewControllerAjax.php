@@ -261,6 +261,42 @@ class OneviewControllerAjax extends Controller {
          }
     }
     
+    public function loadQBOCompanyList()
+    {  
+        $this->addTemplateVar('qbcompanyInfo', $_SESSION["qbcompanyInfo"]);
+        return view('plugin.plugin_ajax', $this->template_vars);
+    }
+    public function deleteQBOCompanyList(Request $request)
+    {
+        if($request->ajax())
+        { 
+            $admin_obj = new Admin;
+            if($_POST["deletePluginInfo"] == 'Quickbook')
+            {
+                $cmp_info_list = explode("##$$##",$_POST["cmp_list_info"]);
+                $cmp_info = $cmp_info_list[0];
+                $pid = $cmp_info_list[1];
+                if($pid == $_SESSION["active_company_pid"])
+                {
+                  echo "1"; 
+                  exit;
+                }
+                
+                
+                $QBCredential = $admin_obj->deleteQBOPluginData('Quickbook',$pid);
+                $QBCredential = json_decode($QBCredential[0]["data"],true);
+                require_once app_path().'/Http/Controllers/plugin/QBCheck/switch_qbo_companies.php';
+                $result = $admin_obj->deleteQBPluginInfo($_POST["deletePluginInfo"],$pid);
+                
+            }
+            else {
+                $result = $admin_obj->deletePluginInfo($_POST["deletePluginInfo"]); 
+            }
+            
+        }
+    }
+    
+    
     
         
         

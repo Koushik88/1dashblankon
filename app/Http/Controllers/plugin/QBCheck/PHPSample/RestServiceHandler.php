@@ -6,11 +6,11 @@ require_once('../v3-php-sdk-2.2.0-RC/Core/RestCalls/FaultHandler.php');
 require_once('../v3-php-sdk-2.2.0-RC/Utility/IntuitErrorHandler.php');
 require_once('../v3-php-sdk-2.2.0-RC/Core/OperationControlList.php');*/
 
-require_once('/var/www/html/1dash-micration/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/config.php');
-require_once('/var/www/html/1dash-micration/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/RestCalls/RestHandler.php');
-require_once('/var/www/html/1dash-micration/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/RestCalls/FaultHandler.php');
-require_once('/var/www/html/1dash-micration/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Utility/IntuitErrorHandler.php');
-require_once('/var/www/html/1dash-micration/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/OperationControlList.php');
+require_once('../app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/config.php');
+require_once('../app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/RestCalls/RestHandler.php');
+require_once('../app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/RestCalls/FaultHandler.php');
+require_once('../app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Utility/IntuitErrorHandler.php');
+require_once('../app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/Core/OperationControlList.php');
 /**
  * RestServiceHandler contains the logic for preparing the REST request, calls REST services and returns the response.
  */

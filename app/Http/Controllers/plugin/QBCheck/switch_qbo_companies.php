@@ -19,6 +19,16 @@ ini_set("display_errors", TRUE); // Display errors
 ini_set("log_errors", TRUE); // All type of logged in file phpError.txt
 
 
+function decrypt_string($encodedText = '', $salt = '8638FD63E6CC16872ACDED6CE49E5A270ECDE1B3B938B590E547138BB7F120VG') {
+    $key = pack('H*', $salt);
+    $ciphertext_dec = base64_decode($encodedText);
+    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
+    $iv_dec = substr($ciphertext_dec, 0, $iv_size);
+    $ciphertext_dec = substr($ciphertext_dec, $iv_size);
+    return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec);
+    }
+    
+
 if(isset($_POST["swich_company"]))
 {
     
@@ -35,16 +45,7 @@ if(isset($_POST["swich_company"]))
     require_once('PHPSample/RestServiceHandler.php');
     require_once(PATH_SDK_ROOT . 'Core/OperationControlList.php');
     
-    
-    function decrypt_string($encodedText = '', $salt = '8638FD63E6CC16872ACDED6CE49E5A270ECDE1B3B938B590E547138BB7F120VG') {
-    $key = pack('H*', $salt);
-    $ciphertext_dec = base64_decode($encodedText);
-    $iv_size = mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);
-    $iv_dec = substr($ciphertext_dec, 0, $iv_size);
-    $ciphertext_dec = substr($ciphertext_dec, $iv_size);
-    return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, $ciphertext_dec, MCRYPT_MODE_CBC, $iv_dec);
-    }
-           
+      
             $realemId_Array = array();
             $pid_Array = array();
             $qbcompanyInfo = array();
@@ -107,5 +108,44 @@ if(isset($_POST["swich_company"]))
         
         
 }
+
+if(isset($_POST["deletePluginInfo"]))
+{
+               $realmId = trim(decrypt_string($QBCredential["realmId"]));
+               $oauth_token = trim(decrypt_string($QBCredential["oauth_token"]));
+               $oauth_token_secret = trim(decrypt_string($QBCredential["oauth_token_secret"]));
+               $OAUTH_CONSUMER_KEY = trim(decrypt_string($QBCredential["OAUTH_CONSUMER_KEY"]));
+               $OAUTH_CONSUMER_SECRET = trim(decrypt_string($QBCredential["OAUTH_CONSUMER_SECRET"]));
+
+               
+               require_once('QuickbookPhpSdk/config.php');
+               require_once(PATH_SDK_ROOT . 'Core/ServiceContext.php');
+               require_once(PATH_SDK_ROOT . 'PlatformService/PlatformService.php');
+               require_once(PATH_SDK_ROOT . 'Utility/Configuration/ConfigurationManager.php');
+               require_once(PATH_SDK_ROOT . 'Core/OperationControlList.php');
+               
+               $serviceType = IntuitServicesType::QBO;
+                // Get App Config
+                if($realmId)
+                {
+                    if (!$realmId)
+                        exit("Please add realm to App.Config before running this sample.\n");
+
+                    // Prep Service Context
+                    $requestValidator = new OAuthRequestValidator($oauth_token,$oauth_token_secret,$OAUTH_CONSUMER_KEY,$OAUTH_CONSUMER_SECRET);
+                    $serviceContext = new ServiceContext($realmId, $serviceType, $requestValidator);
+                    if (!$serviceContext)
+                            exit("Problem while initializing ServiceContext.\n");
+
+                // Prep Platform Services
+                    $platformService = new PlatformService($serviceContext);
+
+                // Get App Menu HTML
+                    $Respxml = $platformService->Disconnect();
+                }
+}
+
+
+
 
 ?>

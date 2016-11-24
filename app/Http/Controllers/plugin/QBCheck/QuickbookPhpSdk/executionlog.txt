@@ -230,6 +230,1861 @@ GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Called GetBaseURL method.
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called GetBaseURL method.
 Going to fetch report data.
 GetSerializer
 GetSerializer(Request): Xml
@@ -825,6 +2680,15 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -891,10 +2755,19 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
 Called PrepareRequest method
 GetSerializer
 GetSerializer(Request): Xml
@@ -1012,6 +2885,15 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -1089,7 +2971,16 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
 GetSerializer
+GetSerializer(Response): XML
+GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
@@ -1474,7 +3365,16 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
 GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
@@ -1527,6 +3427,8 @@ GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -2176,7 +4078,16 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
 GetSerializer
+GetSerializer(Response): XML
+GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
@@ -2209,6 +4120,15 @@ GetSerializer
 GetSerializer(Response): XML
 Called GetBaseURL method.
 Going to fetch report data.
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
+Called PrepareRequest method
+GetSerializer
+GetSerializer(Request): Xml
+GetSerializer
+GetSerializer(Response): XML
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -2273,6 +4193,8 @@ GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -2337,6 +4259,8 @@ GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
@@ -2852,6 +4776,8 @@ GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
 GetSerializer(Response): XML
+Called GetBaseURL method.
+Going to fetch report data.
 GetSerializer
 GetSerializer(Request): Xml
 GetSerializer
