@@ -21,13 +21,13 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller {
 	/**
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| Show Login screen
-	|
-	 */
+	* |--------------------------------------------------------------------------
+	* | Home Controller
+	* |--------------------------------------------------------------------------
+	* |
+	* | Show Login screen
+	* |--------------------------------------------------------------------------										
+	*/
 
 	/**
 	 * Handle the main request
@@ -79,21 +79,8 @@ class HomeController extends Controller {
 		$this->addTemplateVar('pageTitle', 'Calendar');
 		$this->addTemplateVar('page', 'module/calendar');
 		return view('general.index', $this->template_vars);
-	}
-	/**
-	 * [gmail_up description]
-	 * @return [type] [description]
-	 */
-	public function gmail_up() {
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
+	}	
 
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Gmail');
-		$this->addTemplateVar('page', 'module/gmail_up');
-		return view('general.index', $this->template_vars);
-	}
 	/**
 	 * [profile_page description]
 	 * @return [type] [description]
@@ -195,7 +182,7 @@ class HomeController extends Controller {
 
                         }
 
-                        $result = $admin_obj->savePluginCredentials('Quickbook',$QBCurrentCredentials,$update_plag,$pid);
+                        $result = $admin_obj->saveQBPluginCredentials('Quickbook',$QBCurrentCredentials,$update_plag,$pid);
                         echo '<script type="text/javascript">
                              window.opener.location.href = window.opener.location.href;
                                  window.close();

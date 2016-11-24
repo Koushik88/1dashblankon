@@ -38,9 +38,9 @@ Route::post('doLogin', 'LoginController@doLogin');
 Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('logout', 'LoginController@logout')->name('logout');
 	Route::get('home', 'page\HomeController@home')->name('home');
-        /**
-         * Wideget Routes
-         */
+	/**
+	 * Wideget Routes
+	 */
 	Route::get('widget', 'plugin\OneviewController@widget')->name('widget');
         Route::post('widget_ajax', 'plugin\OneviewControllerAjax@widget_ajax');
         Route::post('chart_ajax', 'plugin\OneviewControllerAjax@chart_ajax');
@@ -59,20 +59,29 @@ Route::group(['middleware' => 'authCheck'], function () {
         Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl'); 
         Route::post('loadQBOCompanyList','plugin\OneviewControllerAjax@loadQBOCompanyList');
         Route::post('deleteQBOCompanyList','plugin\OneviewControllerAjax@deleteQBOCompanyList');
-        
 	/**
 	 * Social Stream Page
 	 */
 	Route::get('socialstream', 'socialstream\SocialStreamController@socialstream')->name('socialstream');
-	Route::post('socialstreamAjax', 'socialstream\SocialStreamController@socialstreamAjax')->name('socialstream');
+	Route::post('socialstreamAjax', 'socialstream\SocialStreamController@socialstreamAjax');
+	/**
+	 * Social Plugings connections
+	 */
+	Route::get('socialconnection/{plugin}', 'socialconnectons\SocialConnectionController@addConnection');
+	Route::get('twitter_oauth', 'socialconnectons\TwitterController@index');
+	Route::get('facebook_oauth', 'socialconnectons\FacebookController@index');
+	Route::get('instagram_oauth', 'socialconnectons\InstagramController@index');
+	Route::get('pinterest_oauth', 'socialconnectons\PinterestController@index');
+	Route::get('vimeo_oauth', 'socialconnectons\VimeoController@index');
 	/**
 	 * Calendar Page
 	 */
 	Route::get('calendar', 'page\HomeController@calendar')->name('calendar');
 	/**
-	 * Gmail Page
+	 * Gmail Routes
 	 */
-	Route::get('gmail_up', 'page\HomeController@gmail_up')->name('gmail_up');
+	Route::get('gmail_up', 'gmail\GmailController@gmail_up')->name('gmail_up');
+
 	/**
 	 * Ecommerce Routes
 	 */

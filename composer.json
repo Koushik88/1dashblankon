@@ -17,7 +17,10 @@
         "spatie/laravel-analytics": "^2.2",
         "syscover/shopping-cart": "~2.0",
         "rashed/database-backup": "dev-master",
-        "woothemes/woocommerce-api": "^2.0"
+        "woothemes/woocommerce-api": "^2.0",
+        "facebook/graph-sdk": "^5.4",
+        "vimeo/vimeo-api": "^1.2",
+        "dirkgroenen/Pinterest-API-PHP": "^0.2.11"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -28,7 +31,8 @@
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database",
+            "app/Http/Controllers/socialconnectons/twitter/abraham"
         ],
         "psr-4": {
             "App\\": "app/"
