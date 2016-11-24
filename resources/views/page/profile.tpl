@@ -72,12 +72,12 @@
                     
                     <div class="media">
                         <i class="icon pull-left">&#61868;</i>
-                        <div class="media-body">{$smarty.const.tp_Last_login} : {$userinfo['last_login']|date_format:'%d-%b-%Y %H:%M:%S'}</div>
+                        <div class="media-body">{$smarty.const.tp_Last_login} : {$userinfo[0]['last_login']|date_format:'%d-%b-%Y %H:%M:%S'}</div>
                     </div>
                     
                     <div class="media">
                         <i class="icon pull-left">&#61787;</i>
-                        <div class="media-body"> {$smarty.const.tp_ip} : {$userinfo['ip']}</div>
+                        <div class="media-body"> {$smarty.const.tp_ip} : {$userinfo[0]['ip']}</div>
                     </div>
                 </div>
             </div>
@@ -240,7 +240,8 @@
                         </div>
                             <div class="modal-body">
                                 <p>Image Preview</p>
-                                    <form method="post" name="frmmenulist" enctype="multipart/form-data" action="profile.php?mid=1334&nav=12">   
+                                    <form method="post" name="frmmenulist" enctype="multipart/form-data" action="profilePictureUpload">  
+                                        <input type="hidden" name="_token" value="{$csrf_token}">
                                             <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden">
                                                   <div class="fileupload-preview thumbnail form-control" style="background-color:rgba(0,0,0,0.3);border:1px solid #ccc;"></div>
                                                     <div>
@@ -268,8 +269,6 @@
         var pageToken = "{$pageToken}"; 
        
     {literal} 
-        
-        loadToDoAjax();
              
         if(prtour === '1')
         {
@@ -279,14 +278,15 @@
      
           function checkCurrentPassword()
           {
+            
               $("#pssdChgAlert").hide();
               $("#validateCurrPsw").val("1");
               var currentPsw = $("#currentPsw").val();
 
-                $.post(portalLocation+controller+"/settings.php", {"currentPasssword":currentPsw}, function(data){    
-
-                        if(data.length == '')
-                        {
+                $.post("currentPasswordValidation", {"currentPasssword":currentPsw}, function(data){    
+                   
+                        if(data === '0')
+                        { 
                               $("#pssdChgAlert").show();
                               $("#pssdChgAlertMsg").html("Current Password does not match.Enter Valid Password!");
                               $("#validateCurrPsw").val("0");
@@ -324,85 +324,19 @@
                 $("#pssdChgAlertMsg").html("New password and Confirm password does not match!");
          }
          else
-         {
-                    $.post(portalLocation+controller+"/settings.php", {"newPsw":newPsw,"confirmPsw":confirmPsw}, function(data){    
-                       $("#pssdChgAlertMsg").html("Password Updated Successfully. You will be signed out. Please login again.");
+            {
+                    $.post("currentPasswordChange", {"newPsw":newPsw,"confirmPsw":confirmPsw}, function(data){    
+                     
+                        $("#pssdChgAlertMsg").html("Password Updated Successfully. You will be signed out. Please login again.");
                         $("#newPsw").val("");
                         $("#confirmPsw").val("");
                         $("#currentPsw").val("");
-                        setTimeout(function(){  $("#pssdChgAlert").hide();var logid = $("#logouturl").val();window.location=logid; }, 3000);
-                });
+                        setTimeout(function(){  $("#pssdChgAlert").hide();var logid = 'logout';window.location=logid; }, 3000);
+            });
          }
   } 
           
-    function createTodo()
-    {
-            var newtodo = $("#newtodo").val();
-            var datepicker = $("#date").val();
-            var timepicker = $("#timepicker").val();
-              if(newtodo != "")   
-              {  
-                $.ajax({
-                        url: "settings.php",
-                        headers: {
-                            'page-token': pageToken,
-                        },
-                        method: 'POST',                    
-                        data : "newtodo="+newtodo+"&datepicker="+datepicker+"&timepicker="+timepicker,
-                        success: function(data){
-                            //alert(data);
-                         window.location.href=window.location.href;
-                            //$("#newtodo").val("");
-                            //$('#modalCreatTodo').modal('toggle');
-                            //loadToDoAjax();
-                          
-                        },
-                            error: function(e) {
-                                  
-                                  console.log(e.message);
-                        }
-                });
-            } 
-            else
-             {
-                 alert("Enter Valid Message!");
-             }
-                
-               
-               
-               
-    }
- 
-    function loadToDoAjax()
-    {
-               var date = new Date();
-               var d=("0" + date.getDate()).slice(-2);
-               var m=("0" + (date.getMonth() + 1)).slice(-2);
-               var y = date.getFullYear();
-
-               var cldate = y + "-" + m + "-" + d;
-               var cstime=date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-              
-                $("#date").val(cldate);
-                $("#timepicker").val(cstime);
-        
-        
-                $.post(portalLocation+controller+"/settings.php", {"loadToDo":"loadToDo"}, function(data)
-                   { 
-                        $("#toListAjax").html(data);
-                  });
-    }
-    
-    
-    
-    $('#newtodo').on("keypress", function(e) {
-        if (e.keyCode == 13) {
-             createTodo();
-            return false; // prevent the button click from happening
-        }
-        
-    });
-    
+  
     
        
 function ValidateFileleInput() {
@@ -441,19 +375,7 @@ function ValidateFileleInput() {
   
 }
 
-
-
-function yesnoCheck() {
-    var a=$(".switch-animate").attr("class");
-       if (a == 'switch-on switch-animate') {
-       document.getElementById('ifYes').style.visibility = 'visible';
-   }
-   else document.getElementById('ifYes').style.visibility = 'hidden';
-
-}
     
-    
-    
-  {/literal}   
+{/literal}   
 </script>
  

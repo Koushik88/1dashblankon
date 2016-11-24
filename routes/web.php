@@ -56,7 +56,9 @@ Route::group(['middleware' => 'authCheck'], function () {
         Route::post('loadRssFeeds', 'plugin\rssfeedController@loadRssFeeds');
         Route::post('rssbasic', 'plugin\rssfeedController@rssbasic');
         Route::post('rssmodal', 'plugin\rssfeedController@rssmodal');
-        Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl');        
+        Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl'); 
+        Route::post('loadQBOCompanyList','plugin\OneviewControllerAjax@loadQBOCompanyList');
+        Route::post('deleteQBOCompanyList','plugin\OneviewControllerAjax@deleteQBOCompanyList');
         
 	/**
 	 * Social Stream Page
@@ -81,7 +83,23 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 * Profile Page
 	 */
 	Route::get('profile', 'page\HomeController@profile_page')->name('profile');
+        Route::post('profilePictureUpload', 'page\HomeController@profilePictureUpload');
+        Route::post('currentPasswordValidation', 'page\settingsController@currentPasswordValidation');
+        Route::post('currentPasswordChange', 'page\settingsController@currentPasswordChange');
+        Route::get('QBSaveCredentials', 'page\HomeController@QBSaveCredentials');
 
+        /*
+         * Chat Page 
+         */
+        Route::post('chatCurrentUserList', 'page\settingsController@chatCurrentUserList');
+        Route::post('insertChatMessage', 'page\settingsController@insertChatMessage');
+        Route::post('loadChatMessage', 'page\settingsController@loadChatMessage');
+        Route::post('loadNotifications', 'page\settingsController@loadNotifications');
+        Route::post('getNotificationsCount', 'page\settingsController@getNotificationsCount');
+        
+        
+        
+        
 	/**
 	 * Dummy Routes
 	 */

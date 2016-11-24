@@ -41,8 +41,8 @@
 {literal}                                
     <script type="text/javascript">          
 
-    $.post(portalLocation+"page/chat.php",{"currentUserList":"currentUserList"},function(data)
-    {    
+    $.post("chatCurrentUserList",{"currentUserList":"currentUserList"},function(data)
+    { 
           $("#chatProfile").html(data);  
           autometLoadMessage();
     }); 
@@ -73,14 +73,14 @@
         {                 
             if(chartUserId)
             {
-                $.post(portalLocation+"page/chat.php",{"chartUserId":chartUserId,"chartUserRandomId":chartUserRandomId,"chatContent":chatContent},function(data)
+                $.post("insertChatMessage",{"chartUserId":chartUserId,"chartUserRandomId":chartUserRandomId,"chatContent":chatContent},function(data)
                 {    
 
                 });
                autometLoadMessage();
             }else if(latchartUserId)
             {
-                 $.post(portalLocation+"page/chat.php",{"chartUserId":latchartUserId,"chartUserRandomId":chartUserRandomId,"chatContent":chatContent},function(data)
+                 $.post("insertChatMessage",{"chartUserId":latchartUserId,"chartUserRandomId":chartUserRandomId,"chatContent":chatContent},function(data)
                 {    
 
                 });
@@ -104,7 +104,7 @@
      {
             var latchartUserId = $("#latchartUserId").val();
             //alert(latchartUserId);
-            $.post(portalLocation+"page/chat.php",{"selectMsg":"selectMsg","latchartUserId":latchartUserId},function(data)
+            $.post("loadChatMessage",{"selectMsg":"selectMsg","latchartUserId":latchartUserId},function(data)
             {    
                   $("#msg-body").html(data);
             });

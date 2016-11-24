@@ -103,7 +103,7 @@
        function getNotification()
        {
         
-                 $.post(portalLocation+'page/notification_ajax.php',{"viewNotification":"viewNotification"},function(data)
+                 $.post('loadNotifications',{"viewNotification":"viewNotification"},function(data)
                    { 
                         $("#load_ajaxnotify").html(data); 
                         getNotificationCount();
@@ -115,7 +115,7 @@
         
         function getNotificationCount()
         {
-                  $.post(portalLocation+'page/notification_ajax.php',{"viewNotificationCount":"viewNotificationCount"},function(data)
+                  $.post('getNotificationsCount',{"viewNotificationCount":"viewNotificationCount"},function(data)
                    { 
                        if(data > 0)
                        {

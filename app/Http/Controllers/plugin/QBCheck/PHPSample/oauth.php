@@ -1,15 +1,22 @@
 <?php 
-session_start();
 require_once("./config.php");
 
+ session_start();
  
 define('OAUTH_REQUEST_URL', 'https://oauth.intuit.com/oauth/v1/get_request_token');
 define('OAUTH_ACCESS_URL', 'https://oauth.intuit.com/oauth/v1/get_access_token');
 define('OAUTH_AUTHORISE_URL', 'https://appcenter.intuit.com/Connect/Begin');
 
 // The url to this page. it needs to be dynamic to handle runnable's dynamic urls
+if(isset($_GET['oauthredirect']))
+{
+    $oauthredirect = base64_decode($_GET['oauthredirect']);
+    $oauthredirect_function = base64_decode($_GET['oauthredirect_function']);
+    $_SESSION['oauthredirect_function'] = $oauthredirect_function;
+}
 
-define('CALLBACK_URL',$_SESSION["PORTALLOCATION"].'plugin/PHPSample/oauth.php');
+
+define('CALLBACK_URL',$oauthredirect.'app/Http/Controllers/plugin/QBCheck/PHPSample/oauth.php');
 // cleans out the token variable if comming from
 // connect to QuickBooks button
 if ( isset($_GET['start'] ) ) {
@@ -30,9 +37,9 @@ try {
 	
 	if ( isset($_GET['oauth_token']) && isset($_GET['oauth_verifier']) ){
 		// step 3: request a access token from Intuit
-                $oauth->setToken($_GET['oauth_token'], $_SESSION['secret']);
+                $oauth->setToken($_GET['oauth_token'], $_SESSION['secret']);                
 		$access_token = $oauth->getAccessToken( OAUTH_ACCESS_URL );
-	    
+               
                 
                 
               
@@ -45,12 +52,13 @@ try {
 	}
 
 	/** Encoded Decoded with 256 bits * */        
-        $_SESSION["QBouth"] = array('oauth_token'=>encrypt_string($access_token["oauth_token"]),'oauth_token_secret'=>encrypt_string($access_token["oauth_token_secret"]),'realmId'=>encrypt_string($_REQUEST['realmId']),'OAUTH_CONSUMER_KEY'=>encrypt_string(OAUTH_CONSUMER_KEY),'OAUTH_CONSUMER_SECRET'=>encrypt_string(OAUTH_CONSUMER_SECRET));
-          
+       // $_SESSION["QBouth"] = array('oauth_token'=>encrypt_string($access_token["oauth_token"]),'oauth_token_secret'=>encrypt_string($access_token["oauth_token_secret"]),'realmId'=>encrypt_string($_REQUEST['realmId']),'OAUTH_CONSUMER_KEY'=>encrypt_string(OAUTH_CONSUMER_KEY),'OAUTH_CONSUMER_SECRET'=>encrypt_string(OAUTH_CONSUMER_SECRET));
+       
+        echo '<form mathod="get" action='.$_SESSION['oauthredirect_function'].' id="QBCredentails" ><input type="text" name="oauth_token" value='.encrypt_string($access_token["oauth_token"]).'> <input type="text" name="oauth_token_secret" value='.encrypt_string($access_token["oauth_token_secret"]).'> <input type="text" name="realmId" value='.encrypt_string($_REQUEST['realmId']).'>  <input type="text" name="OAUTH_CONSUMER_KEY" value='.encrypt_string(OAUTH_CONSUMER_KEY).'>  <input type="text" name="OAUTH_CONSUMER_SECRET" value='.encrypt_string(OAUTH_CONSUMER_SECRET).'></form>';  
+        
     // write JS to pup up to refresh parent and close popup
-    echo '<script type="text/javascript">
-            window.opener.location.href = window.opener.location.href;
-            window.close();
+       echo '<script type="text/javascript">
+           document.getElementById("QBCredentails").submit();
           </script>';
   }
  

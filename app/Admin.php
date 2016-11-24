@@ -283,5 +283,170 @@ class Admin extends Model {
 			return $users;
 		}
 	}
+        public function getUserInfo()
+        {
+            $DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+                    
+                    $userinfo = $DB->select("SELECT us.last_login as last_login,us.ip as ip,us.allow_mobile as allow_mobile,us.ldap as ldap,ur.role as user_role,us.browser_type as browser_type FROM users us,users_role ur WHERE ur.id = us.user_role AND us.id='".$_SESSION['userId']."' ");
+                    return $this->returnJson($userinfo);
+                }
+        }
+        public function updateProfilePic($profilepic)
+        {
+                $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) {                
+                             $DB->update("UPDATE users SET profilepic = '$profilepic' WHERE id = '".$_SESSION["userId"]."' ");             
+                }
+        }
+        public function passwordCheck($passwd)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) {  
+                    $userinfo = $DB->select("SELECT id FROM users where password = md5(CONCAT('".$passwd."',password_string)) AND id = '".$_SESSION['userId']."' ");
+                   return $this->returnJson($userinfo);                    
+                }
+        }
        
+        public function updatePassword($password_str,$enc_pwd)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) {  
+                    $DB->update("UPDATE users SET password = '$enc_pwd',password_string = '$password_str' WHERE id = '".$_SESSION["userId"]."' ");
+                }
+        }
+        public function getUpdateAllPluginData($pluginName) {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) {  
+                     $QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' ");
+                      return $this->returnJson($QBCredentials); 
+                     }
+        }
+        
+        public function savePluginCredentials($pluginName,$data,$update_plag,$pid)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                   if($pluginName = 'Quickbook')
+                     {
+                       $dataencode = json_encode($data,TRUE);
+                       if($update_plag == '1')
+                        {
+                           $DB->update("UPDATE plugin_details SET `releam_id` = '".$data["realmId"]."' ,`data` = '$dataencode' WHERE p_id = '$pid' AND  userID = '".$_SESSION["userId"]."' "); 
+                        } 
+                        else {
+                            $DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '".$_SESSION["userId"]."'");
+                            $DB->update(" INSERT INTO plugin_details(`name`,`company_id`,`releam_id`,`data`,`userID`,`active`) values('$pluginName','".$_SESSION["company_id"]."','".$data["realmId"]."','$dataencode','".$_SESSION["userId"]."','1')  ");
+                        }
+                    
+                     }
+                }
+        }
+        
+        public function deleteQBOPluginData($pluginName,$pid)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                     $QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' AND p_id = '$pid' ");
+                      return $this->returnJson($QBCredentials); 
+                     
+                }
+            
+        }
+        
+        public function deleteQBPluginInfo($infoId,$pid)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $DB->update("DELETE FROM plugin_details WHERE name = '$infoId' AND userID = '".$_SESSION["userId"]."' AND p_id = '$pid' ");
+                }
+            
+        }
+        public function deletePluginInfo($infoId)
+        {
+             $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $DB->update("DELETE FROM plugin_details WHERE name = '$infoId' AND userID = '".$_SESSION["userId"]."' ");
+                }
+        }
+        
+        public function getCurrentUserList()
+        {
+             $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $userlist = $DB->select("SELECT * FROM (SELECT id,CONCAT(first_name,' ',last_name) as full_name,profilepic FROM users WHERE id != '".$_SESSION["userId"]."') A1 LEFT JOIN (SELECT c_id,user_one,user_two FROM conversation WHERE user_one = '".$_SESSION["userId"]."') A2 ON id = user_two GROUP BY id order by c_id DESC");
+                    return $this->returnJson($userlist); 
+                }
+        }
+        public function getLatestChartUser()
+        {
+             $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                   $userlist = $DB->select("SELECT `c_id` , `user_two` FROM `conversation` WHERE `user_one` = '".$_SESSION["userId"]."'  ORDER BY c_id DESC");
+                   return $this->returnJson($userlist);                    
+                }
+        }
+        public function getRandomIdInfo($userData)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $userInfo = $DB->select(" SELECT max(c_id) as c_id FROM conversation WHERE user_one = '".$_SESSION["userId"]."' AND user_two = ".$userData["chartUserId"]." AND chat_user_randomId = '".$userData["chartUserRandomId"]."' ");
+                    return $this->returnJson($userInfo);                     
+                }
+        }
+        public function insertChatUserInfo($userData)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $DB->update(" INSERT INTO conversation(user_one,user_two,chat_user_randomId) values('".$_SESSION["userId"]."','".$userData["chartUserId"]."','".$userData["chartUserRandomId"]."') ");
+                }
+            
+        }
+        public function insertChatMessage($result,$userData)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                    $DB->update("INSERT INTO conversation_reply(reply,user_id_fk,c_id_fk) values('".nl2br(htmlentities($userData["chatContent"] , ENT_QUOTES, 'UTF-8'))."','".$_SESSION["userId"]."',$result)" );
+                }
+        }
+        public function selectChatMessage($chartuserId)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) { 
+                   $chatInfo =  $DB->select(" SELECT ms.user_one,ms.user_two,ms.time,ms.reply,us.first_name,(SELECT first_name FROM users WHERE id=ms.user_two ) as first_name1,profilepic FROM (SELECT user_one,user_two,a2.time,reply FROM (SELECT * FROM `conversation` WHERE (`user_one` = '".$_SESSION["userId"]."' AND `user_two` ='$chartuserId') OR (`user_one` = '$chartuserId' AND `user_two` ='".$_SESSION["userId"]."')) a1
+                                     LEFT JOIN (SELECT * FROM conversation_reply) a2 ON a1.c_id = a2.c_id_fk ) ms LEFT JOIN (SELECT id,first_name,profilepic FROM users) us ON us.id = ms.user_one ORDER BY  ms.time ");
+                
+                   return $this->returnJson($chatInfo); 
+                }
+        }
+        public function getMsgNotification()
+        {
+            $DB = DB::connection('dynamic_mysql');
+                if ($DB->getPdo()) {
+                    $date = date('Y-m-d H:i:s');
+                    $notification =  $DB->select(" SELECT * FROM(SELECT * FROM(SELECT 'Message' as category,cs.user_one as 'userid',DATE_FORMAT(cr.time, '%b %d %Y %r') as 'msgtime',cr.reply as 'msg' FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '".$_SESSION["userId"]."' ORDER BY cr.`time` DESC LIMIT 0 , 5) A
+                        UNION ALL SELECT * FROM(SELECT 'Notification' as categoryc, `senderid` as 'userid', DATE_FORMAT(`annotime`, '%b %d %Y %r') as 'msgtime', `message` as 'msg' FROM `widget_annotation` WHERE `senderid` != '".$_SESSION["userId"]."' ORDER BY `annotime` DESC LIMIT 0 , 5) B) msg
+                        LEFT JOIN (SELECT id,	profilepic,CONCAT(first_name,' ',last_name) as `first_name` FROM users) us  ON us.id = msg.userid
+                         UNION ALL 
+                         SELECT 'Todo' as category ,`userid`,DATE_FORMAT(`eventdate`,'%b %d %Y %r') as msgtime,`todo` as msg,`userid` as id,(SELECT profilepic FROM `users` WHERE id ='".$_SESSION['userId']."') as  profilepic , 'Reminder' as first_name FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='".$_SESSION['userId']."' AND `action`='U' 
+                         UNION ALL
+                         SELECT 'Calendar' as category ,`user_id`,DATE_FORMAT(`startdate`,'%b %d %Y %r') as msgtime,`description` as msg,`user_id` as id,(SELECT profilepic FROM `users` WHERE id ='".$_SESSION["userId"]."') as  profilepic , 'Reminder' as first_name FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '".$_SESSION["userId"]."' ");
+                    return $this->returnJson($notification); 
+                }
+        }
+        public function getNotifyCount()
+        {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) {
+                $date = date('Y-m-d H:i:s');
+                  $notification_count =  $DB->select("SELECT COUNT(*) as `Count` FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '".$_SESSION["userId"]."' AND (cr.time > '".$_SESSION["previous_login"]."') 
+                                 UNION ALL
+                             SELECT COUNT(*) as `Count` FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='".$_SESSION['userId']."' AND `action`='U' 
+                                 UNION ALL 
+                                SELECT COUNT(*) as `Count` FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '".$_SESSION["userId"]."' ");
+                   return $this->returnJson($notification_count); 
+                  }
+            
+        }
+        
 }
