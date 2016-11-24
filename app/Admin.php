@@ -112,13 +112,11 @@ class Admin extends Model {
 	}
 	/**
 	 * [savePluginCredentials description]
-	 * @param  [type] $pluginName  [description]
-	 * @param  [type] $data        [description]
-	 * @param  [type] $update_plag [description]
-	 * @param  [type] $pid         [description]
-	 * @return [type]              [description]
+	 * @param  [type] $pluginName [description]
+	 * @param  [type] $data       [description]
+	 * @return [type]             [description]
 	 */
-	public function savePluginCredentials($pluginName, $data, $update_plag = null, $pid = null) {
+	public function savePluginCredentials($pluginName, $data) {
 		$DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) {
 			$res = $DB->select("SELECT p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");

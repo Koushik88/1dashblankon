@@ -68,6 +68,11 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 */
 	Route::get('socialconnection/{plugin}', 'socialconnectons\SocialConnectionController@addConnection');
 	Route::get('twitter_oauth', 'socialconnectons\TwitterController@index');
+	Route::get('facebook_oauth', 'socialconnectons\FacebookController@index');
+	Route::get('instagram_oauth', 'socialconnectons\InstagramController@index');
+	// Route::get('pinterest_oauth', 'socialconnectons\PinterestController@index');
+	Route::get('pinterest_oauth', ['uses' => 'socialconnectons\InstagramController@index', 'https' => true]);
+	Route::get('vimeo_oauth', 'socialconnectons\VimeoController@index');
 	/**
 	 * Calendar Page
 	 */
