@@ -677,7 +677,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
         {
             var msg =confirm("Are you sure you want to delete a connection?");
             if (msg == true) {
-                    $.post(portalLocation+"plugin/plugin_ajax.php", {"deletePluginInfo":deletePluginInfo}, function(data)
+                    $.post("deleteConnection", {"deletePluginInfo":deletePluginInfo}, function(data)
                      { 
                          alert("Your Account has been successfully deleted.");
                          location.reload(true);

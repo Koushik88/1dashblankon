@@ -38,3 +38,10 @@ function get_PinterestScope() {
 define('VIMEO_CLIENT_ID', '5f9a49debe8669994d8fff6fc6ba5bc1fafc8e5b');
 define('VIMEO_CLIENT_SECRET', 'yRJ8ubnYu/9UyOMEk9bXYnxxOAtnE1zsFpqt58P3iOVhbUbFp1odmgEOxmzv6h5K8vSW4/EIJ1u81WG5pS2Ek0boxX8xfLtAhy07n5k6hAGUsCUb7wGjxy1nKnsgeOpG');
 define('VIMEO_OAUTH_CALLBACK', env('APP_URL') . 'vimeo_oauth');
+/**
+ * Linkedin App Credentials
+ */
+define('linkedinApiKey', '78e617yc7q758b');
+define('linkedinApiSecret', '9MmEWqUN62Z55u6n');
+define('linkedinScope', 'r_basicprofile r_emailaddress rw_company_admin w_share');
+define('linkedin_callback', env('APP_URL') . 'linkedin_oauth');

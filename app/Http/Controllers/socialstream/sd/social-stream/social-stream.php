@@ -2619,6 +2619,11 @@ class SocialStream {
 											}
 
 											$sbi = $this->make_timestr($data->timestamp, $link);
+											// echo "<pre>";
+											// print_r($feed->company);
+											// print_r(@$feed->company->squareLogoUrl);
+											// print_r($feed->company->logoUrl);
+											// die();
 											$itemdata = array(
 												'title' => $title,
 												'thumb' => $thumb,
@@ -2631,7 +2636,7 @@ class SocialStream {
 												'user' => array(
 													'name' => $updateContent->company->name,
 													'url' => 'https://www.linkedin.com/company/' . $updateContent->company->id,
-													'image' => (@$feed->company->squareLogoUrl) ? $feed->company->squareLogoUrl : $feed->company->logoUrl,
+													// 'image' => (@$feed->company->squareLogoUrl) ? $feed->company->squareLogoUrl : $feed->company->logoUrl,
 												),
 												'type' => 'pencil',
 												'icon' => array(@$themeoption['social_icons'][1], @$themeoption['type_icons'][0]),

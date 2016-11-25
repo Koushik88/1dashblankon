@@ -27,6 +27,7 @@ class SocialStreamController extends Controller {
 		$twitter_crd = array();
 		$vimeo_crd = array();
 		$instagram_crd = array();
+		$linkedin_crd = array();
 		/**
 		 * Prepare All social media user info array
 		 */
@@ -36,6 +37,7 @@ class SocialStreamController extends Controller {
 		$vimeo = array();
 		$instagram = array();
 		$rss = array();
+		$linkedin = array();
 		// all social media credentials
 		foreach ($dbres as $val) {
 			if ($val['name'] == "Facebook") {
@@ -109,6 +111,17 @@ class SocialStreamController extends Controller {
 				$instagramID = array($pluginsData['id']);
 				$instagram['instagram_id_1'] = $instagramID;
 			}
+			/**
+			 * LinkedIn linkedin_id_1
+			 */
+			if ($val['name'] == "LinkedIn") {
+				$pluginsData = json_decode($val['data'], true);
+				// access token info
+				$linkedin_crd = array('linkedin_access_token' => $pluginsData['LKDIN_ACCESS_TOKEN']);
+				// company id info
+				$linkedin_company_id = array($pluginsData['LKDIN_CMPNY_ID']);
+				$linkedin['linkedin_id_1'] = $linkedin_company_id;
+			}
 		}
 		/**
 		 * google product credentials
@@ -130,6 +143,9 @@ class SocialStreamController extends Controller {
 		}
 		if ($vimeo) {
 			$all_social_plugins['vimeo'] = $vimeo;
+		}
+		if ($linkedin) {
+			$all_social_plugins['linkedin'] = $linkedin;
 		}
 		// google products
 		if ($googleProducts) {
@@ -171,6 +187,9 @@ class SocialStreamController extends Controller {
 		if ($vimeo_crd) {
 			$allAccessCredentials['vimeo'] = $vimeo_crd;
 		}
+		if ($linkedin_crd) {
+			$allAccessCredentials['linkedin'] = $linkedin_crd;
+		}
 		/**
 		 * make social stream call
 		 */
@@ -184,7 +203,7 @@ class SocialStreamController extends Controller {
 				'itemwidth' => 250,
 				'results' => 45,
 				'iframe' => 'media',
-				'filters_order' => 'twitter,facebook,google,pinterest,instagram,youtube,vimeo,rss',
+				'filters_order' => 'twitter,facebook,google,pinterest,instagram,youtube,vimeo,rss,linkedin',
 				'breakpoints' => array('4', '4', '3', '3', '2', '1', '1'),
 				'add_files' => true,
 			), $allAccessCredentials

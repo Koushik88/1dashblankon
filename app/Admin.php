@@ -131,6 +131,18 @@ class Admin extends Model {
 			}
 		}
 	}
+	/**
+	 * [deletePluginInfo description]
+	 * @param  [type] $pluginName [description]
+	 * @return [type]             [description]
+	 */
+	public function deletePluginInfo($pluginName) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$sql = "DELETE FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ";
+			$DB->delete($sql);
+		}
+	}
 
 	/**
 	 * [updateActiveQBOCompany description]
@@ -291,274 +303,236 @@ class Admin extends Model {
 			return $users;
 		}
 	}
-        public function getUserInfo()
-        {
-            $DB = DB::connection('dynamic_mysql');
+	public function getUserInfo() {
+		$DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) {
-                    
-                    $userinfo = $DB->select("SELECT us.last_login as last_login,us.ip as ip,us.allow_mobile as allow_mobile,us.ldap as ldap,ur.role as user_role,us.browser_type as browser_type FROM users us,users_role ur WHERE ur.id = us.user_role AND us.id='".$_SESSION['userId']."' ");
-                    return $this->returnJson($userinfo);
-                }
-        }
-        public function updateProfilePic($profilepic)
-        {
-                $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) {                
-                             $DB->update("UPDATE users SET profilepic = '$profilepic' WHERE id = '".$_SESSION["userId"]."' ");             
-                }
-        }
-        public function passwordCheck($passwd)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) {  
-                    $userinfo = $DB->select("SELECT id FROM users where password = md5(CONCAT('".$passwd."',password_string)) AND id = '".$_SESSION['userId']."' ");
-                   return $this->returnJson($userinfo);                    
-                }
-        }
-       
-        public function updatePassword($password_str,$enc_pwd)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) {  
-                    $DB->update("UPDATE users SET password = '$enc_pwd',password_string = '$password_str' WHERE id = '".$_SESSION["userId"]."' ");
-                }
-        }
-        public function getUpdateAllPluginData($pluginName) {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) {  
-                     $QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' ");
-                      return $this->returnJson($QBCredentials); 
-                     }
-        }
-        
-        public function saveQBPluginCredentials($pluginName,$data,$update_plag,$pid)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                   if($pluginName == 'Quickbook')
-                     {
-                       $dataencode = json_encode($data,TRUE);
-                       if($update_plag == '1')
-                        {
-                           $DB->update("UPDATE plugin_details SET `releam_id` = '".$data["realmId"]."' ,`data` = '$dataencode' WHERE p_id = '$pid' AND  userID = '".$_SESSION["userId"]."' "); 
-                        } 
-                        else {
-                            $DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '".$_SESSION["userId"]."'");
-                            $DB->update("INSERT INTO plugin_details(`name`,`company_id`,`releam_id`,`data`,`userID`,`active`) values('$pluginName','".$_SESSION["company_id"]."','".$data["realmId"]."','$dataencode','".$_SESSION["userId"]."','1')  ");
-                        }
-                    
-                     }
-                }
-        }
-        
-        public function deleteQBOPluginData($pluginName,$pid)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                     $QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '".$_SESSION["userId"]."' AND p_id = '$pid' ");
-                      return $this->returnJson($QBCredentials); 
-                     
-                }
-            
-        }
-        
-        public function deleteQBPluginInfo($infoId,$pid)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $DB->update("DELETE FROM plugin_details WHERE name = '$infoId' AND userID = '".$_SESSION["userId"]."' AND p_id = '$pid' ");
-                }
-            
-        }
-        public function deletePluginInfo($infoId)
-        {
-             $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $DB->update("DELETE FROM plugin_details WHERE name = '$infoId' AND userID = '".$_SESSION["userId"]."' ");
-                }
-        }
-        
-        public function getCurrentUserList()
-        {
-             $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $userlist = $DB->select("SELECT * FROM (SELECT id,CONCAT(first_name,' ',last_name) as full_name,profilepic FROM users WHERE id != '".$_SESSION["userId"]."') A1 LEFT JOIN (SELECT c_id,user_one,user_two FROM conversation WHERE user_one = '".$_SESSION["userId"]."') A2 ON id = user_two GROUP BY id order by c_id DESC");
-                    return $this->returnJson($userlist); 
-                }
-        }
-        public function getLatestChartUser()
-        {
-             $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                   $userlist = $DB->select("SELECT `c_id` , `user_two` FROM `conversation` WHERE `user_one` = '".$_SESSION["userId"]."'  ORDER BY c_id DESC");
-                   return $this->returnJson($userlist);                    
-                }
-        }
-        public function getRandomIdInfo($userData)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $userInfo = $DB->select(" SELECT max(c_id) as c_id FROM conversation WHERE user_one = '".$_SESSION["userId"]."' AND user_two = ".$userData["chartUserId"]." AND chat_user_randomId = '".$userData["chartUserRandomId"]."' ");
-                    return $this->returnJson($userInfo);                     
-                }
-        }
-        public function insertChatUserInfo($userData)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $DB->update(" INSERT INTO conversation(user_one,user_two,chat_user_randomId) values('".$_SESSION["userId"]."','".$userData["chartUserId"]."','".$userData["chartUserRandomId"]."') ");
-                }
-            
-        }
-        public function insertChatMessage($result,$userData)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                    $DB->update("INSERT INTO conversation_reply(reply,user_id_fk,c_id_fk) values('".nl2br(htmlentities($userData["chatContent"] , ENT_QUOTES, 'UTF-8'))."','".$_SESSION["userId"]."',$result)" );
-                }
-        }
-        public function selectChatMessage($chartuserId)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) { 
-                   $chatInfo =  $DB->select(" SELECT ms.user_one,ms.user_two,ms.time,ms.reply,us.first_name,(SELECT first_name FROM users WHERE id=ms.user_two ) as first_name1,profilepic FROM (SELECT user_one,user_two,a2.time,reply FROM (SELECT * FROM `conversation` WHERE (`user_one` = '".$_SESSION["userId"]."' AND `user_two` ='$chartuserId') OR (`user_one` = '$chartuserId' AND `user_two` ='".$_SESSION["userId"]."')) a1
+
+			$userinfo = $DB->select("SELECT us.last_login as last_login,us.ip as ip,us.allow_mobile as allow_mobile,us.ldap as ldap,ur.role as user_role,us.browser_type as browser_type FROM users us,users_role ur WHERE ur.id = us.user_role AND us.id='" . $_SESSION['userId'] . "' ");
+			return $this->returnJson($userinfo);
+		}
+	}
+	public function updateProfilePic($profilepic) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("UPDATE users SET profilepic = '$profilepic' WHERE id = '" . $_SESSION["userId"] . "' ");
+		}
+	}
+	public function passwordCheck($passwd) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$userinfo = $DB->select("SELECT id FROM users where password = md5(CONCAT('" . $passwd . "',password_string)) AND id = '" . $_SESSION['userId'] . "' ");
+			return $this->returnJson($userinfo);
+		}
+	}
+
+	public function updatePassword($password_str, $enc_pwd) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("UPDATE users SET password = '$enc_pwd',password_string = '$password_str' WHERE id = '" . $_SESSION["userId"] . "' ");
+		}
+	}
+	public function getUpdateAllPluginData($pluginName) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' ");
+			return $this->returnJson($QBCredentials);
+		}
+	}
+
+	public function saveQBPluginCredentials($pluginName, $data, $update_plag, $pid) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			if ($pluginName == 'Quickbook') {
+				$dataencode = json_encode($data, TRUE);
+				if ($update_plag == '1') {
+					$DB->update("UPDATE plugin_details SET `releam_id` = '" . $data["realmId"] . "' ,`data` = '$dataencode' WHERE p_id = '$pid' AND  userID = '" . $_SESSION["userId"] . "' ");
+				} else {
+					$DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Quickbook' AND userID = '" . $_SESSION["userId"] . "'");
+					$DB->update("INSERT INTO plugin_details(`name`,`company_id`,`releam_id`,`data`,`userID`,`active`) values('$pluginName','" . $_SESSION["company_id"] . "','" . $data["realmId"] . "','$dataencode','" . $_SESSION["userId"] . "','1')  ");
+				}
+
+			}
+		}
+	}
+
+	public function deleteQBOPluginData($pluginName, $pid) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$QBCredentials = $DB->select("SELECT data,p_id FROM plugin_details WHERE name = '$pluginName' AND userID = '" . $_SESSION["userId"] . "' AND p_id = '$pid' ");
+			return $this->returnJson($QBCredentials);
+
+		}
+
+	}
+
+	public function deleteQBPluginInfo($infoId, $pid) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("DELETE FROM plugin_details WHERE name = '$infoId' AND userID = '" . $_SESSION["userId"] . "' AND p_id = '$pid' ");
+		}
+
+	}
+
+	public function getCurrentUserList() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$userlist = $DB->select("SELECT * FROM (SELECT id,CONCAT(first_name,' ',last_name) as full_name,profilepic FROM users WHERE id != '" . $_SESSION["userId"] . "') A1 LEFT JOIN (SELECT c_id,user_one,user_two FROM conversation WHERE user_one = '" . $_SESSION["userId"] . "') A2 ON id = user_two GROUP BY id order by c_id DESC");
+			return $this->returnJson($userlist);
+		}
+	}
+	public function getLatestChartUser() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$userlist = $DB->select("SELECT `c_id` , `user_two` FROM `conversation` WHERE `user_one` = '" . $_SESSION["userId"] . "'  ORDER BY c_id DESC");
+			return $this->returnJson($userlist);
+		}
+	}
+	public function getRandomIdInfo($userData) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$userInfo = $DB->select(" SELECT max(c_id) as c_id FROM conversation WHERE user_one = '" . $_SESSION["userId"] . "' AND user_two = " . $userData["chartUserId"] . " AND chat_user_randomId = '" . $userData["chartUserRandomId"] . "' ");
+			return $this->returnJson($userInfo);
+		}
+	}
+	public function insertChatUserInfo($userData) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update(" INSERT INTO conversation(user_one,user_two,chat_user_randomId) values('" . $_SESSION["userId"] . "','" . $userData["chartUserId"] . "','" . $userData["chartUserRandomId"] . "') ");
+		}
+
+	}
+	public function insertChatMessage($result, $userData) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("INSERT INTO conversation_reply(reply,user_id_fk,c_id_fk) values('" . nl2br(htmlentities($userData["chatContent"], ENT_QUOTES, 'UTF-8')) . "','" . $_SESSION["userId"] . "',$result)");
+		}
+	}
+	public function selectChatMessage($chartuserId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$chatInfo = $DB->select(" SELECT ms.user_one,ms.user_two,ms.time,ms.reply,us.first_name,(SELECT first_name FROM users WHERE id=ms.user_two ) as first_name1,profilepic FROM (SELECT user_one,user_two,a2.time,reply FROM (SELECT * FROM `conversation` WHERE (`user_one` = '" . $_SESSION["userId"] . "' AND `user_two` ='$chartuserId') OR (`user_one` = '$chartuserId' AND `user_two` ='" . $_SESSION["userId"] . "')) a1
                                      LEFT JOIN (SELECT * FROM conversation_reply) a2 ON a1.c_id = a2.c_id_fk ) ms LEFT JOIN (SELECT id,first_name,profilepic FROM users) us ON us.id = ms.user_one ORDER BY  ms.time ");
-                
-                   return $this->returnJson($chatInfo); 
-                }
-        }
-        public function getMsgNotification()
-        {
-            $DB = DB::connection('dynamic_mysql');
-                if ($DB->getPdo()) {
-                    $date = date('Y-m-d H:i:s');
-                    $notification =  $DB->select(" SELECT * FROM(SELECT * FROM(SELECT 'Message' as category,cs.user_one as 'userid',DATE_FORMAT(cr.time, '%b %d %Y %r') as 'msgtime',cr.reply as 'msg' FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '".$_SESSION["userId"]."' ORDER BY cr.`time` DESC LIMIT 0 , 5) A
-                        UNION ALL SELECT * FROM(SELECT 'Notification' as categoryc, `senderid` as 'userid', DATE_FORMAT(`annotime`, '%b %d %Y %r') as 'msgtime', `message` as 'msg' FROM `widget_annotation` WHERE `senderid` != '".$_SESSION["userId"]."' ORDER BY `annotime` DESC LIMIT 0 , 5) B) msg
+
+			return $this->returnJson($chatInfo);
+		}
+	}
+	public function getMsgNotification() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$date = date('Y-m-d H:i:s');
+			$notification = $DB->select(" SELECT * FROM(SELECT * FROM(SELECT 'Message' as category,cs.user_one as 'userid',DATE_FORMAT(cr.time, '%b %d %Y %r') as 'msgtime',cr.reply as 'msg' FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '" . $_SESSION["userId"] . "' ORDER BY cr.`time` DESC LIMIT 0 , 5) A
+                        UNION ALL SELECT * FROM(SELECT 'Notification' as categoryc, `senderid` as 'userid', DATE_FORMAT(`annotime`, '%b %d %Y %r') as 'msgtime', `message` as 'msg' FROM `widget_annotation` WHERE `senderid` != '" . $_SESSION["userId"] . "' ORDER BY `annotime` DESC LIMIT 0 , 5) B) msg
                         LEFT JOIN (SELECT id,	profilepic,CONCAT(first_name,' ',last_name) as `first_name` FROM users) us  ON us.id = msg.userid
-                         UNION ALL 
-                         SELECT 'Todo' as category ,`userid`,DATE_FORMAT(`eventdate`,'%b %d %Y %r') as msgtime,`todo` as msg,`userid` as id,(SELECT profilepic FROM `users` WHERE id ='".$_SESSION['userId']."') as  profilepic , 'Reminder' as first_name FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='".$_SESSION['userId']."' AND `action`='U' 
                          UNION ALL
-                         SELECT 'Calendar' as category ,`user_id`,DATE_FORMAT(`startdate`,'%b %d %Y %r') as msgtime,`description` as msg,`user_id` as id,(SELECT profilepic FROM `users` WHERE id ='".$_SESSION["userId"]."') as  profilepic , 'Reminder' as first_name FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '".$_SESSION["userId"]."' ");
-                    return $this->returnJson($notification); 
-                }
-        }
-        public function getNotifyCount()
-        {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) {
-                $date = date('Y-m-d H:i:s');
-                  $notification_count =  $DB->select("SELECT COUNT(*) as `Count` FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '".$_SESSION["userId"]."' AND (cr.time > '".$_SESSION["previous_login"]."') 
+                         SELECT 'Todo' as category ,`userid`,DATE_FORMAT(`eventdate`,'%b %d %Y %r') as msgtime,`todo` as msg,`userid` as id,(SELECT profilepic FROM `users` WHERE id ='" . $_SESSION['userId'] . "') as  profilepic , 'Reminder' as first_name FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='" . $_SESSION['userId'] . "' AND `action`='U'
+                         UNION ALL
+                         SELECT 'Calendar' as category ,`user_id`,DATE_FORMAT(`startdate`,'%b %d %Y %r') as msgtime,`description` as msg,`user_id` as id,(SELECT profilepic FROM `users` WHERE id ='" . $_SESSION["userId"] . "') as  profilepic , 'Reminder' as first_name FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '" . $_SESSION["userId"] . "' ");
+			return $this->returnJson($notification);
+		}
+	}
+	public function getNotifyCount() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$date = date('Y-m-d H:i:s');
+			$notification_count = $DB->select("SELECT COUNT(*) as `Count` FROM `conversation` cs,conversation_reply cr WHERE `c_id` = c_id_fk AND `user_two` = '" . $_SESSION["userId"] . "' AND (cr.time > '" . $_SESSION["previous_login"] . "')
                                  UNION ALL
-                             SELECT COUNT(*) as `Count` FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='".$_SESSION['userId']."' AND `action`='U' 
-                                 UNION ALL 
-                                SELECT COUNT(*) as `Count` FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '".$_SESSION["userId"]."' ");
-                   return $this->returnJson($notification_count); 
-                  }
-            
-        }
-        public function getAllUserList(){
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) {
-                $user_list = $DB->select("SELECT U.id, CONCAT(first_name,' ',last_name) AS `Username` , email AS email,UR.role AS role,user_type_id,DATE_FORMAT(last_login,'%d-%b-%Y %r') AS last_login , ip,active FROM users U,users_role UR WHERE U.user_role = UR.id  ORDER BY U.last_login DESC");
-                return $this->returnJson($user_list); 
-            }
-        }
-        public function getExistingRole()
-           {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) {
-                $role_list = $DB->select("SELECT * FROM users_role ");   
-                return $this->returnJson($role_list); 
-            }
-           }
-           
-        public function getUserInfoDetails($data)
-        {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) {            
-                $user_info = $DB->select("SELECT * FROM users WHERE id= '$data' ");
-                return $this->returnJson($user_info);
-            }
-        }
-        public function updateUserInfo($data)        
-        {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) {  
-                $DB->update("UPDATE users SET `first_name` = '".$data["frstname"]."' ,`last_name` = '".$data["lstname"]."' ,`user_role` = '".$data["role"]."'  WHERE id = '".$data["user_id"]."'");
-            }
-        }
-        public function resetPassword($data)
-        {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) { 
-                $DB->update("UPDATE users SET `password` = '".$data["password"]."', `password_string`= '".$data["pswstr"]."' WHERE id = '".$data["resetId"]."' ");
-            }
-        }
-        public function changeUserStatus($data)
-         {
-            $DB = DB::connection('dynamic_mysql');
-            if ($DB->getPdo()) { 
-                $DB->update("UPDATE users SET  active = '".$data["status"]."' WHERE id = '".$data["id"]."' ");
-            }
-        }
-        public function insertUser($data)
-            {
-            
-             $DB = DB::connection('dynamic_mysql');
-                    if ($DB->getPdo()) { 
-                         $DB->update("INSERT INTO users(`password`,`password_string`,`first_name`,`last_name`,`email`,`user_role`,`user_type_id`) 
-                          VALUES('".$data["password"]."','".$data["pswstr"]."','".$data["frstname"]."','".$data["lstname"]."','".$data["email"]."','".$data["role"]."','3') ");
+                             SELECT COUNT(*) as `Count` FROM `todo` WHERE `eventdate` >= '$date' AND `eventdate` <= '$date' + INTERVAL 1 HOUR AND `userid`='" . $_SESSION['userId'] . "' AND `action`='U'
+                                 UNION ALL
+                                SELECT COUNT(*) as `Count` FROM `notification_events` WHERE `startdate` >= '$date' AND `startdate` <= '$date' + INTERVAL 1 HOUR AND `user_id`= '" . $_SESSION["userId"] . "' ");
+			return $this->returnJson($notification_count);
+		}
 
-                          $id = $DB->select(" SELECT id FROM users WHERE email = '".$data["email"]."' ");
-                          $result =  $this->returnJson($id);
-                          $result = $result[0]["id"];
+	}
+	public function getAllUserList() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$user_list = $DB->select("SELECT U.id, CONCAT(first_name,' ',last_name) AS `Username` , email AS email,UR.role AS role,user_type_id,DATE_FORMAT(last_login,'%d-%b-%Y %r') AS last_login , ip,active FROM users U,users_role UR WHERE U.user_role = UR.id  ORDER BY U.last_login DESC");
+			return $this->returnJson($user_list);
+		}
+	}
+	public function getExistingRole() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$role_list = $DB->select("SELECT * FROM users_role ");
+			return $this->returnJson($role_list);
+		}
+	}
 
-                         $DB->update("INSERT INTO menu_users(`menu_id`,`user_id`) values('1332',$result),('1333',$result),('1334',$result),('1335',$result),('1336',$result),('1338',$result)" );
+	public function getUserInfoDetails($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$user_info = $DB->select("SELECT * FROM users WHERE id= '$data' ");
+			return $this->returnJson($user_info);
+		}
+	}
+	public function updateUserInfo($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("UPDATE users SET `first_name` = '" . $data["frstname"] . "' ,`last_name` = '" . $data["lstname"] . "' ,`user_role` = '" . $data["role"] . "'  WHERE id = '" . $data["user_id"] . "'");
+		}
+	}
+	public function resetPassword($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("UPDATE users SET `password` = '" . $data["password"] . "', `password_string`= '" . $data["pswstr"] . "' WHERE id = '" . $data["resetId"] . "' ");
+		}
+	}
+	public function changeUserStatus($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("UPDATE users SET  active = '" . $data["status"] . "' WHERE id = '" . $data["id"] . "' ");
+		}
+	}
+	public function insertUser($data) {
 
-                         $database = str_replace('_admin','',$_SESSION["dynamic_db_name"]);
-                         DB::update("INSERT INTO 1dash_app_userlist(`email_id`,`comany_name`) values('".$data["email"]."','$database') " );
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("INSERT INTO users(`password`,`password_string`,`first_name`,`last_name`,`email`,`user_role`,`user_type_id`)
+                          VALUES('" . $data["password"] . "','" . $data["pswstr"] . "','" . $data["frstname"] . "','" . $data["lstname"] . "','" . $data["email"] . "','" . $data["role"] . "','3') ");
 
-                    }
-             }
-        public function deleteUser($data) 
-        {
-            $DB = DB::connection('dynamic_mysql');
-                    if ($DB->getPdo()) { 
-                        $DB->update("DELETE FROM users WHERE id = '".$data["userId"]."' ");
-                        DB::update("DELETE FROM 1dash_app_userlist WHERE email_id = '".$data["email"]."' ");
-                    }
-        }
-        public function emailCheck($data)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                    if ($DB->getPdo()) { 
-                        $emailid = $DB->select("SELECT email FROM users WHERE email = '".$data."' ");
-                        return $this->returnJson($emailid);
-                    }
-        }
-        public function emailCheck_commoDB($data)
-        {
-              $emailid = DB::select(" SELECT email_id FROM 1dash_app_userlist WHERE email_id = '".$data."' ");
-              return $this->returnJson($emailid);
-        }
-        public function getRoleExist($role)
-        {
-            $DB = DB::connection('dynamic_mysql');
-                    if ($DB->getPdo()) { 
-                        
-                       $role =  $DB->select("SELECT role FROM users_role WHERE role='$role' ");
-                       return $this->returnJson($role);
-                    }
-        }
-        public function insertRole($data)
-           {
-             $DB = DB::connection('dynamic_mysql');
-                    if ($DB->getPdo()) { 
-                        
-                        $DB->update(" INSERT INTO users_role(`role`) Values('".TRIM($data["newrole"])."') ");
-                    }
-        }
-            
-         
-        
+			$id = $DB->select(" SELECT id FROM users WHERE email = '" . $data["email"] . "' ");
+			$result = $this->returnJson($id);
+			$result = $result[0]["id"];
+
+			$DB->update("INSERT INTO menu_users(`menu_id`,`user_id`) values('1332',$result),('1333',$result),('1334',$result),('1335',$result),('1336',$result),('1338',$result)");
+
+			$database = str_replace('_admin', '', $_SESSION["dynamic_db_name"]);
+			DB::update("INSERT INTO 1dash_app_userlist(`email_id`,`comany_name`) values('" . $data["email"] . "','$database') ");
+
+		}
+	}
+	public function deleteUser($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$DB->update("DELETE FROM users WHERE id = '" . $data["userId"] . "' ");
+			DB::update("DELETE FROM 1dash_app_userlist WHERE email_id = '" . $data["email"] . "' ");
+		}
+	}
+	public function emailCheck($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$emailid = $DB->select("SELECT email FROM users WHERE email = '" . $data . "' ");
+			return $this->returnJson($emailid);
+		}
+	}
+	public function emailCheck_commoDB($data) {
+		$emailid = DB::select(" SELECT email_id FROM 1dash_app_userlist WHERE email_id = '" . $data . "' ");
+		return $this->returnJson($emailid);
+	}
+	public function getRoleExist($role) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+
+			$role = $DB->select("SELECT role FROM users_role WHERE role='$role' ");
+			return $this->returnJson($role);
+		}
+	}
+	public function insertRole($data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+
+			$DB->update(" INSERT INTO users_role(`role`) Values('" . TRIM($data["newrole"]) . "') ");
+		}
+	}
+
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\socialconnectons;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\socialconnectons\instagram\Instagram;
 use DirkGroenen\Pinterest\Pinterest;
 use Facebook\Facebook;
 use Facebook\getRedirectLoginHelper;
+use Illuminate\Http\Request;
 use TwitterOAuth;
 use Vimeo\Vimeo;
 
@@ -98,11 +100,32 @@ class SocialConnectionController extends Controller {
 			}
 			return redirect($loginUrl);
 		} else if ($plugin == "LinkedIn") {
-
+			$linkedinApiKey = linkedinApiKey;
+			$linkedinApiSecret = linkedinApiSecret;
+			$linkedinScope = linkedinScope;
+			$callbackURL = linkedin_callback;
+			if ($_GET['source'] == "widget") {
+				$login_url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=$linkedinApiKey&redirect_uri=$callbackURL&state=widget&scope=$linkedinScope";
+			} else if ($_GET['source'] == "profile") {
+				$login_url = "https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=$linkedinApiKey&redirect_uri=$callbackURL&state=profile&scope=$linkedinScope";
+			}
+			return redirect($login_url);
 		} else if ($plugin == "Google") {
 
 		} else {
 			return redirect("profile");
+		}
+	}
+	/**
+	 * [deleteConnectio description]
+	 * @return [type] [description]
+	 */
+	public function deleteConnection(Request $request) {
+		if ($request->ajax()) {
+			$plugin = $request->input('deletePluginInfo');
+			$admin_obj = new Admin;
+			$admin_obj->deletePluginInfo($plugin);
+			return "success";
 		}
 	}
 }
