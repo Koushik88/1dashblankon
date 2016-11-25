@@ -90,13 +90,9 @@ class HomeController extends Controller {
 		 * [$admin_obj description]
 		 * @var Admin model
 		 */
-            
-                $folderName = "1dash-micration";            
+                 
                 if(isset($_SERVER['HTTPS'])) $protocol = 'https'; else $protocol = 'http';
                 $server = $_SERVER['HTTP_HOST'];
-                $buildUrl = "$protocol://localhost" . "/$folderName/";
-                $currLocation = "$protocol://".$server.$_SERVER['SCRIPT_NAME'];
-                $curr = $server.$_SERVER['SCRIPT_NAME'];
                 $currPageServer = "$protocol://".$server;
               
             
@@ -108,15 +104,15 @@ class HomeController extends Controller {
 			array_push($plugins, $value["name"]);
 		}
                 
-                $oauthredirect_url = $buildUrl;                
-                $oauthredirect_function = $currPageServer.'/QBSaveCredentials';                
+                 
+                $buildUrl = $currPageServer.'/QBSaveCredentials'; 
+                $_SESSION["redirectQBUrl"] = $buildUrl;
+                
                 $userinfo = $admin_obj->getUserInfo();                
                 $this->addTemplateVar('menus', $menus);
                 $this->addTemplateVar('userinfo', $userinfo);
 		$this->addTemplateVar('plugins', $plugins);
-                $this->addTemplateVar('oauthredirect_url', base64_encode($oauthredirect_url));
-                $this->addTemplateVar('oauthredirect_function', base64_encode($oauthredirect_function));
-		$this->addTemplateVar('buildUrl', $buildUrl);
+                $this->addTemplateVar('buildUrl', $buildUrl);
 		$this->addTemplateVar('csrf_token', csrf_token());
 		$this->addTemplateVar('pageTitle', 'Profile Page');
 		$this->addTemplateVar('page', 'page/profile');
@@ -160,33 +156,93 @@ class HomeController extends Controller {
         
         public function QBSaveCredentials()
         {
-                $QBCurrentCredentials = $_GET;
-                $admin_obj = new Admin;
-                $company_info = $admin_obj->getUpdateAllPluginData('Quickbook');
-                $current_realm_id = trim($this->decrypt_string($QBCurrentCredentials["realmId"]));
+            
+            define('OAUTH_REQUEST_URL', 'https://oauth.intuit.com/oauth/v1/get_request_token');
+            define('OAUTH_ACCESS_URL', 'https://oauth.intuit.com/oauth/v1/get_access_token');
+            define('OAUTH_AUTHORISE_URL', 'https://appcenter.intuit.com/Connect/Begin');
+            define('OAUTH_CONSUMER_KEY', 'qyprd1NN1kHiN9QXEMlz0fLLvMgEKi');
+            define('OAUTH_CONSUMER_SECRET', 'vBn6g62fNX3t952i5NDvholn3zkwg6nPKmdS6LZU');
+  
 
-                        foreach ($company_info as $key=>$value)
-                        { 
-                            $company_info_decode = json_decode($company_info[$key]["data"],true);
-                            array_push($realmId_array,trim($this->decrypt_string($company_info_decode["realmId"])));
+                $oauthredirect = $_SESSION["redirectQBUrl"];          
+                $_SESSION['oauthredirect_function'] = $_SESSION["redirectQBUrl"];
+                define('CALLBACK_URL',$oauthredirect);
 
-                            if(trim($this->decrypt_string($company_info_decode["realmId"])) == $current_realm_id)
-                            {
-                                $pid = $company_info[$key]["p_id"];
-                                $update_plag = '1';
-                                break;
-                            }
-                            else {
-                                 $update_plag = '0';
-                            }
+            
+            // cleans out the token variable if comming from
+            // connect to QuickBooks button
+            if ( isset($_GET['start'] ) ) {
+              unset($_SESSION['oauth_token']);
+            }
+          
+            $QBCurrentCredentials = array();
+            try {
+                
+                    require_once app_path().'/Http/Controllers/plugin/QBOauth.php';         
+                    $oauth->enableDebug();
+                    $oauth->disableSSLChecks(); //To avoid the error: (Peer certificate cannot be authenticated with given CA certificates)
+                    if (!isset( $_GET['oauth_token'] ) && !isset($_SESSION['oauth_token']) ){
+                       // step 1: get request token from Intuit
+                                 $request_token = $oauth->getRequestToken( OAUTH_REQUEST_URL, CALLBACK_URL );
+                                   $_SESSION['secret'] = $request_token['oauth_token_secret'];
+                                   // step 2: send user to intuit to authorize 
+                                 
+                                   header('Location: '. OAUTH_AUTHORISE_URL .'?oauth_token='.$request_token['oauth_token']);
+                                   exit;
+                                }
+	
+                    if ( isset($_GET['oauth_token']) && isset($_GET['oauth_verifier']) )
+                        {
+                            // step 3: request a access token from Intuit
+                            $oauth->setToken($_GET['oauth_token'], $_SESSION['secret']);                
+                            $access_token = $oauth->getAccessToken( OAUTH_ACCESS_URL );
+               
+                    
+                                     $QBCurrentCredentials['oauth_token'] =  encrypt_string($access_token["oauth_token"]);
+                                     $QBCurrentCredentials['oauth_token_secret'] = encrypt_string($access_token["oauth_token_secret"]);
+                                     $QBCurrentCredentials['realmId'] =  encrypt_string($_REQUEST['realmId']);
+                                     $QBCurrentCredentials['OAUTH_CONSUMER_KEY'] = encrypt_string(OAUTH_CONSUMER_KEY);
+                                     $QBCurrentCredentials['OAUTH_CONSUMER_SECRET'] = encrypt_string(OAUTH_CONSUMER_SECRET);
+                                     
+                                     
+                            $admin_obj = new Admin;
+                            $company_info = $admin_obj->getUpdateAllPluginData('Quickbook');
+                            $current_realm_id = trim($this->decrypt_string($QBCurrentCredentials["realmId"]));
 
-                        }
+                                    foreach ($company_info as $key=>$value)
+                                    { 
+                                        $company_info_decode = json_decode($company_info[$key]["data"],true);
+                                        array_push($realmId_array,trim($this->decrypt_string($company_info_decode["realmId"])));
 
-                        $result = $admin_obj->saveQBPluginCredentials('Quickbook',$QBCurrentCredentials,$update_plag,$pid);
-                        echo '<script type="text/javascript">
-                             window.opener.location.href = window.opener.location.href;
-                                 window.close();
-                             </script>';
+                                        if(trim($this->decrypt_string($company_info_decode["realmId"])) == $current_realm_id)
+                                        {
+                                            $pid = $company_info[$key]["p_id"];
+                                            $update_plag = '1';
+                                            break;
+                                        }
+                                        else {
+                                             $update_plag = '0';
+                                        }
+
+                                    }
+
+                                    $result = $admin_obj->saveQBPluginCredentials('Quickbook',$QBCurrentCredentials,$update_plag,$pid);
+                                    echo '<script type="text/javascript">
+                                        alert("Thanks! You have successfully configured your QuickBooks account.");
+                                         window.opener.location.href = window.opener.location.href;
+                                             window.close();
+                                         </script>';          
+                                     
+                            }   
+ 
+                    } catch(OAuthException $e) {
+                            echo "Got auth exception";
+                            echo '<pre>';
+                            print_r($e);
+                    }
+            
+             
+                
         }
         
 

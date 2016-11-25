@@ -740,7 +740,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
            // end runnable specific code snipit ##########################//
            intuit.ipp.anywhere.setup({
                    menuProxy: '',
-                   grantUrl: buildUrl+'app/Http/Controllers/plugin/QBCheck/PHPSample/oauth.php?start=t&oauthredirect='+oauthredirect_url+'&oauthredirect_function='+oauthredirect_function
+                   grantUrl: buildUrl+'?start=t'
                    // outside runnable you can point directly to the oauth.php page
            });
     
