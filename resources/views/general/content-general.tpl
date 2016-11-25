@@ -46,7 +46,7 @@
                             
                         {if $smarty.session.user_type eq '1'}        
                                 <div class="pull-left tm-icon">
-                                    <a id="prtour_admin" data-drawer="" class="" href="{$smarty.const.PORTALLOCATION}page/admin.php?mid=1337&nav=12">
+                                    <a id="prtour_admin" data-drawer="" class="" href="admin">
                                         <img src="{$smarty.const.IMAGESLOCATION}icon/admin-white.png" style="padding-top:10px;">
                                         <span>&nbsp;Admin</span>
                                     </a>

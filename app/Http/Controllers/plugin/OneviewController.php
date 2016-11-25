@@ -18,8 +18,6 @@ class OneviewController extends Controller
             $admin_obj = new Admin;
             $menus = $admin_obj->getMenus();
         
-            
-           $admin_obj = new Admin;
            $plugin = $admin_obj->getPluginCredentials('Quickbook');              
            
             if(!$plugin)

@@ -456,4 +456,109 @@ class Admin extends Model {
                   }
             
         }
+        public function getAllUserList(){
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) {
+                $user_list = $DB->select("SELECT U.id, CONCAT(first_name,' ',last_name) AS `Username` , email AS email,UR.role AS role,user_type_id,DATE_FORMAT(last_login,'%d-%b-%Y %r') AS last_login , ip,active FROM users U,users_role UR WHERE U.user_role = UR.id  ORDER BY U.last_login DESC");
+                return $this->returnJson($user_list); 
+            }
+        }
+        public function getExistingRole()
+           {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) {
+                $role_list = $DB->select("SELECT * FROM users_role ");   
+                return $this->returnJson($role_list); 
+            }
+           }
+           
+        public function getUserInfoDetails($data)
+        {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) {            
+                $user_info = $DB->select("SELECT * FROM users WHERE id= '$data' ");
+                return $this->returnJson($user_info);
+            }
+        }
+        public function updateUserInfo($data)        
+        {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) {  
+                $DB->update("UPDATE users SET `first_name` = '".$data["frstname"]."' ,`last_name` = '".$data["lstname"]."' ,`user_role` = '".$data["role"]."'  WHERE id = '".$data["user_id"]."'");
+            }
+        }
+        public function resetPassword($data)
+        {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) { 
+                $DB->update("UPDATE users SET `password` = '".$data["password"]."', `password_string`= '".$data["pswstr"]."' WHERE id = '".$data["resetId"]."' ");
+            }
+        }
+        public function changeUserStatus($data)
+         {
+            $DB = DB::connection('dynamic_mysql');
+            if ($DB->getPdo()) { 
+                $DB->update("UPDATE users SET  active = '".$data["status"]."' WHERE id = '".$data["id"]."' ");
+            }
+        }
+        public function insertUser($data)
+            {
+            
+             $DB = DB::connection('dynamic_mysql');
+                    if ($DB->getPdo()) { 
+                         $DB->update("INSERT INTO users(`password`,`password_string`,`first_name`,`last_name`,`email`,`user_role`,`user_type_id`) 
+                          VALUES('".$data["password"]."','".$data["pswstr"]."','".$data["frstname"]."','".$data["lstname"]."','".$data["email"]."','".$data["role"]."','3') ");
+
+                          $id = $DB->select(" SELECT id FROM users WHERE email = '".$data["email"]."' ");
+                          $result =  $this->returnJson($id);
+                          $result = $result[0]["id"];
+
+                         $DB->update("INSERT INTO menu_users(`menu_id`,`user_id`) values('1332',$result),('1333',$result),('1334',$result),('1335',$result),('1336',$result),('1338',$result)" );
+
+                         $database = str_replace('_admin','',$_SESSION["dynamic_db_name"]);
+                         DB::update("INSERT INTO 1dash_app_userlist(`email_id`,`comany_name`) values('".$data["email"]."','$database') " );
+
+                    }
+             }
+        public function deleteUser($data) 
+        {
+            $DB = DB::connection('dynamic_mysql');
+                    if ($DB->getPdo()) { 
+                        $DB->update("DELETE FROM users WHERE id = '".$data["userId"]."' ");
+                        DB::update("DELETE FROM 1dash_app_userlist WHERE email_id = '".$data["email"]."' ");
+                    }
+        }
+        public function emailCheck($data)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                    if ($DB->getPdo()) { 
+                        $emailid = $DB->select("SELECT email FROM users WHERE email = '".$data."' ");
+                        return $this->returnJson($emailid);
+                    }
+        }
+        public function emailCheck_commoDB($data)
+        {
+              $emailid = DB::select(" SELECT email_id FROM 1dash_app_userlist WHERE email_id = '".$data."' ");
+              return $this->returnJson($emailid);
+        }
+        public function getRoleExist($role)
+        {
+            $DB = DB::connection('dynamic_mysql');
+                    if ($DB->getPdo()) { 
+                        
+                       $role =  $DB->select("SELECT role FROM users_role WHERE role='$role' ");
+                       return $this->returnJson($role);
+                    }
+        }
+        public function insertRole($data)
+           {
+             $DB = DB::connection('dynamic_mysql');
+                    if ($DB->getPdo()) { 
+                        
+                        $DB->update(" INSERT INTO users_role(`role`) Values('".TRIM($data["newrole"])."') ");
+                    }
+        }
+            
+         
+        
 }

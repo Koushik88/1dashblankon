@@ -106,6 +106,21 @@ Route::group(['middleware' => 'authCheck'], function () {
         Route::post('loadNotifications', 'page\settingsController@loadNotifications');
         Route::post('getNotificationsCount', 'page\settingsController@getNotificationsCount');
         
+        /*
+         * Admin Page
+         */
+        Route::get('admin', 'Admin\AdminController@admin');
+        Route::post('loadUserInfo', 'Admin\AdminAjaxController@loadUserInfo');
+        Route::post('loadEditUserInfo', 'Admin\AdminAjaxController@loadEditUserInfo');
+        Route::post('updateUserDetails', 'Admin\AdminAjaxController@updateUserDetails');
+        Route::post('resetPasswordInfo', 'Admin\AdminAjaxController@resetPasswordInfo');
+        Route::post('userStatusChange', 'Admin\AdminAjaxController@userStatusChange');
+        Route::post('userCreation', 'Admin\AdminAjaxController@userCreation');
+        Route::post('deleteUserInfo', 'Admin\AdminAjaxController@deleteUserInfo');
+        Route::post('emailValidation', 'Admin\AdminAjaxController@emailValidation');
+        Route::post('roleValidation', 'Admin\AdminAjaxController@roleValidation');
+        Route::post('addNewRole', 'Admin\AdminAjaxController@addNewRole');
+        
         
         
         
