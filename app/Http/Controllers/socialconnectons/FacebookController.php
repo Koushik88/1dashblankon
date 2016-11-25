@@ -89,7 +89,7 @@ class FacebookController extends Controller {
 			$data['FB_ACCESS_TOKEN'] = (string) $accessToken->getValue();
 			$data['FB_USER_ID'] = $user_details['id'];
 			$data['FB_USER_NAME'] = $user_details['name'];
-			$data['FB_USER_EMAIL'] = $user_details['email'];
+			// $data['FB_USER_EMAIL'] = $user_details['email'];
 			$data['FB_PROFILE_PIC'] = $user_details['picture']['data']['url'];
 			$pageInfo = array();
 			foreach ($user_details['accounts']['data'] as $key => $val) {
