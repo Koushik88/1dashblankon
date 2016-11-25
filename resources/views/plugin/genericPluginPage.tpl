@@ -617,7 +617,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 } else if(shopify_hostname == "" || shopify_hostname == null){
                     alert("Please enter shopify hostname");
                 } else{
-                    $.post(portalLocation+"module/ecommerce_ajax.php", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"shopify_api_key":shopify_api_key,"shopify_api_secret":shopify_api_secret,"shopify_hostname":shopify_hostname}, function(data)
+                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"shopify_api_key":shopify_api_key,"shopify_api_secret":shopify_api_secret,"shopify_hostname":shopify_hostname}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your shopify credentials saved successfully.");
@@ -636,7 +636,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 } else if(woocom_store_url == "" || woocom_store_url == null){
                     alert("Please enter shopify hostname");
                 } else{
-                    $.post(portalLocation+"module/ecommerce_ajax.php", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"woocom_consumer_key":woocom_consumer_key,"woocom_consumer_secret":woocom_consumer_secret,"woocom_store_url":woocom_store_url}, function(data)
+                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"woocom_consumer_key":woocom_consumer_key,"woocom_consumer_secret":woocom_consumer_secret,"woocom_store_url":woocom_store_url}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your woocommerce credentials saved successfully.");
@@ -655,7 +655,7 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 } else if(bigcom_api_token == "" || bigcom_api_token == null){
                     alert("Please enter bigcommerce api token");
                 } else{
-                    $.post(portalLocation+"module/ecommerce_ajax.php", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"bigcom_username":bigcom_username,"bigcom_api_path":bigcom_api_path,"bigcom_api_token":bigcom_api_token}, function(data)
+                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"bigcom_username":bigcom_username,"bigcom_api_path":bigcom_api_path,"bigcom_api_token":bigcom_api_token}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your bigcommerce credentials saved successfully.");
@@ -675,17 +675,14 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
 
         function deletePluginConnection(deletePluginInfo)
         {
-
-                var msg =confirm("Are you sure you want to delete a connection?");
-                if (msg == true) {
-                        $.post(portalLocation+"plugin/plugin_ajax.php", {"deletePluginInfo":deletePluginInfo}, function(data)
-                         { 
-                             alert("Your Account has been successfully deleted.");
-                             location.reload(true);
-                         });
-                } 
-
-
+            var msg =confirm("Are you sure you want to delete a connection?");
+            if (msg == true) {
+                    $.post(portalLocation+"plugin/plugin_ajax.php", {"deletePluginInfo":deletePluginInfo}, function(data)
+                     { 
+                         alert("Your Account has been successfully deleted.");
+                         location.reload(true);
+                     });
+            } 
         }
         function deleteCompanyList()
         {
