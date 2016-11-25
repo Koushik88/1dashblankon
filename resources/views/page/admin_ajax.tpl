@@ -35,7 +35,7 @@
                                             </div>
                                         </div> 
 
-                                            <input type="hidden" id="updateuserId" value="{$getUserInfo[0]["id"]}">               
+                                        <input type="hidden" id="updateuserId" value="{$getUserInfo[0]["id"]}">               
                                         <div class="modal-footer">
                                               <button type="button" class="btn btn-sm" onclick="return updateUser();">Submit</button>
                                               <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
@@ -45,40 +45,6 @@
     </div>  
 </div>
      
-     
-                                         
-    <script type="text/javascript">
-          var pagetoken ="{$smarty.session.pageToken}";
-            {literal} 
-                    function updateUser()
-                    {
-                            if($("#upnew_user").valid()){ 
-
-
-                                var frstname = $("#up_frstname").val();
-                                var lstname = $("#up_lstname").val();
-                                var role = $("#up_role_no option:selected").val();
-                                var user_id = $("#updateuserId").val();
-
-                                if(frstname.length < 3 || frstname.length > 21)
-                                 {
-                                     alert("Enter Firstname with 3 to 20 characters!");
-                                 }else if(lstname.length < 1 || lstname.length > 21)
-                                 {
-                                      alert("Enter Lastname with 1 to 20 characters!");
-                                 }else
-                                 {
-                                        $.post(portalLocation+controller+"/admin_ajax.php", {"frstname":frstname,"lstname":lstname,"role":role,"user_id":user_id,"updateUser":"updateUser",'page-token':pagetoken}, function(data){    
-                                            window.location.href=window.location.href;
-                                               //$('#edit_user').modal('toggle');
-                                               // loadUserInfo();
-                                         });
-                                }     
-                        }    
-                    } 
-            {/literal} 
-    </script>    
-
 {/if}       
 
 

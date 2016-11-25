@@ -19,7 +19,7 @@
                             <div class="tile-config dropdown">
                                 <a id="prtour_admin_user" data-toggle="dropdown" href="" class="tile-menu"></a>
                                 <ul class="dropdown-menu  pull-right text-right" style="min-width:130px !important;">                                                    
-                                      {if $NoOfLicenceUser gt ($userListCount-1)}   <li><a href="#add_user" data-toggle="modal">Add User</a></li> {/if}
+                                        <li><a href="#add_user" data-toggle="modal">Add User</a></li> 
                                         <li><a href="#add_role" onclick="addRoleClear()" data-toggle="modal">Add Role</a></li>
                                     </ul>
                             </div>
@@ -35,8 +35,8 @@
     <div class="tile">
                         <h2 class="tile-title">Accounts Details</h2>
                         <div class="tile-config dropdown">
-                                <a  id="prtour_cancelAccount" data-toggle="dropdown" href="" class="tile-menu"></a>
-                                <ul class="dropdown-menu  pull-right text-right">                                                    
+                              {*  <a  id="prtour_cancelAccount" data-toggle="dropdown" href="" class="tile-menu"></a>
+                                *}<ul class="dropdown-menu  pull-right text-right">                                                    
                                     <li><a href="#cancelAccount"  data-toggle="modal">Cancel Account</a></li>
                                 </ul>
                         </div>
@@ -44,38 +44,38 @@
                             <div class="media">                                                
                                 <div class="media-body"> 
                                     <div class="col-md-6"> 
-                                        Current Plan : {$licence_type["license_type"]}<input type="hidden" id="license_id" value="{$licence_type["license_id"]}">
+                                        Current Plan : -- <input type="hidden" id="license_id" value="{$licence_type["license_id"]}">
                                     </div> 
                                     
                                      {if $licence_type["license_id"] neq '1'} 
                                         <div class="col-md-3">
-                                            <a href="#updateCardDetials" data-toggle="modal" class="btn btn-sm m-r-5 pull-right">Update Card</a>
+                                            <a href="javascript:void(0);" data-toggle="modal" class="btn btn-sm m-r-5 pull-right">Update Card</a>
                                         </div>     
                                     {else}
                                         <div class="col-md-3"></div>
                                         {/if}
                                     <div class="col-md-3">
-                                     <a id="prtour_modifyPlan" href="#modify_plan" data-toggle="modal" onclick="modifyPlan();" class="btn btn-sm m-r-5 pull-right">Modify/Renew - Plan</a>
+                                     <a id="prtour_modifyPlan" href="javascript:void(0);" data-toggle="modal"  class="btn btn-sm m-r-5 pull-right">Modify/Renew - Plan</a>
                                     </div> 
                                 </div>
                             </div>
                              <div class="media">                                                
                                 <div class="media-body"> 
                                     <div class="col-md-6"> 
-                                     Number of Users :   (0 of {$NoOfLicenceUser})
+                                     Number of Users :   --
                                     </div>
                                     <div class="col-md-6"> 
-                                     <a  id="prtour_additionalUser" href="#buy_additional_user"  class="btn btn-sm m-r-5 pull-right" {if $licence_type["license_id"] neq '1'} onclick="buyAdditionalUser();"  data-toggle="modal" {else} disabled {/if}>Buy Additional Users</a>
+                                     <a  id="prtour_additionalUser" href="javascript:void(0);"  class="btn btn-sm m-r-5 pull-right" >Buy Additional Users</a>
                                     </div>   
                                 </div>
                             </div>
                              <div class="media">                                                
                                 <div class="media-body"> 
                                     <div class="col-md-6"> 
-                                     Plan Expires On : {if $NoOfLicenceUserdetail[0]["expiry_date"]}{$NoOfLicenceUserdetail[0]["expiry_date"]} {else} &nbsp;&nbsp;&nbsp;- {/if}
+                                     Plan Expires On :--
                                     </div>
                                     <div class="col-md-6"> 
-                                      <a id="prtour_latestInvoice" href="javascript:void(0)" onclick="getLatestInvoice('{$licence_type["latest_invoice_id"]}');" class="btn btn-sm m-r-5 pull-right" {if $licence_type["license_id"] eq '1'} disabled {/if}>Latest Invoice</a>
+                                      <a id="prtour_latestInvoice" href="javascript:void(0)" class="btn btn-sm m-r-5 pull-right" {if $licence_type["license_id"] eq '1'} disabled {/if}>Latest Invoice</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="modal-body"> 
                     
-                {if $NoOfLicenceUser gt ($userListCount-1)} 
+                
                     <form name="new_user" method="POST" id="new_user"> 
                         <div class="row">  
                             <div class="col-md-6 m-b-15">
@@ -141,9 +141,7 @@
                               <button type="button" class="btn btn-sm" data-dismiss="modal">Close</button>
                         </div>
                     </form>
-                    {else}
-                        You have add Only {$NoOfLicenceUser} user.
-                    {/if}
+                    
                 </div>
             </div>
         </div>
@@ -425,8 +423,8 @@
                      }
                      else
                      {
-                            $.post(portalLocation+controller+"/admin_ajax.php", {"frstname":frstname,"lstname":lstname,"role":role,"email":email,"password":password,"confirmpswd":confirmpswd,"addUser":"addUser"}, function(data){    
-                                    $('#add_user').modal('toggle');
+                            $.post("userCreation", {"frstname":frstname,"lstname":lstname,"role":role,"email":email,"password":password,"confirmpswd":confirmpswd,"addUser":"addUser"}, function(data){    
+                                 $('#add_user').modal('toggle');
                                     window.location.href=window.location.href;
                                     //loadUserInfo();
                             });
@@ -444,7 +442,7 @@
           if($("#new_rolefrm").valid()){
                      var newrole = $("#new_role").val();
                      
-                     $.post(portalLocation+controller+"/admin_ajax.php", {"roleValidation":newrole}, function(data)
+                     $.post("roleValidation", {"roleValidation":newrole}, function(data)
                      {    
                          
                             if(data === '1')
@@ -453,7 +451,7 @@
                             }
                             else
                             {
-                                 $.post(portalLocation+controller+"/admin_ajax.php", {"newrole":newrole}, function(data)
+                                 $.post("addNewRole", {"newrole":newrole}, function(data)
                                  {    
                                       alert("Role added successfully!."); 
                                       window.location.href=window.location.href; 
@@ -480,7 +478,7 @@
           $("#up_lstname").val("");
           $("#up_role_no option:selected").val("");
           $("#updateuserId").val("");        
-                $.post(portalLocation+controller+"/admin_ajax.php", {"userId":userId,"edituser":"edituser"}, function(data){    
+                $.post("loadEditUserInfo", {"userId":userId,"edituser":"edituser"}, function(data){    
 
                         $("#edit_user").html(data);     
 
@@ -491,7 +489,7 @@
         {
             var msg =confirm("Are you sure you want to delete the user?");
                     if (msg == true) {
-                            $.post(portalLocation+controller+"/admin_ajax.php", {"userId":userId,"deleteUser":"deleteUser","email":email,"del_username":username}, function(data){    
+                            $.post("deleteUserInfo", {"userId":userId,"deleteUser":"deleteUser","email":email,"del_username":username}, function(data){    
                                  loadUserInfo();   
                             });
                     }
@@ -523,7 +521,7 @@
              
                     else
                     {
-                         $.post(portalLocation+controller+"/admin_ajax.php", {"password":password,"confirmPassword":confirmPassword,"resetPswd":"resetPswd","resetId":resetId,"restUser_email":restUser_email}, function(data){    
+                         $.post("resetPasswordInfo", {"password":password,"confirmPassword":confirmPassword,"resetPswd":"resetPswd","resetId":resetId,"restUser_email":restUser_email}, function(data){    
 
                                 $('#reset_password').modal('toggle');
                                     loadUserInfo();
@@ -550,7 +548,7 @@
         
        var msg =confirm("Are you sure you want to "+action+" the user?");
        if (msg == true) {
-         $.post(portalLocation+controller+"/admin_ajax.php", {"id":id,"status":status,"changestatus":"changestatus"}, function(data){    
+         $.post("userStatusChange", {"id":id,"status":status,"changestatus":"changestatus"}, function(data){    
                        
                 loadUserInfo();         
          });
@@ -561,7 +559,7 @@
     function checkEmail()
     {
         var email = $("#usremail").val();
-                    $.post(portalLocation+controller+"/admin_ajax.php", {"email":email,"emailCheck":"emailCheck"}, function(data){    
+                    $.post("emailValidation", {"email":email,"emailCheck":"emailCheck"}, function(data){    
                             
                            
                         $("#emailIdExist").val(data);
@@ -574,7 +572,7 @@
     
     function loadUserInfo()
     {
-                    $.post(portalLocation+controller+"/admin_ajax.php", {"loadUserInfo":"loadUserInfo"}, function(data){    
+                    $.post("loadUserInfo", {"loadUserInfo":"loadUserInfo"}, function(data){    
                      
                         $("#loadUserInfo").html(data);
                       
@@ -694,11 +692,40 @@
         return false;
     }
     
+    function updateUser()
+        {
+            
+                if($("#upnew_user").valid()){ 
+
+
+                    var frstname = $("#up_frstname").val();
+                    var lstname = $("#up_lstname").val();
+                    var role = $("#up_role_no option:selected").val();
+                    var user_id = $("#updateuserId").val();
+
+                    if(frstname.length < 3 || frstname.length > 21)
+                     {
+                         alert("Enter Firstname with 3 to 20 characters!");
+                     }else if(lstname.length < 1 || lstname.length > 21)
+                     {
+                          alert("Enter Lastname with 1 to 20 characters!");
+                     }else
+                     {
+                            $.post("updateUserDetails", {"frstname":frstname,"lstname":lstname,"role":role,"user_id":user_id,"updateUser":"updateUser"}, function(data){    
+                               
+                                window.location.href=window.location.href;
+                                   //$('#edit_user').modal('toggle');
+                                   // loadUserInfo();
+                             });
+                    }     
+            }    
+        } 
     
     
     $('#sidebar').css('max-height',(document.body.scrollHeight-100));
   
     {/literal}
     </script>
+  
 
    

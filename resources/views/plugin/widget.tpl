@@ -44,6 +44,7 @@
                                     
                                 </div>
                                 
+                                
                                 <div class="p10">
                                     <div class="table-responsive overflow" id="loadata_ajax" style="overflow: hidden; height: 270px !important; outline: none;" tabindex="5001"> 
                                         
@@ -79,7 +80,7 @@
                 <!-- <hr class="whiter" /> -->
 
                 <div class="block-area shortcut-area">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <a class="tile report-legend" style="cursor:pointer" onclick="chartSelected( this,'proandloss','Profit and Loss')">
                             <img src="{$smarty.const.IMAGESLOCATION}icons-new/graph-04.png" alt="">
                             Profit and Loss
@@ -139,11 +140,17 @@
                             Sales by Customer
                         </a>
                     </div>
-                            
-                    <div class="col-md-2 m-b-15 pull-right" id="prtour_period">
-
+                    <div class="col-md-1 m-b-15">
+                                {if !isset($quickbook_error_msg)}  
+                                <select class="switch_company_list_icon pull-right" onchange="switchCompany_info()"  id="switch_company_list" style="padding-left:10px;width:155px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);display:none;">   
+                        
+                                 </select>
+                                {/if}
+                    </div>            
+                    <div class="col-md-2 m-b-15 " id="prtour_period">
+                                
                                   <form action="#" method="post" name="customSelection" id="customSelection">   
-                                      <select class="widgetPeriod" name="customperiod" onchange="customPeriodSelection()" id="widgetPeriod" style="padding-left:10px;width:175px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
+                                      <select class="widgetPeriod" name="customperiod" onchange="customPeriodSelection()" id="widgetPeriod" style="padding-left:10px;width:155px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
                                               <option value="date_macro=today&column=daily" {if $query eq  "date_macro=today&column=daily"} selected {/if}>Today</option>
                                               <option value="date_macro=thisweek&column=daily" {if $query eq  'date_macro=thisweek&column=daily'} selected {/if}>This Week</option>
                                               <option value="date_macro=thismonth&column=weekly" {if $query eq  'date_macro=thismonth&column=weekly'} selected {/if}>This Month</option>
@@ -292,6 +299,7 @@
     <div id="rssmodal"></div>
     </div>
 </div>
+
 
 
 
@@ -466,7 +474,7 @@ function swich_companyList()
    
         $.post("switchQB_company", {"swich_company":"swich_company"}, function(data){
              $("#switch_company_list").html(data);
-             $("#switch_company_list_icon").show(); 
+             $("#switch_company_list").show(); 
          });
 
 }   
