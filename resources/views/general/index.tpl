@@ -29,7 +29,7 @@
         <script src="js/respond.min.js"></script>
         <![endif]-->
     </head>
- <body {if $smarty.session.temeId} id="{$smarty.session.temeId}" {else} id="skin-blur-shaded" {/if}>
+ <body  id="skin-blur-shaded">
 
    
 {*{include 'general/header.tpl' nocache}*}

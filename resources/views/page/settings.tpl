@@ -81,19 +81,7 @@
             updateToDoList(toDo[0],"C");
         });
 
-        function updateToDoList(id,updateToDo)    {
-
-             $.post(portalLocation+"page/settings.php", {"updateToDo":updateToDo,"id":id}, function(data){    
-                  
-                    loadToDoAjax();
-              });
-        }
-        function clearTodoList()
-        {
-             $.post(portalLocation+"page/settings.php", {"cleartodo":"cleartodo"}, function(data){    
-                    loadToDoAjax();
-              });
-        }
+        
         
   </script>   
 {/literal}
