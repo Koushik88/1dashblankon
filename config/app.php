@@ -190,7 +190,7 @@ return [
 		Collective\Html\HtmlServiceProvider::class,
 		Joblocal\LaravelSqsSnsSubscriptionQueue\SqsSnsServiceProvider::class,
 		NotificationChannels\BearyChat\BearyChatServiceProvider::class,
-		Spatie\Analytics\AnalyticsServiceProvider::class,
+		//Spatie\Analytics\AnalyticsServiceProvider::class,
 		Syscover\ShoppingCart\ShoppingCartServiceProvider::class,
 		\Rashed\Backup\DbBackupServiceProvider::class,
 	],

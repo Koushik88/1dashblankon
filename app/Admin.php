@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Config;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -228,6 +227,30 @@ class Admin extends Model {
 		return $this->returnJson($result);
 	}
 	/**
+	 * [setGoogleSigninQuery, save google refresh token]
+	 * @param [type] $refreshToken      [description]
+	 * @param [type] $ResponseUserEmail [description]
+	 * @param [type] $googlePlusUserId  [description]
+	 * @param [type] $youtubeChannelId  [description]
+	 * @param [type] $userid            [description]
+	 */
+	public function setGoogleSigninQuery($refreshToken, $ResponseUserEmail, $googlePlusUserId, $youtubeChannelId, $userid) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$getSql = "SELECT id FROM gmail_api_users WHERE user_id = '$userid'";
+			$res = $DB->select($getSql);
+			$isResult = $this->returnJson($res);
+			if (!$isResult) {
+				$sql = "INSERT INTO gmail_api_users(id,user_id,email_id,googleplus_id,youtubechannel_id,refresh_token,created_on)values('','$userid','$ResponseUserEmail','$googlePlusUserId','$youtubeChannelId','$refreshToken',CURDATE())";
+				$DB->insert($sql);
+			} else {
+				$id = $isResult[0]['id'];
+				$sql1 = "UPDATE gmail_api_users SET email_id='$ResponseUserEmail',googleplus_id='$googlePlusUserId',youtubechannel_id='$youtubeChannelId',refresh_token='$refreshToken',created_on=CURDATE() WHERE id='$id' AND user_id='$userid'";
+				$DB->update($sql1);
+			}
+		}
+	}
+	/**
 	 * [getRefreshToken description]
 	 * @param  [type] $userId [description]
 	 * @return [type]         [description]
@@ -252,57 +275,10 @@ class Admin extends Model {
 		return $this->returnJson($result);
 	}
 
-	/*
-		    *
-		    *  Experimental db calls, it may remove or move to some other place
-	*/
-	public function getName($email_id) {
-		// echo $email_id;
-		$users = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
-		return $users;
-	}
-	public function getName1($email_id) {
-		$dynamic_db_name = "global_basics2_admin";
-		Config::set('database.connections.dynamic_mysql.database', $dynamic_db_name);
-		// $DB = DB::connection('dynamic_mysql');
-		$DB = DB::connection('dynamic_mysql')->getPdo();
-
-		// $users = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
-		return $DB;
-	}
-	public function getPlugins() {
-		$dynamic_db_name = "global_basics2_admin";
-		Config::set('database.connections.dynamic_mysql.database', $dynamic_db_name);
-		$DB = DB::connection('dynamic_mysql');
-		// print_r($DB->getPdo());
-		if ($DB->getPdo()) {
-			// $DB = DB::connection('dynamic_mysql');
-			echo "<pre>";
-			// print_r($DB);
-			if (DB::connection()->getDatabaseName()) {
-				echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
-			} else {
-				echo "Main DB not connected";
-			}
-			if ($DB->getDatabaseName()) {
-				echo "<br/>conncted sucessfully to database " . $DB->getDatabaseName();
-			}
-			// die();
-
-			$plugins = $DB->select('select * from plugin_details');
-			// $users1  = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
-			return $plugins;
-		}
-	}
-	public function getUsers() {
-		// $DB = DB::connection('dynamic_mysql')->getPdo();
-		$DB = DB::connection('dynamic_mysql');
-		if ($DB->getPdo()) {
-			$users = $DB->select('select * from users;');
-			// $users1  = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
-			return $users;
-		}
-	}
+	/**
+	 * [getUserInfo description]
+	 * @return [type] [description]
+	 */
 	public function getUserInfo() {
 		$DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) {
@@ -536,3 +512,46 @@ class Admin extends Model {
 	}
 
 }
+
+/**
+ * Experimental db calls, it may remove or move to some other place
+ */
+/*public function zzzzzgetName($email_id) {
+$users = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
+return $users;
+}
+public function zzzzzzzzzzzzzgetPlugins() {
+$dynamic_db_name = "global_basics2_admin";
+Config::set('database.connections.dynamic_mysql.database', $dynamic_db_name);
+$DB = DB::connection('dynamic_mysql');
+// print_r($DB->getPdo());
+if ($DB->getPdo()) {
+// $DB = DB::connection('dynamic_mysql');
+echo "<pre>";
+// print_r($DB);
+if (DB::connection()->getDatabaseName()) {
+echo "conncted sucessfully to database " . DB::connection()->getDatabaseName();
+} else {
+echo "Main DB not connected";
+}
+if ($DB->getDatabaseName()) {
+echo "<br/>conncted sucessfully to database " . $DB->getDatabaseName();
+}
+// die();
+
+$plugins = $DB->select('select * from plugin_details');
+// $users1  = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
+return $plugins;
+}
+}
+public function zzzzzzzzzzzzgetUsers() {
+// $DB = DB::connection('dynamic_mysql')->getPdo();
+$DB = DB::connection('dynamic_mysql');
+if ($DB->getPdo()) {
+$users = $DB->select('select * from users;');
+// $users1  = DB::select('select email_id from 1dash_app_userlist where id= ? AND email_id = ?', $email_id);
+return $users;
+}
+}
+//==================================================================================================
+ */
