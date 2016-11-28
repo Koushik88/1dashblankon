@@ -77,6 +77,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('linkedin_oauth', 'socialconnectons\LinkedinController@index');
 	Route::post('deleteConnection', 'socialconnectons\SocialConnectionController@deleteConnection');
 	Route::post('allPluginsConfigCheck', 'socialconnectons\SocialConnectionController@allPluginsConfigCheck');
+	Route::get('google_oauth', 'socialconnectons\GoogleController@index');
 	/**
 	 * Calendar Page
 	 */

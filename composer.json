@@ -14,13 +14,13 @@
         "laravelcollective/html": "5.3.*",
         "joblocal/laravel-sqs-sns-subscription-queue": "^1.0",
         "laravel-notification-channels/bearychat": "^1.0",
-        "spatie/laravel-analytics": "^2.2",
         "syscover/shopping-cart": "~2.0",
         "rashed/database-backup": "dev-master",
         "woothemes/woocommerce-api": "^2.0",
         "facebook/graph-sdk": "^5.4",
         "vimeo/vimeo-api": "^1.2",
-        "dirkgroenen/Pinterest-API-PHP": "^0.2.11"
+        "dirkgroenen/Pinterest-API-PHP": "^0.2.11",
+        "google/apiclient": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

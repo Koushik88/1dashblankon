@@ -8,6 +8,7 @@ use App\Http\Controllers\socialconnectons\instagram\Instagram;
 use DirkGroenen\Pinterest\Pinterest;
 use Facebook\Facebook;
 use Facebook\getRedirectLoginHelper;
+use Google_Client;
 use Illuminate\Http\Request;
 use TwitterOAuth;
 use Vimeo\Vimeo;
@@ -111,7 +112,28 @@ class SocialConnectionController extends Controller {
 			}
 			return redirect($login_url);
 		} else if ($plugin == "Google") {
+			$client_id = GOOGLE_CLIENTID;
+			$client_secret = GOOGLE_CLIENT_SECRET;
+			$redirect_uri = env('APP_URL') . 'google_oauth';
 
+			$client = new Google_Client();
+
+			$client->setClientId($client_id);
+			$client->setClientSecret($client_secret);
+			$client->setAccessType('offline');
+			$client->setApprovalPrompt("force");
+			$client->setRedirectUri($redirect_uri);
+			if ($_GET['source'] == "widget") {
+				$client->setState("widget");
+			} else if ($_GET['source'] == "profile") {
+				$client->setState("profile");
+			}
+			$client->setScopes(array(
+				'https://mail.google.com/',
+				'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.send', 'https://www.googleapis.com/auth/gmail.labels', 'https://www.googleapis.com/auth/gmail.insert', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/calendar', 'https://www.googleapis.com/auth/contacts.readonly', 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.readonly', 'https://www.googleapis.com/auth/youtube.upload', 'https://www.googleapis.com/auth/youtubepartner', 'https://www.googleapis.com/auth/youtubepartner-channel-audit'));
+
+			$loginUrl = $client->createAuthUrl();
+			return redirect($loginUrl);
 		} else {
 			return redirect("profile");
 		}
@@ -300,8 +322,9 @@ class SocialConnectionController extends Controller {
 			 * google products
 			 * @var [type]
 			 */
-			$admin_obj = $admin_obj->getRefreshToken([$_SESSION['userId']]);
-			/*if ($gores) {
+			$gores = $admin_obj->getRefreshToken([$_SESSION['userId']]);
+
+			if ($gores) {
 				$refreshToken = $gores[0]['refresh_token'];
 				if ($refreshToken) {
 					$client = new Google_Client();
@@ -326,7 +349,7 @@ class SocialConnectionController extends Controller {
 						$google_msg = "Your google access token expired, please click to reconfigure your google account again.";
 					}
 				}
-			}*/
+			}
 			$allPluginInfo = array();
 			$allPluginInfo['facebook']['isconfig'] = $facebook_config;
 			$allPluginInfo['facebook']['title'] = $facebook_msg;
@@ -437,12 +460,12 @@ class SocialConnectionController extends Controller {
 					. '<img alt="" src="' . IMAGESLOCATION . 'social/youtube.svg">'
 					. '<small class="t-overflow">YouTube</small></img></a>';
 
-				$html .= '<a class="shortcut tile" href="' . PORTALLOCATION . 'module/gmail_up.php?mid=1336&nav=6">'
+				$html .= '<a class="shortcut tile" href="gmail_up">'
 					. '<span id="gmail_count"></span>'
 					. '<img alt="" src="' . IMAGESLOCATION . 'social/email.svg">'
 					. '<small class="t-overflow">Mail</small></img></a>';
 
-				$html .= '<a class="shortcut tile" href="' . PORTALLOCATION . 'module/calendar.php?mid=1335&nav=6">'
+				$html .= '<a class="shortcut tile" href="calendar">'
 					. '<span id="calendar_count"></span>'
 					. '<img alt="" src="' . IMAGESLOCATION . 'social/calendar.svg">'
 					. '<small class="t-overflow">Calendar</small></img></a>';
