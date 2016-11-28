@@ -10,6 +10,7 @@ use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Facebook\getOAuth2Client;
 use Facebook\getRedirectLoginHelper;
+use Illuminate\Http\Request;
 
 require dirname(__FILE__) . "/credentials.php";
 
@@ -118,11 +119,12 @@ class FacebookController extends Controller {
 	 * Save session of page id
 	 * @return [type] [description]
 	 */
-	public function savePageId() {
-		if (($_POST['pageselected'] == "saveSessionPageId") && ($_POST['pageid'])) {
-			$_SESSION['DefaultFbPageID'] = $_POST['pageid'];
-			echo '"' . $_POST['pagename'] . '"' . ' is chosen as default to show posts on social page.';
-			exit();
+	public function savePageId(Request $request) {
+		if ($request->ajax()) {
+			if (($request->input('pageselected') == "saveSessionPageId") && ($request->input('pageid'))) {
+				$_SESSION['DefaultFbPageID'] = $request->input('pageid');
+				return '"' . $request->input('pagename') . '"' . ' is chosen as default to show posts on social page.';
+			}
 		}
 	}
 

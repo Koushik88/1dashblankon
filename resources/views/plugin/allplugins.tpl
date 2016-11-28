@@ -59,24 +59,19 @@
             <span id="loadAllSocialPlugins">
 
             </span>
-       {* <a class="shortcut tile" href="javascript:void(0);" id="pick">
+        <a class="shortcut tile" href="javascript:void(0);" id="pick">
             <img alt="" src="{$smarty.const.IMAGESLOCATION}social/googledrive.svg">
             <small class="t-overflow">Drive</small></img>
-        </a> *}
+        </a> 
        {* <a class="shortcut tile" href="javascript:void(0);" id="bankbtn">
             <img alt="" src="{$smarty.const.IMAGESLOCATION}social/googledrive1.svg">
             <small class="t-overflow">Bank</small></img>
         </a> *}
+            
+            
+       
            
-       {* {if !isset($quickbook_error_msg)}     
-            <span class="pull-right dropdown" id="switch_company_list_icon" style="display:none;">    
-                <img data-toggle="dropdown" src="{$smarty.const.IMAGESLOCATION}shortcuts/settings.png" style="padding-top:10px;cursor:pointer;" title="Switch Company" width="26" height="36">
-                <ul class="dropdown-menu pull-right text-left" id="switch_company_list">
-
-                </ul>
-            </span>
-         {/if}  *}
-         
+                        
     </div>
         
         
@@ -92,7 +87,7 @@
             if(isSocialSuccess == "yes_display"){
                 alert(SocialMsg);
                 // unset session variable since you already showed message
-                 $.post(portalLocation+"module/ecommerce_ajax.php", {"unsetSocial":"unset social success session"}, function(data)
+                 $.post("ecommerce_ajax", {"unsetSocial":"unset social success session"}, function(data)
                      { 
                         if(data == "success"){
                             // alert("Thanks! Your shopify credentials saved successfully."); 
@@ -109,7 +104,7 @@
             $("#fb_anchr").attr("title", pagename);  
             var pagename = $("#"+pageid).val();
             // alert(pagename);            
-            $.post(portalLocation+'plugin/facebook_oauth.php',{"pageselected":"saveSessionPageId","pageid":pageid,"pagename":pagename}, function(data){                
+            $.post('savePageId',{"pageselected":"saveSessionPageId","pageid":pageid,"pagename":pagename}, function(data){                
                     $('#manageFBPages').modal('hide');
                     alert(data);               
            });            
@@ -117,7 +112,7 @@
         // get all social media config details
         getAllPluginConfig();
         function getAllPluginConfig(){
-           $.post(portalLocation+'module/allPluginsConfigCheck.php',{"socailMedia":"allConfig"}, function(data){
+           $.post('allPluginsConfigCheck', function(data){
                 $("#loadAllSocialPlugins").html(data);
                 //initPicker();
            }); 
@@ -125,38 +120,17 @@
         // do configuration from here
         function doConfigureSocialPlugin(plugin){
             var anchor = document.createElement('a');
-            if(plugin == "facebook"){
-                anchor.href = "../plugin/facebook_ajax.php?source=widget";
-            }
-            if(plugin == "twitter"){
-                anchor.href = "../plugin/twitter_ajax.php?source=widget";
-            }
-            if(plugin == "pinterest"){
-                anchor.href = "../plugin/pinterest_ajax.php?source=widget";
-            }
-            if(plugin == "instagram"){
-                anchor.href = "../plugin/instagram_ajax.php?source=widget";
-            }
-            if(plugin == "vimeo"){                
-                anchor.href = "../plugin/vimeo_ajax.php?source=widget";
-            }
-            if(plugin == "google"){
-                anchor.href = "../plugin/google_signin_ajax.php?source=widget";
-            }
-
+            anchor.href = "socialconnection/"+plugin+"?source=widget";
             document.body.appendChild(anchor);
             anchor.click();
-
         } 
 
         // update recent social posts counts
         //socialMediaCounts();
         function socialMediaCounts()
         {
-            $.post(portalLocation+'module/rssfeed.php',{"socailMediaCount":"socailMediaCount"}, function(data){ 
-
+            $.post(portalLocation+'module/rssfeed.php',{"socailMediaCount":"socailMediaCount"}, function(data){
                 var json_value = JSON.parse(data);
-                
                 if(json_value.Facebook["Count"] > 0)
                 {
                     $("#fb_count").html("<i class='social-count animated'>"+json_value.Facebook["Count"]+"</i>");                    
@@ -215,7 +189,14 @@
                 if(json_value.Calendar["Count"] > 0)
                 {
                     $("#calendar_count").html("<i class='social-count animated'>"+json_value.Calendar["Count"]+"</i>");
-                }                
+                } 
+               if(json_value.LinkedIn["Count"] > 0)
+               {
+                   $("#linkedin_count").html("<i class='social-count animated'>"+json_value.LinkedIn["Count"]+"</i>");                    
+               }
+               if(json_value.LinkedIn["ProfileUrl"]){
+                   $("#linkedin_anchr").attr("href", json_value.LinkedIn["ProfileUrl"]);
+               }
                  //   $("#calendar_count").html("<i class='social-count animated'>0</i>");
 
             });

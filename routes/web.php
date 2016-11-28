@@ -70,11 +70,13 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('socialconnection/{plugin}', 'socialconnectons\SocialConnectionController@addConnection');
 	Route::get('twitter_oauth', 'socialconnectons\TwitterController@index');
 	Route::get('facebook_oauth', 'socialconnectons\FacebookController@index');
+	Route::post('savePageId', 'socialconnectons\FacebookController@savePageId');
 	Route::get('instagram_oauth', 'socialconnectons\InstagramController@index');
 	Route::get('pinterest_oauth', 'socialconnectons\PinterestController@index');
 	Route::get('vimeo_oauth', 'socialconnectons\VimeoController@index');
 	Route::get('linkedin_oauth', 'socialconnectons\LinkedinController@index');
 	Route::post('deleteConnection', 'socialconnectons\SocialConnectionController@deleteConnection');
+	Route::post('allPluginsConfigCheck', 'socialconnectons\SocialConnectionController@allPluginsConfigCheck');
 	/**
 	 * Calendar Page
 	 */
