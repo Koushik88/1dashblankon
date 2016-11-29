@@ -45,3 +45,8 @@ define('linkedinApiKey', '78e617yc7q758b');
 define('linkedinApiSecret', '9MmEWqUN62Z55u6n');
 define('linkedinScope', 'r_basicprofile r_emailaddress rw_company_admin w_share');
 define('linkedin_callback', env('APP_URL') . 'linkedin_oauth');
+/**
+ * Google App Credentials
+ */
+define('GOOGLE_CLIENTID', '789601184518-ggtl2rk8hqemadfttt85mte5j8hkqqo9.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET', 'B7wIA4xPUmjh3thZba5tVXEw');

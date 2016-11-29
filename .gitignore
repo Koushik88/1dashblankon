@@ -2,4 +2,5 @@
 # /storage/framework/sessions
 /storage/smarty
 /storage/logs/
+/app/Http/Controllers/plugin/QBCheck/QuickbookPhpSdk/executionlog.txt
 

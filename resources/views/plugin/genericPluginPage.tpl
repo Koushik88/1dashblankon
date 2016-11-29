@@ -217,7 +217,7 @@
                                       <div class="media-body p-t-5">
                                         <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/google.png" alt="" width="16px" height="16px">
                                           &nbsp;&nbsp; Google
-                                         <a href="javascript:void(0);" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="addGoogleConnection('google');">Add</a>
+                                         <a href="javascript:void(0);" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="addSocialConnections('Google');">Add</a>
                                      </div>
 
                                 </div>                                                                    
