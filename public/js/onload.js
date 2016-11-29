@@ -3,11 +3,11 @@
  var listen = setInterval(function()
         {
             var loggedIn = getCookie('_loggedIn');
-            var redirectUri = portalLocation+"page/login.php?lg=1";
+            var redirectUri = "logout";
             if(loggedIn !== null)
             {
                var currentdate = new Date().getTime().toString().substring(0, 10);
-               var diff = currentdate - loggedIn;
+               var diff = currentdate - loggedIn;   
                if(diff > 1740)
                {                    
                  clearInterval(listen);
