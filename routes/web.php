@@ -125,6 +125,13 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('emailValidation', 'Admin\AdminAjaxController@emailValidation');
 	Route::post('roleValidation', 'Admin\AdminAjaxController@roleValidation');
 	Route::post('addNewRole', 'Admin\AdminAjaxController@addNewRole');
+        
+        /*
+         * Mail Page
+         */
+        Route::post('basic_email', 'page\MailController@basic_email');
+        
+        
 
 	/**
 	 * Dummy Routes

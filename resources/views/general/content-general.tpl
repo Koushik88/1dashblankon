@@ -157,7 +157,7 @@
                             <ul class="list-unstyled side-menu">
                                 {foreach from=$mv["children"] name="cmenus" key=mkc item=mvc}
                                     {assign var="activemenu" value=$mvc['name']}
-                                        <li class="{if $mvc["mid"] eq $smarty.get.mid}active{/if}"><a id="prtour_{$mvc["mid"]}" class="{$mvc["report_icon"]}" href="{$mvc["href"]}"> <span class="menu-item">{$mvc["name"]}</span></a>
+                                        <li class="{if $mvc["href"] eq $smarty.server.REQUEST_URI|substr:1:50} active {/if}"><a id="prtour_{$mvc["mid"]}" class="{$mvc["report_icon"]}" href="{$mvc["href"]}"> <span class="menu-item">{$mvc["name"]}</span></a>
                                     {assign var="ml" value=$ml+1}
                                 {/foreach}
                             </ul>

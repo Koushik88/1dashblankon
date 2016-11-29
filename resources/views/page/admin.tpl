@@ -522,7 +522,6 @@
                     else
                     {
                          $.post("resetPasswordInfo", {"password":password,"confirmPassword":confirmPassword,"resetPswd":"resetPswd","resetId":resetId,"restUser_email":restUser_email}, function(data){    
-
                                 $('#reset_password').modal('toggle');
                                     loadUserInfo();
                         });

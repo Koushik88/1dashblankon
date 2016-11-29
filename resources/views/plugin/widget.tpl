@@ -690,6 +690,29 @@ $('#newtodo').on("keypress", function(e) {
  {/literal}    
 </script>
 
+<!-- Gdrive -->
+<script src="{$smarty.const.JSLOCATION}/filepicker.js"></script>
+    {literal}
+            <script>
 
+                    function initPicker() {
+                        
+                            var picker = new FilePicker({
+                                    apiKey: 'AIzaSyB6wVxEFDZPE0FaOAlUzT1C07k3OL2LLjE',
+                                    clientId:'171670376228-gkmsmv17bcdr66gfe83sjlluaoeh5311',
+                                    buttonEl: document.getElementById('pick'),
+                                    onSelect: function(file) {
+                                        
+                                        window.open(file.alternateLink, '_blank'); 
+
+                                    }
+
+
+                            });	
+                    }
+            </script>
+      {/literal}      
+<script src="https://www.google.com/jsapi?key=AIzaSyB6wVxEFDZPE0FaOAlUzT1C07k3OL2LLjE"></script>
+<script src="https://apis.google.com/js/client.js?onload=initPicker"></script>
 
 
