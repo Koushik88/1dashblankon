@@ -20,7 +20,6 @@ class OneviewController extends Controller {
 		if (!$plugin) {
 			$this->addTemplateVar("quickbook_error_msg", "quickbook_error_msg");
 		}
-
 		/**
 		 * Get Plugins Post counter
 		 */
@@ -52,7 +51,7 @@ class OneviewController extends Controller {
 			$result = curl_exec($ch);
 			curl_close($ch);
 		}
-
+                
 		$query = "date_macro=thisyear&column=quarterly";
 		$this->addTemplateVar('query', $query);
 		$this->addTemplateVar('menus', $menus);
