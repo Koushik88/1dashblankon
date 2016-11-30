@@ -11,7 +11,8 @@ class VerifyCsrfToken extends BaseVerifier {
 	 * @var array
 	 */
 	protected $except = [
-		 'user_email'
+		 'user_email',
+		'allPluginsPostCounter'
 	];
 
 	/**
