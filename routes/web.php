@@ -39,7 +39,7 @@ Route::post('doLogin', 'LoginController@doLogin');
 /**
  * Social Plugings Counter API
  */
-Route::get('allPluginsPostCounter', 'socialconnectons\SocialCountController@index');
+Route::post('allPluginsPostCounter', 'socialconnectons\SocialCountController@index');
 Route::group(['middleware' => 'authCheck'], function () {
 	Route::get('logout', 'LoginController@logout')->name('logout');
 	Route::get('home', 'page\HomeController@home')->name('home');
@@ -83,6 +83,10 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('deleteConnection', 'socialconnectons\SocialConnectionController@deleteConnection');
 	Route::post('allPluginsConfigCheck', 'socialconnectons\SocialConnectionController@allPluginsConfigCheck');
 	Route::get('google_oauth', 'socialconnectons\GoogleController@index');
+	/**
+	 * Social Plugings Counter API
+	 */
+	Route::post('getSocialCount', 'socialconnectons\SocialCountController@getSocialCount');
 
 	/**
 	 * Calendar Page

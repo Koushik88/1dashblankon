@@ -15,19 +15,37 @@ use Google_Service_Gmail;
 use Google_Service_Plus;
 use Google_Service_YouTube;
 use Illuminate\Http\Request;
-use Log;
 use TwitterOAuth;
 use Vimeo\Vimeo;
 
 require dirname(__FILE__) . "/credentials.php";
 class SocialCountController extends Controller {
+	/**
+	 * [FunctionName description]
+	 * @param string $value [description]
+	 */
+	public function getSocialCount(Request $request) {
+		if ($request->ajax()) {
+			if ($request->input('socailMediaCount') == "socailMediaCount") {
+				$admin_obj = new Admin;
+				$result = $admin_obj->getSocailMediaCounts();
+				if ($result) {
+					$res = $result[0]["data"];
+				} else {
+					$res = $result;
+				}
+				return $res;
+			}
+		}
+	}
+	/**
+	 * [index description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function index(Request $request) {
-		Log::info("scial counter ");
-		return "hii";
-		die();
 		$userId = $request->input("user_id");
 		$username = $request->input("username");
-
 		Config::set('database.connections.dynamic_mysql.database', $request->input("dynamic_db_name"));
 		$admin_obj = new Admin;
 		$dbres = $admin_obj->getAllPluginData([$userId]);
@@ -50,8 +68,7 @@ class SocialCountController extends Controller {
 		$vimeoUrl = "";
 		$linkedinUrl = "";
 
-		// $lastLogin = strtotime($request->input("last_login"));
-		$lastLogin = strtotime("1/1/2016");
+		$lastLogin = strtotime($request->input("last_login"));
 		$currentLogin = time();
 
 		foreach ($dbres as $val) {
@@ -613,4 +630,5 @@ class SocialCountController extends Controller {
 		$feeds_array = json_decode($feeds_array, true);
 		return $feeds_array;
 	}
+
 }

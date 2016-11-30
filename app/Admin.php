@@ -158,9 +158,20 @@ class Admin extends Model {
 				$DB->insert($sql1);
 			} else {
 				$id = $result[0]['id'];
-				$sql2 = "UPDATE " . ADMINDB . ".socialmedia_counts SET data='$data' WHERE id= '$id'  ";
+				$sql2 = "UPDATE socialmedia_counts SET data='$data' WHERE id= '$id'  ";
 				$DB->update($sql2);
 			}
+		}
+	}
+	/**
+	 * [getSocailMediaCounts description]
+	 * @return [type] [description]
+	 */
+	public function getSocailMediaCounts() {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$res = $DB->select("SELECT data FROM socialmedia_counts WHERE userID = '" . $_SESSION["userId"] . "' ");
+			return $this->returnJson($res);
 		}
 	}
 

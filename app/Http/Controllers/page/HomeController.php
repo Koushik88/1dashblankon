@@ -46,24 +46,6 @@ class HomeController extends Controller {
 		$this->addTemplateVar('page', 'page/index');
 		return view('general.index', $this->template_vars);
 	}
-	/**
-	 * [home description]
-	 * @return [type] [description]
-	 */
-	public function home() {
-		/**
-		 * [$admin_obj description]
-		 * @var Admin model
-		 */
-		$admin_obj = new Admin;
-		$menus = $admin_obj->getMenus();
-
-		$this->addTemplateVar('menus', $menus);
-		$this->addTemplateVar('csrf_token', csrf_token());
-		$this->addTemplateVar('pageTitle', 'Home');
-		$this->addTemplateVar('page', 'plugin/widget');
-		return view('general.index', $this->template_vars);
-	}
 
 	/**
 	 * [calendar description]

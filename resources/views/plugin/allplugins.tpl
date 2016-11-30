@@ -126,10 +126,9 @@
         } 
 
         // update recent social posts counts
-        //socialMediaCounts();
-        function socialMediaCounts()
-        {
-            $.post(portalLocation+'module/rssfeed.php',{"socailMediaCount":"socailMediaCount"}, function(data){
+        socialMediaCounts();
+        function socialMediaCounts(){            
+            $.post("getSocialCount",{"socailMediaCount":"socailMediaCount"}, function(data){
                 var json_value = JSON.parse(data);
                 if(json_value.Facebook["Count"] > 0)
                 {
@@ -200,7 +199,6 @@
                  //   $("#calendar_count").html("<i class='social-count animated'>0</i>");
 
             });
-
          }
 
     </script>
