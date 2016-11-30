@@ -342,7 +342,7 @@
        //swich_companyList();
        loadToDoAjax();
        customPeriodSelection();
-            function customPeriodSelection()
+        function customPeriodSelection()
             {
               
                  chartSelected(this,'proandloss','Profit and Loss');
@@ -350,10 +350,6 @@
             }
             
             function chartSelected(el,id,headerTxt) {
-                
-                
-
-
                     $("#visibleId").val(id);
                     //$('.selection').removeClass('selected');
                    // $(el).addClass("selected");
@@ -478,10 +474,6 @@ function swich_companyList()
          });
 
 }   
-   
- 
-
- 
  
 function loadToDoAjax()
 {
@@ -680,12 +672,7 @@ $('#newtodo').on("keypress", function(e) {
             function(data){
               document.getElementById("rssmodal").innerHTML=data;
             }); 
-        }
-  
-
-  
-    socialMediaCounts();
-    
+        }    
     
  {/literal}    
 </script>

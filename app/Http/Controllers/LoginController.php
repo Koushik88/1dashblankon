@@ -60,8 +60,8 @@ class LoginController extends Controller {
 			/*
 				Update user last login in DB
 			 */
-                        
-                        $lastlogin = $admin_obj->updateLastLogin($userData["id"]);                       
+
+			$lastlogin = $admin_obj->updateLastLogin($userData["id"]);
 			$_SESSION["token"] = md5(date('h:i:s') . $userData["email"]);
 			// $_SESSION["username"] = $userData["username"];
 			$_SESSION["userId"] = $userData['id'];
@@ -85,21 +85,21 @@ class LoginController extends Controller {
 			$_SESSION['temeId'] = $userData["temeId"];
 
 			//get menu list
-			 $menus = $admin_obj->getMenus();
-                         
-			 if (isset($menus['0']['0']['children']['0']['href'])) {
+			$menus = $admin_obj->getMenus();
+
+			if (isset($menus['0']['0']['children']['0']['href'])) {
 				$mid = $menus['0']['0']['sid'];
-			 	$value_name = $menus['0']['0']['children']['0']['name'];
-			 	$value_href = $menus['0']['0']['children']['0']['href'];
-			 	$_SESSION['home_name'] = $value_name;
-			 	$_SESSION['home_href'] = $value_href;
-                                setcookie("_loggedIn", time(),time()+1800,'1Dash');
-                                return redirect()->route($value_href);
-			 	
-                         } else {
-                                echo "Contact 1Dash Administrator";
-			 	Die();
-			 }
+				$value_name = $menus['0']['0']['children']['0']['name'];
+				$value_href = $menus['0']['0']['children']['0']['href'];
+				$_SESSION['home_name'] = $value_name;
+				$_SESSION['home_href'] = $value_href;
+				setcookie("_loggedIn", time(), time() + 1800, '1Dash');
+				return redirect()->route($value_href);
+
+			} else {
+				echo "Contact 1Dash Administrator";
+				Die();
+			}
 		}
 	}
 	/**
@@ -107,9 +107,9 @@ class LoginController extends Controller {
 	 * @return [type] [description]
 	 */
 	public function logout() {
-		 session_destroy(); //session_unset();               
-                 setcookie("_loggedIn", time(), time() - 1800, '1Dash'); //cookie expired;
-		 return redirect()->route('login');
+		session_destroy(); //session_unset();
+		setcookie("_loggedIn", time(), time() - 1800, '1Dash'); //cookie expired;
+		return redirect()->route('login');
 	}
 
 	/**
