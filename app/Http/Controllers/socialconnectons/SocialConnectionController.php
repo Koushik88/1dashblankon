@@ -157,6 +157,7 @@ class SocialConnectionController extends Controller {
 	 */
 	public function allPluginsConfigCheck(Request $request) {
 		if ($request->ajax()) {
+			$model_html = "";
 			$admin_obj = new Admin;
 			$dbres = $admin_obj->getAllPluginData([$_SESSION['userId']]);
 			/**

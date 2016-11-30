@@ -51,7 +51,7 @@ class OneviewController extends Controller {
 			$result = curl_exec($ch);
 			curl_close($ch);
 		}
-                
+
 		$query = "date_macro=thisyear&column=quarterly";
 		$this->addTemplateVar('query', $query);
 		$this->addTemplateVar('menus', $menus);
