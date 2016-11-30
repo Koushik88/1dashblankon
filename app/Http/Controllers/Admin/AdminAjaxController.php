@@ -72,18 +72,20 @@ class AdminAjaxController extends Controller
                      $postdata["pswstr"] = $password_str;
                      $result = $admin_obj->resetPassword($postdata);
                      
-                      /* $link = 'http://localhost:8052/';                       
-                       $url = 'http://localhost:8054/basic_email';
-                       $postFields = array('resetPassword'=>'resetPassword','reset_pswd'=>$_POST["password"],'email'=>$_POST['restUser_email'],'_token'=>csrf_token());
+                       
+                
+                       $link = $_SESSION["serverUrl"];                       
+                       $url = $_SESSION["serverUrl"].'/user_email';
+                       $postFields = array('resetPassword'=>'resetPassword','reset_pswd'=>$_POST["password"],'email'=>$_POST['restUser_email']);
                        $ch = curl_init($url);
                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                        curl_setopt($ch, CURLOPT_POST, 1);
                        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postFields));
-                       $max_exe_time = 25000; // time in milliseconds
+                       $max_exe_time = 100; // time in milliseconds
                        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $max_exe_time);         
                        $result= curl_exec($ch);
                        print_r($result);
-                       curl_close($ch); */
+                       curl_close($ch); 
 
 
                 }

@@ -11,18 +11,17 @@ use App\Admin;
 class AdminController extends Controller
 {
         public function admin() {
-		// $token = csrf_token();
-		/**
-		 * Redirect if alreday authenticated
-		 */
-            
-            
-            
+		
+                 if(isset($_SERVER['HTTPS'])) $protocol = 'https'; else $protocol = 'http';
+                        $server = $_SERVER['HTTP_HOST'];
+                        $serverUrl  = "$protocol://".$server;
+                       
+                    $_SESSION["serverUrl"] = $serverUrl;
+                   
 		$admin_obj = new Admin;
                 $menus = $admin_obj->getMenus();
                 
-                $role = $admin_obj->getExistingRole();                
-                
+                $role = $admin_obj->getExistingRole();
 		$this->addTemplateVar('csrf_token', csrf_token());
                 $this->addTemplateVar('menus', $menus);
                 $this->addTemplateVar('role', $role);
