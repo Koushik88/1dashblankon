@@ -673,7 +673,9 @@ $('#newtodo').on("keypress", function(e) {
               document.getElementById("rssmodal").innerHTML=data;
             }); 
         }    
-    
+    // call at last this social counter update
+    socialMediaCounts();
+    // end
  {/literal}    
 </script>
 
