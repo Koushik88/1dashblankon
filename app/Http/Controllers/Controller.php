@@ -11,6 +11,7 @@ DEFINE("IMAGESLOCATION", "img/");
 DEFINE("CSSLOCATION", "css");
 DEFINE("JSLOCATION", "js");
 DEFINE("title", "1Dash");
+DEFINE('ANALYTICAL_TIMEZONE', 'Asia/calcutta');
 session_start();
 class Controller extends BaseController {
 	use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

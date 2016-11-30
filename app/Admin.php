@@ -142,6 +142,27 @@ class Admin extends Model {
 			$DB->delete($sql);
 		}
 	}
+	/**
+	 * [saveSocialmediaCounts description]
+	 * @param  [type] $data   [description]
+	 * @param  [type] $userId [description]
+	 * @return [type]         [description]
+	 */
+	public function saveSocialmediaCounts($data, $userId) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$res = $DB->select("SELECT id FROM socialmedia_counts WHERE userID = '$userId ' ");
+			$result = $this->returnJson($res);
+			if (!$result) {
+				$sql1 = "INSERT INTO socialmedia_counts(`userID`,`data`) values('$userId','$data') ";
+				$DB->insert($sql1);
+			} else {
+				$id = $result[0]['id'];
+				$sql2 = "UPDATE " . ADMINDB . ".socialmedia_counts SET data='$data' WHERE id= '$id'  ";
+				$DB->update($sql2);
+			}
+		}
+	}
 
 	/**
 	 * [updateActiveQBOCompany description]
@@ -510,79 +531,76 @@ class Admin extends Model {
 			$DB->update(" INSERT INTO users_role(`role`) Values('" . TRIM($data["newrole"]) . "') ");
 		}
 	}
-        
-        public function getBrowserInfo()
-        {
-          $ua = strtolower($_SERVER['HTTP_USER_AGENT']);
-          $os = "";
 
-          if(preg_match('/(iphone)[ \/]([\w.]+)/', $ua))
-                 $os = 'Iphone';
-          elseif(preg_match('/(ipad)[ \/]([\w.]+)/', $ua))
-                 $os = 'Ipad';
-          elseif(preg_match('/(ipod)[ \/]([\w.]+)/', $ua))
-                 $os = 'Ipod';
-          elseif(preg_match('/(android)[ \/]([\w.]+)/', $ua))
-                 $os = 'Android';
-          elseif(preg_match('/(windows ce.*(ppc|smartphone|mobile|[0-9]{3}x[0-9]{3})|window mobile|windows phone [0-9.]+|wce;)[ \/]([\w.]+)/', $ua))
-                 $os = 'Windows Mobile';
-          elseif(preg_match('/(windows phone os|xblwp7|zunewp7)[ \/]([\w.]+)/', $ua))
-                 $os = 'Windows Phone OS';
-          elseif(preg_match('/(windows)[ \/]([\w.]+)/', $ua))
-                 $os = 'WindowsOS';
-          elseif(preg_match('/(linux)[ \/]([\w.]+)/', $ua))
-                 $os = 'Linux';
-          elseif(preg_match('/(macintosh|mac)[ \/]([\w.]+)/', $ua))
-                 $os = 'MacOS';
-         elseif(preg_match('/(blackberry|rim tablet os)[ \/]([\w.]+)/', $ua))
-                 $os = 'Blackberry';
-          elseif(preg_match('/(palmos|avantgo|blazer|elaine|hiptop|palm|plucker|xiino)[ \/]([\w.]+)/', $ua))
-                 $os = 'Palm OS';
-          elseif(preg_match('/(symbian|symbos|series60|series40|syb-[0-9]+|\bs60\b)[ \/]([\w.]+)/', $ua))
-                 $os = 'Symbian OS';
-          elseif(preg_match('/(j2me/midp|java/)[ \/]([\w.]+)/', $ua))
-                 $os = 'JavaOS';
-          elseif(preg_match('/(\bbada\b)[ \/]([\w.]+)/', $ua))
-                 $os = 'BadaOS';
-          elseif(preg_match('/(webos|hpwos)[ \/]([\w.]+)/', $ua))
-                 $os = 'WebOS';
+	public function getBrowserInfo() {
+		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);
+		$os = "";
 
-          // you can add different browsers with the same way ..
-          if(preg_match('/(chromium)[ \/]([\w.]+)/', $ua))
-                  $browser = 'chromium';
-          elseif(preg_match('/(chrome)[ \/]([\w.]+)/', $ua))
-                  $browser = 'chrome';
-          elseif(preg_match('/(safari)[ \/]([\w.]+)/', $ua))
-                  $browser = 'safari';
-          elseif(preg_match('/(opera)[ \/]([\w.]+)/', $ua))
-                  $browser = 'opera';
-          elseif(preg_match('/(msie)[ \/]([\w.]+)/', $ua))
-                  $browser = 'msie';
-          elseif(preg_match('/(mozilla)[ \/]([\w.]+)/', $ua))
-                  $browser = 'mozilla';
+		if (preg_match('/(iphone)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Iphone';
+		} elseif (preg_match('/(ipad)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Ipad';
+		} elseif (preg_match('/(ipod)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Ipod';
+		} elseif (preg_match('/(android)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Android';
+		} elseif (preg_match('/(windows ce.*(ppc|smartphone|mobile|[0-9]{3}x[0-9]{3})|window mobile|windows phone [0-9.]+|wce;)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Windows Mobile';
+		} elseif (preg_match('/(windows phone os|xblwp7|zunewp7)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Windows Phone OS';
+		} elseif (preg_match('/(windows)[ \/]([\w.]+)/', $ua)) {
+			$os = 'WindowsOS';
+		} elseif (preg_match('/(linux)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Linux';
+		} elseif (preg_match('/(macintosh|mac)[ \/]([\w.]+)/', $ua)) {
+			$os = 'MacOS';
+		} elseif (preg_match('/(blackberry|rim tablet os)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Blackberry';
+		} elseif (preg_match('/(palmos|avantgo|blazer|elaine|hiptop|palm|plucker|xiino)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Palm OS';
+		} elseif (preg_match('/(symbian|symbos|series60|series40|syb-[0-9]+|\bs60\b)[ \/]([\w.]+)/', $ua)) {
+			$os = 'Symbian OS';
+		} elseif (preg_match('/(j2me/midp|java/)[ \/]([\w.]+)/', $ua)) {
+			$os = 'JavaOS';
+		} elseif (preg_match('/(\bbada\b)[ \/]([\w.]+)/', $ua)) {
+			$os = 'BadaOS';
+		} elseif (preg_match('/(webos|hpwos)[ \/]([\w.]+)/', $ua)) {
+			$os = 'WebOS';
+		}
 
-          preg_match('/('.$browser.')[ \/]([\w]+)/', $ua, $version);
+		// you can add different browsers with the same way ..
+		if (preg_match('/(chromium)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'chromium';
+		} elseif (preg_match('/(chrome)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'chrome';
+		} elseif (preg_match('/(safari)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'safari';
+		} elseif (preg_match('/(opera)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'opera';
+		} elseif (preg_match('/(msie)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'msie';
+		} elseif (preg_match('/(mozilla)[ \/]([\w.]+)/', $ua)) {
+			$browser = 'mozilla';
+		}
 
-          return array($browser,$version[2],'OS'=>$os, 'name'=>$browser,'version'=>$version[2]);
-       }
-       
-       public function updateLastLogin($id = 0) /* UPDATE LOGIN DATETIME index.php */
-        {
-             $browserinfo = $this->getBrowserInfo();
-             $browserinfo = $browserinfo["OS"]." , ".ucfirst($browserinfo["name"])." v.".$browserinfo["version"];
-             $DB = DB::connection('dynamic_mysql');
+		preg_match('/(' . $browser . ')[ \/]([\w]+)/', $ua, $version);
+
+		return array($browser, $version[2], 'OS' => $os, 'name' => $browser, 'version' => $version[2]);
+	}
+
+	public function updateLastLogin($id = 0) /* UPDATE LOGIN DATETIME index.php */ {
+		$browserinfo = $this->getBrowserInfo();
+		$browserinfo = $browserinfo["OS"] . " , " . ucfirst($browserinfo["name"]) . " v." . $browserinfo["version"];
+		$DB = DB::connection('dynamic_mysql');
 		if ($DB->getPdo()) {
-                        $date = date('Y-m-d H:i:s');                   
-                        $sql = "UPDATE `users` SET browser_type='".$browserinfo."',previous_login = last_login,";
-                        $sql.= "last_login='$date',ip='".$_SERVER["REMOTE_ADDR"]."',session='".session_id()."'";
-                        $sql.= " ,login_attempt_faild_time = NULL,login_attempt_faild_count = '' WHERE id='".$id."'";
-                        $DB->update($sql);                         
-                }
+			$date = date('Y-m-d H:i:s');
+			$sql = "UPDATE `users` SET browser_type='" . $browserinfo . "',previous_login = last_login,";
+			$sql .= "last_login='$date',ip='" . $_SERVER["REMOTE_ADDR"] . "',session='" . session_id() . "'";
+			$sql .= " ,login_attempt_faild_time = NULL,login_attempt_faild_count = '' WHERE id='" . $id . "'";
+			$DB->update($sql);
+		}
 
-        }
-        
-        
-        
+	}
 
 }
 
