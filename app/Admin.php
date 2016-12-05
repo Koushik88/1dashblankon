@@ -187,6 +187,13 @@ class Admin extends Model {
 			$sql1 = $DB->update("UPDATE plugin_details SET active = '1'  WHERE name = 'Quickbook'AND userID = '" . $_SESSION["userId"] . "' AND p_id = '$cmp_id'  ");
 		}
 	}
+        public function updateFinicityActiveAcount($cmp_id) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			$sql = $DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Finicity' AND userID = '" . $_SESSION["userId"] . "' ");
+			$sql1 = $DB->update("UPDATE plugin_details SET active = '1'  WHERE name = 'Finicity'AND userID = '" . $_SESSION["userId"] . "' AND p_id = '$cmp_id'  ");
+		}
+	}
 	/*
 		         * [get Active ToDo List get all the assoctiated with the user]
 			 * @return [type] [description]
@@ -360,6 +367,17 @@ class Admin extends Model {
 				}
 
 			}
+		}
+	}
+        
+        public function saveFinicityPluginCredentials($pluginName, $data) {
+		$DB = DB::connection('dynamic_mysql');
+		if ($DB->getPdo()) {
+			if ($pluginName == 'Finicity') 
+                                {
+					$DB->update("UPDATE plugin_details SET active = '0'  WHERE name = 'Finicity' AND userID = '" . $_SESSION["userId"] . "'");
+					$DB->update(" INSERT INTO plugin_details(`name`,`company_id`,`data`,`userID`,`active`) values('$pluginName','" . $_SESSION["company_id"] . "','$data','" . $_SESSION["userId"] . "','1')  ");
+                                }
 		}
 	}
 

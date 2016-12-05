@@ -1388,8 +1388,6 @@
     No companies found.
 {/if}
     
-    
-    
     <script type="text/javascript"> 
         {literal} 
              function switchCompany_info(changeCompanyId)
@@ -1403,6 +1401,51 @@
     </script>
 {/if}
 
+
+
+{if isset($Institution)}
+   
+      {foreach $Institution as $key=>$value}  
+        <tr>
+          <td>{$value["name"]}</td>
+          <td>{$value["accountTypeDescription"]}</td>
+          <td><a href=# onclick="bankLoginform('{$value["id"]}','{$value["name"]}')">Login</a></td>
+        </tr>
+      {/foreach}   
+    
+{/if}   
+
+{if isset($getloginformDatas)}
+    {foreach $getloginformDatas as $key=>$value}
+          {if $getloginformDatas[$key]['mask'] eq 'true'}
+              <div class="form-group">
+                    <label>
+                        {$getloginformDatas[$key]['description']}
+                        <input type="password" class="form-control input-sm" name="loginForm[{$key}][value]" autocomplete="off">
+                    </label>
+              </div>
+                    <input type="hidden" name="loginForm[{$key}][id]" value="{$getloginformDatas[$key]['id']}">
+                    <input type="hidden" name="loginForm[{$key}][name]" value="{$getloginformDatas[$key]['name']}">
+          {else}
+              
+              <div class="form-group">
+                  <label>
+                      {$getloginformDatas[$key]['description']}
+                      <input type="text" class="form-control input-sm" name="loginForm[{$key}][value]" autocomplete="off">
+                  </label>
+              </div>
+                  
+                  <input type="hidden" name="loginForm[{$key}][id]" value="{$getloginformDatas[$key]['id']}">
+                  <input type="hidden" name="loginForm[{$key}][name]" value="{$getloginformDatas[$key]['name']}">
+                 
+            {/if}
+                    
+    {/foreach}
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-sm" value="Login" onclick="return institutionFormdataAggrication();">
+                   </div>
+  
+{/if}
 
  
 
