@@ -64,6 +64,7 @@ class finicityAPIController extends Controller {
             $result = $admin_obj->saveFinicityPluginCredentials('Finicity', json_encode($finicity_credentials));
             unset($_SESSION["finicity_userId"]);
             unset($_SESSION["institutionId"]);
+            echo "Your Account Added Successfully!";
             //print_r($loginformData);
         } else {
             echo "Your Credential Invalid!";

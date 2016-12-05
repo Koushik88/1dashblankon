@@ -51,6 +51,7 @@ class OneviewController extends Controller {
 			$result = curl_exec($ch);
 			curl_close($ch);
 		}
+
                 
                 $admin_obj = new Admin;
                 $finicity_credentials = $admin_obj->getAllPluginCredentials('Finicity');
@@ -87,6 +88,7 @@ class OneviewController extends Controller {
 		$currPageServer = "$protocol://" . $server;
                 $this->addTemplateVar('currPageServer', $currPageServer.'/widget');
                 
+
 		$query = "date_macro=thisyear&column=quarterly";
 		$this->addTemplateVar('query', $query);
 		$this->addTemplateVar('menus', $menus);

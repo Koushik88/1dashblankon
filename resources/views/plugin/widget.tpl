@@ -762,12 +762,16 @@
             $.post('rssmodal', {
                 "rssmodal": "rssmodal"
             },
-                    function (data) {
-                        document.getElementById("rssmodal").innerHTML = data;
-                    });
-        }
 
-    {/literal}    
+            function(data){
+              document.getElementById("rssmodal").innerHTML=data;
+            }); 
+        }    
+    // call at last this social counter update
+    socialMediaCounts();
+    // end
+ {/literal}    
+
 </script>
 
 <!-- Gdrive -->

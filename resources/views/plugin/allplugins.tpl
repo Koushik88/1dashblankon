@@ -56,21 +56,15 @@
 </style>
 
     <div class="block-area shortcut-area">
-            <span id="loadAllSocialPlugins">
+        <span id="loadAllSocialPlugins">
 
-            </span>
-        <a class="shortcut tile" href="javascript:void(0);" id="pick">
-            <img alt="" src="{$smarty.const.IMAGESLOCATION}social/googledrive.svg">
-            <small class="t-overflow">Drive</small></img>
-        </a> 
-        <a class="shortcut tile" href="javascript:void(0);" onclick="bankSearchModal();">
-            <span class="icon" style="font-size:33px;">&#61700;</span>
-            <small class="t-overflow">Bank</small></img>
-        </a> 
+ 
             
-            
-       
-           
+        </span>
+            <a class="shortcut tile" href="javascript:void(0);" onclick="bankSearchModal();">
+                <span class="icon" style="font-size:33px;">&#61700;</span>
+                <small class="t-overflow">Bank</small></img>
+            </a> 
                         
     </div>
         
@@ -113,7 +107,8 @@
         getAllPluginConfig();
         function getAllPluginConfig(){
            $.post('allPluginsConfigCheck', function(data){
-                $("#loadAllSocialPlugins").html(data);
+            var html = data+'<a class="shortcut tile" href="javascript:void(0);" id="pick"> <img src="img/social/googledrive.svg"> <small class="t-overflow">Drive</small></img> </a>';
+                $("#loadAllSocialPlugins").html(html);
                 //initPicker();
            }); 
         }
@@ -125,8 +120,7 @@
             anchor.click();
         } 
 
-        // update recent social posts counts
-        socialMediaCounts();
+        // update recent social posts counts        
         function socialMediaCounts(){            
             $.post("getSocialCount",{"socailMediaCount":"socailMediaCount"}, function(data){
                 var json_value = JSON.parse(data);

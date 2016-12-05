@@ -36,11 +36,10 @@ Route::get('/', 'page\HomeController@index')->name('login');
 Route::post('doLogin', 'LoginController@doLogin');
 // Route::post('doLogin', ['as' => 'loginattemts', 'middleware' => 'throttle:3,10', 'uses' => 'LoginController@doLogin']);
 
-    /*
-     * Mail Page
-     */
-    Route::post('user_email', 'page\MailController@user_email');
-
+/**
+ * Mail Page
+ */
+Route::post('user_email', 'page\MailController@user_email');
 
 /**
  * Social Plugings Counter API
@@ -115,6 +114,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 */
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
 	Route::post('ecommerce_ajax', 'ecommerce\EcommerceAjaxController@ecommerce_ajax');
+	Route::post('save_ecommerce_credentials', 'ecommerce\EcommerceAjaxController@save_ecommerce_credentials');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
 	/**
 	 * Profile Page
@@ -148,7 +148,6 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('emailValidation', 'Admin\AdminAjaxController@emailValidation');
 	Route::post('roleValidation', 'Admin\AdminAjaxController@roleValidation');
 	Route::post('addNewRole', 'Admin\AdminAjaxController@addNewRole');
-
 
 	/**
 	 * Dummy Routes
