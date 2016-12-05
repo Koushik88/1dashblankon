@@ -108,6 +108,7 @@ Route::group(['middleware' => 'authCheck'], function () {
 	 */
 	Route::get('ecommerce', 'ecommerce\EcommerceController@ecommerce')->name('ecommerce');
 	Route::post('ecommerce_ajax', 'ecommerce\EcommerceAjaxController@ecommerce_ajax');
+	Route::post('save_ecommerce_credentials', 'ecommerce\EcommerceAjaxController@save_ecommerce_credentials');
 	Route::get('chartTabTempMultiColumn', 'page\HomeController@home')->name('chartTabTempMultiColumn');
 	/**
 	 * Profile Page

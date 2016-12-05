@@ -1,7 +1,14 @@
+<style type="text/css">
+    input[type="radio"] {
+        opacity: 1;
+        margin: 10px 5px 0px 0px;
+    }
+</style>
+
 <div class="tile">
     <h2 class="tile-title">Connections</h2>
-    <div class="tile-config dropdown" id="prtour_connections">
-        <a  data-toggle="dropdown" href="" class="tooltips tile-menu" title="" data-original-title="Options"></a>
+    <div class="tile-config dropdown" id="prtour_connections" title="Add New Connection">
+        <a  data-toggle="dropdown" href="" class="tooltips tile-menu" data-original-title="Options"></a>
         <ul class="dropdown-menu pull-right text-right"> 
             <li><a href="#addNewPlugin" data-toggle="modal">Add New</a></li>                                        
         </ul>
@@ -330,7 +337,7 @@
                                   <div class="media-body p-t-5">
                                     <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/amazon-sm.png" width="16px" height="16px">
                                       &nbsp;&nbsp; Amazon
-                                    <a href="#addEcommerceCrdentials" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addEcommerceConnection('amazon');">Add</a>   
+                                    <a href="#addEcommerceCrdentials" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="addEcommerceConnection('amazon');">Add</a>   
                                   </div>
                                 </div>
                                 <!-- Amazon End -->
@@ -339,7 +346,7 @@
                                   <div class="media-body p-t-5">
                                     <img class="pull-left" src="{$smarty.const.IMAGESLOCATION}plugin-icon/ebay-sm.png" width="16px" height="16px">
                                       &nbsp;&nbsp; eBay
-                                    <a href="#addEcommerceCrdentials" {*data-toggle="modal"*} class="btn btn-sm m-r-5 pull-right" onclick="addEcommerceConnection('ebay');">Add</a>   
+                                    <a href="#addEcommerceCrdentials" data-toggle="modal" class="btn btn-sm m-r-5 pull-right" onclick="addEcommerceConnection('ebay');">Add</a>   
                                   </div>
                                 </div>
                                 <!-- Ebay End-->
@@ -481,7 +488,7 @@
         function addEcommerceConnection(ecommerce_plugin){
             if(ecommerce_plugin == "shopify"){
                 $("#ecom_model_title").html("Shopify Credentials");
-                var html = `<form name="plugin_form" action="#" method="POST" id="plugin_form">  
+                var html = `
                     <div class="p-10">                                               
                         <div class="form-group">
                             <label for="shopify_api_key">API KEY</label>
@@ -496,8 +503,7 @@
                             <input type="text" class="form-control input-sm" name="shopify_hostname" id="shopify_hostname" required="" value="">
                         </div>
                         <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('shopify');">Save</button>
-                    </div>
-                </form>
+                    </div>                
 
                 <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
                     <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
@@ -513,7 +519,7 @@
             } 
             if(ecommerce_plugin == "woocommerce"){
                 $("#ecom_model_title").html("WooCommerce Credentials");
-                var html = `<form name="plugin_form" action="#" method="POST" id="plugin_form">  
+                var html = `
                     <div class="p-10">                                               
                         <div class="form-group">
                             <label for="woocom_consumer_key">CONSUMER KEY</label>
@@ -529,23 +535,22 @@
                         </div>
                         <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('woocommerce');">Save</button>
                     </div>
-                </form>
                 <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
                     <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
-                <a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>
+                <!--<a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>-->
                 <div id="shopify_steps" style="padding: 15px;border: 1px solid rgba(255, 255, 255, 0.3);margin-top: 15px;display:none;">
                     <p>Step 1: From your woocommerce admin, click Settings</p>
                     <p>Step 2: Click API and click keys/apps.</p>
                     <p>Step 3: Click add key.</p>
                     <p>Step 4: Enter a description and give permissions as Read/Write and click generate api key.</p>
                     <p>Your API credentials will be displayed on screen. Copy 
-Consumer Key & Consumer Secret and your store url is your woocommerce hostname(eg: https://woostore.com/wordpress/). Please copy and past in this form.</p>
+                    Consumer Key & Consumer Secret and your store url is your woocommerce hostname(eg: https://woostore.com/wordpress/). Please copy and past in this form.</p>
                 </div>`;
                 $("#loadEcommerceConnBody").html(html);
             }
             if(ecommerce_plugin == "bigcommerce") {
                 $("#ecom_model_title").html("BigCommerce Credentials");
-                var html = `<form name="plugin_form" action="#" method="POST" id="plugin_form">  
+                var html = ` 
                     <div class="p-10">                                               
                         <div class="form-group">
                             <label for="bigcom_username">USERNAME</label>
@@ -561,10 +566,9 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                         </div>
                         <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('bigcommerce');">Save</button>
                     </div>
-                </form>
                 <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
                     <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
-                <a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>
+                <!--<a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>-->
                 <div id="shopify_steps" style="padding: 15px;border: 1px solid rgba(255, 255, 255, 0.3);margin-top: 15px;display:none;">
                     <p>Step 1: Log into the store.</p>
                     <p>Step 2: Click Advanced Settings.</p>
@@ -576,21 +580,100 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 $("#loadEcommerceConnBody").html(html);
             } 
             if(ecommerce_plugin == "amazon") {
-                alert("Coming Soon!");
-
                 $("#ecom_model_title").html("Amazon Credentials");
-                var html = `<h3>Will add this plugin shortly!</h3>`;
+                var html = ` 
+                    <div class="p-10">                                               
+                        <div class="form-group">
+                            <label for="amazon_merchantId">Merchant ID</label>
+                            <input type="text" class="form-control input-sm" name="amazon_merchantId" id="amazon_merchantId" required="" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="amazon_marketplaceId">Marketplace ID</label>
+                            <input type="text" class="form-control input-sm" name="amazon_marketplaceId" id="amazon_marketplaceId" required="" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for=amazon_keyId">Key ID</label>
+                            <input type="text" class="form-control input-sm" name="amazon_keyId" id="amazon_keyId" required="" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for=amazon_secretKey">Secret Key</label>
+                            <input type="text" class="form-control input-sm" name="amazon_secretKey" id="amazon_secretKey" required="" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for=amazon_serviceUrl">Service Url</label>
+                            <input type="text" class="form-control input-sm" name="amazon_serviceUrl" id="amazon_serviceUrl" required="" value="">
+                        </div>                        
+                        <div class="form-group">
+                            <label for=amazon_MWSAuthToken">MWSAuthToken</label>
+                            <input type="text" class="form-control input-sm" name="amazon_MWSAuthToken" id="amazon_MWSAuthToken" required="" value="">
+                        </div>
+                        <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('amazon');">Save</button>
+                    </div>
+                
+                <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
+                    <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
+                <!--<a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>-->
+                <div id="shopify_steps" style="padding: 15px;border: 1px solid rgba(255, 255, 255, 0.3);margin-top: 15px;display:none;">
+                    <p>Step 1: Log into the store.</p>
+                    <p>Step 2: Click Advanced Settings.</p>
+                    <p>Step 3: Click Create a Legacy API Account.</p>
+                    <p>Step 4: Type the name of the user in the Username box and save.</p>
+                    <p>Your API credentials will be displayed on screen. Copy 
+                        the Username & API Path & API Token and past here and click the Save button.</p>
+                </div>`;
                 $("#loadEcommerceConnBody").html(html);
             } 
-            if(ecommerce_plugin == "ebay") {
-                alert("Coming Soon!");
-
+            if(ecommerce_plugin == "ebay") {                
                 $("#ecom_model_title").html("eBay Credentials");
-                var html = `<h3>Will add this plugin shortly!</h3>`;
+                var html = ` 
+                    <div class="p-10">                                               
+                        <div class="form-group">
+                            <label for="ebay_appId">App ID (Client ID)</label>
+                            <input type="text" class="form-control input-sm" name="ebay_appId" id="ebay_appId" required="" value="" placeholder="Copy and paste your Ebay App ID (Client ID)">
+                        </div>
+                        <div class="form-group">
+                            <label for="ebay_devId">Dev ID</label>
+                            <input type="text" class="form-control input-sm" name="ebay_devId" id="ebay_devId" required="" value="" placeholder="Copy and paste your Ebay Dev ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="ebay_certId">Cert ID (Client Secret)</label>
+                            <input type="text" class="form-control input-sm" name="ebay_certId" id="ebay_certId" required="" value="" placeholder="Copy and paste your Ebay Cert ID (Client Secret)">
+                        </div>
+                        <div class="form-group">
+                            <label for="ebay_user_token">User Token</label>
+                            <textarea class="form-control input-sm" rows="5" name="ebay_user_token" id="ebay_user_token" required="" value="" placeholder="Copy and paste your Ebay User Token"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-input">
+                                <label>Choose Ebay key type:</label>   
+                            </div>
+                            <div class="text-input">                                
+                                <input class="form-group" type="radio" name="ebaykeytype" id="sandbox" value="sandbox" />
+                                <label for="sandbox">Sandbox Key</label>
+                            </div>
+                            <div class="text-input">    
+                                <input class="form-group" type="radio" name="ebaykeytype" id="production" value="production" />
+                                <label for="production">Production Key</label>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 20px;margin-top: 10px;">
+                            <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('ebay');">Save</button>
+                        </div>
+                
+                <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
+                    <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
+                <div id="shopify_steps" style="padding: 15px;border: 1px solid rgba(255, 255, 255, 0.3);margin-top: 15px;display:none;">
+                    <p>Step 1: Login to <a href="https://developer.ebay.com/base/membership/signin/default.aspx" target="_blank"><u>ebay developer console here</u></a> using your developer account login credentials.</p>
+                    <p>Step 2: Write Application Title and click on Create Keyset below the Sandbox(for testing purpose)/Production(for actual ebay account).</p>
+                    <p>Step 3: Then a form appears and fill in the form details and click on Continue to Create Keys.</p>
+                    <p>Step 4: You will have your keys App ID ,Dev ID,Cert ID.</p>
+                    <p>Step 5: Now click on User Tokens to get User Token for accessing the information related to user. You can use Auth’n’Auth or Oauth option here and then Register a Sand User/Sign in to Production.</p>
+                    <p>Step 6: Fill in the details and you will have the User token.</p>
+                    <p>Your API credentials will be displayed on screen, These were the credentials you needed to access ebay API. Copy 
+                        the App ID & Dev ID & Cert ID & User Token and past here and click Save button.</p>
+                </div>`;
                 $("#loadEcommerceConnBody").html(html);
-            }         
-            
-            
+            }              
         }
         function doggle_shopify(id){
             if(id == "show_shopify_steps"){
@@ -617,10 +700,11 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 } else if(shopify_hostname == "" || shopify_hostname == null){
                     alert("Please enter shopify hostname");
                 } else{
-                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"shopify_api_key":shopify_api_key,"shopify_api_secret":shopify_api_secret,"shopify_hostname":shopify_hostname}, function(data)
+                    $.post("save_ecommerce_credentials", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"shopify_api_key":shopify_api_key,"shopify_api_secret":shopify_api_secret,"shopify_hostname":shopify_hostname}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your shopify credentials saved successfully.");
+                            $('#addEcommerceCrdentials').modal('hide');
                         }        
                      });
                 }               
@@ -630,16 +714,17 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 var woocom_consumer_secret = $("#woocom_consumer_secret").val();
                 var woocom_store_url   = $("#woocom_store_url").val();
                 if(woocom_consumer_key == "" || woocom_consumer_key == null){
-                    alert("Please enter shopify api key");
+                    alert("Please enter woocommerce consumer key");
                 } else if(woocom_consumer_secret == "" || woocom_consumer_secret == null){
-                    alert("Please enter shopify api password");
+                    alert("Please enter woocommerce consumer secret");
                 } else if(woocom_store_url == "" || woocom_store_url == null){
-                    alert("Please enter shopify hostname");
+                    alert("Please enter woocommerce store url");
                 } else{
-                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"woocom_consumer_key":woocom_consumer_key,"woocom_consumer_secret":woocom_consumer_secret,"woocom_store_url":woocom_store_url}, function(data)
+                    $.post("save_ecommerce_credentials", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"woocom_consumer_key":woocom_consumer_key,"woocom_consumer_secret":woocom_consumer_secret,"woocom_store_url":woocom_store_url}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your woocommerce credentials saved successfully.");
+                            $('#addEcommerceCrdentials').modal('hide');
                         }        
                      });
                 }               
@@ -655,13 +740,52 @@ Consumer Key & Consumer Secret and your store url is your woocommerce hostname(e
                 } else if(bigcom_api_token == "" || bigcom_api_token == null){
                     alert("Please enter bigcommerce api token");
                 } else{
-                    $.post("ecommerce_ajax", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"bigcom_username":bigcom_username,"bigcom_api_path":bigcom_api_path,"bigcom_api_token":bigcom_api_token}, function(data)
+                    $.post("save_ecommerce_credentials", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"bigcom_username":bigcom_username,"bigcom_api_path":bigcom_api_path,"bigcom_api_token":bigcom_api_token}, function(data)
                      { 
                         if(data == "success"){
                             alert("Thanks! Your bigcommerce credentials saved successfully.");
+                            $('#addEcommerceCrdentials').modal('hide');
                         }     
                      });
                 }               
+            }
+            if(ecommerce_plugin == "ebay"){
+                var ebay_appId    = $("#ebay_appId").val();
+                var ebay_devId = $("#ebay_devId").val();
+                var ebay_certId   = $("#ebay_certId").val();
+                var ebay_user_token   = $("#ebay_user_token").val();
+                if(ebay_appId == "" || ebay_appId == null){
+                    alert("Please enter ebay app id");
+                } else if(ebay_devId == "" || ebay_devId == null){
+                    alert("Please enter ebay dev id");
+                } else if(ebay_certId == "" || ebay_certId == null){
+                    alert("Please enter ebay cert id");
+                } else if(ebay_user_token == "" || ebay_user_token == null){
+                    alert("Please enter ebay user token");
+                } else{
+                    var keyname = document.getElementsByName('ebaykeytype');
+                    var isSelected = false;
+                    var keyType = "";
+                    for(var i=0; i<keyname.length;i++){
+                        if(keyname[i].checked == true){
+                            isSelected = true;  
+                            keyType = keyname[i].value;
+                        }
+                    }
+                    if(!isSelected){
+                        alert("Please Choose the ebay key type(Sandbox or Production key?)");
+                    } else{
+                        $.post("save_ecommerce_credentials", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"ebay_appId":ebay_appId,"ebay_devId":ebay_devId,"ebay_certId":ebay_certId,"ebay_user_token":ebay_user_token,"keyType":keyType}, function(data){ 
+                                if(data == "success"){
+                                    alert("Thanks! Your ebay credentials saved successfully.");
+                                    $('#addEcommerceCrdentials').modal('hide');
+                                }     
+                         });
+                    }                    
+                } 
+            }
+            if(ecommerce_plugin == "amazon"){
+                
             }
         }
 

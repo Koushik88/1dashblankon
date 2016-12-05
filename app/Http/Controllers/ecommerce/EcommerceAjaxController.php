@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ecommerce;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -601,10 +602,10 @@ class EcommerceAjaxController extends Controller {
 			 * Ebay API Ajax calls
 			 */
 			if ($plugin_type == "ebay") {
-				// if ($ebay_config == "no") {
-				// 	echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$ebay_msg</div>";
-				// 	exit();
-				// }
+				if ($ebay_config == "no") {
+					echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$ebay_msg</div>";
+					exit();
+				}
 				if ($report_type == "orders") {
 					/**
 					 * [$orders description]
@@ -614,16 +615,16 @@ class EcommerceAjaxController extends Controller {
 					$orders = get_ebay_orders();
 					// $result = json_decode($orders, true);
 					$noresults = true;
-					echo "<pre>";
-					print_r($orders);
-					exit();
-					if ($result['errors']) {
-						echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>
-								<p>" . $result['errors'] . "</p>
-								<p>Oops! Something went wrong. Please check your shopify credentials. </p>
+					if (isset($orders['Errors'])) {
+						echo "<div style='text-align: center;margin: 8% 0px;font-size: 14px;'>
+								<p>" . $orders['Errors']['ShortMessage'] . "</p>
+								<p>" . $orders['Errors']['LongMessage'] . " Please provide valid ebay credentials.</p>
 								</div>";
 						exit();
 					}
+					echo "<pre>";
+					print_r($orders);
+					exit();
 
 					$html = '<table class="table table-bordered tile pltable" style="min-width:600px;/*max-width:1000px;*/">';
 					$html .= '<thead><tr>
@@ -701,11 +702,27 @@ class EcommerceAjaxController extends Controller {
 					exit();
 				}
 			}
+
 			/*******
 				 *
-				 * Save Credentials
+				 * Unset Social success session variables.
 				 *
 			*/
+			if ($request->input('unsetSocial') == "unset social success session") {
+				unset($_SESSION['isSocialSuccess']);
+				unset($_SESSION['SocialMsg']);
+				echo "success";
+				exit();
+			}
+		}
+	}
+	/**
+	 * [save_ecommerce_credentials Save Credentials]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function save_ecommerce_credentials(Request $request) {
+		if ($request->ajax()) {
 			if ($request->input('ecom_post_sign') == "save ecommerce credentials") {
 				$admin_obj = new Admin;
 				if ($request->input('ecommerce_plugin') == "shopify") {
@@ -750,27 +767,19 @@ class EcommerceAjaxController extends Controller {
 				}
 				if ($request->input('ecommerce_plugin') == "ebay") {
 					$data = array();
-					// $data['bigcom_username'] = $request->input('bigcom_username');
-					// $data['bigcom_api_path'] = $request->input('bigcom_api_path');
-					// $data['bigcom_api_token'] = $request->input('bigcom_api_token');
-
+					$data['ebay_appId'] = $request->input('ebay_appId');
+					$data['ebay_devId'] = $request->input('ebay_devId');
+					$data['ebay_certId'] = $request->input('ebay_certId');
+					$data['ebay_user_token'] = $request->input('ebay_user_token');
+					if ($request->input('keyType') == "sandbox") {
+						$data['ebay_server_url'] = 'https://api.sandbox.ebay.com/ws/api.dll';
+					} else if ($request->input('keyType') == "sandbox") {
+						$data['ebay_server_url'] = 'https://api.ebay.com/ws/api.dll';
+					}
 					$admin_obj->savePluginCredentials('Ebay', json_encode($data));
 					echo "success";
 					exit();
 				}
-
-				exit();
-			}
-
-			/*******
-				 *
-				 * Unset Social success session variables.
-				 *
-			*/
-			if ($request->input('unsetSocial') == "unset social success session") {
-				unset($_SESSION['isSocialSuccess']);
-				unset($_SESSION['SocialMsg']);
-				echo "success";
 				exit();
 			}
 		}
