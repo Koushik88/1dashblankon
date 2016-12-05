@@ -70,7 +70,13 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('updateRssFeedsUrl', 'plugin\rssfeedController@updateRssFeedsUrl');
 	Route::post('loadQBOCompanyList', 'plugin\OneviewControllerAjax@loadQBOCompanyList');
 	Route::post('deleteQBOCompanyList', 'plugin\OneviewControllerAjax@deleteQBOCompanyList');
-	/**
+        Route::post('InstitutionsList', 'plugin\finicityAPIController@InstitutionsList');
+        Route::post('InstitutionsLoginForm', 'plugin\finicityAPIController@InstitutionsLoginForm');
+        Route::post('institutionFormdataAggrication', 'plugin\finicityAPIController@institutionFormdataAggrication');
+	Route::post('loadBankDetails', 'plugin\finicityAPIController@loadBankDetails');
+        Route::post('changeFinicityAccount', 'plugin\finicityAPIController@changeFinicityAccount');
+        
+        /**
 	 * Social Stream Page
 	 */
 	Route::get('socialstream', 'socialstream\SocialStreamController@socialstream')->name('socialstream');
