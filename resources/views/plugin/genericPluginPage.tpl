@@ -584,7 +584,7 @@
                 var html = ` 
                     <div class="p-10">                                               
                         <div class="form-group">
-                            <label for="amazon_merchantId">Merchant ID</label>
+                            <label for="amazon_merchantId">Seller ID</label>
                             <input type="text" class="form-control input-sm" name="amazon_merchantId" id="amazon_merchantId" required="" value="">
                         </div>
                         <div class="form-group">
@@ -592,19 +592,19 @@
                             <input type="text" class="form-control input-sm" name="amazon_marketplaceId" id="amazon_marketplaceId" required="" value="">
                         </div>
                         <div class="form-group">
-                            <label for=amazon_keyId">Key ID</label>
+                            <label for=amazon_keyId">AWS Access Key ID</label>
                             <input type="text" class="form-control input-sm" name="amazon_keyId" id="amazon_keyId" required="" value="">
                         </div>
                         <div class="form-group">
                             <label for=amazon_secretKey">Secret Key</label>
                             <input type="text" class="form-control input-sm" name="amazon_secretKey" id="amazon_secretKey" required="" value="">
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for=amazon_serviceUrl">Service Url</label>
                             <input type="text" class="form-control input-sm" name="amazon_serviceUrl" id="amazon_serviceUrl" required="" value="">
-                        </div>                        
+                        </div>-->                     
                         <div class="form-group">
-                            <label for=amazon_MWSAuthToken">MWSAuthToken</label>
+                            <label for=amazon_MWSAuthToken">MWS Auth Token</label>
                             <input type="text" class="form-control input-sm" name="amazon_MWSAuthToken" id="amazon_MWSAuthToken" required="" value="">
                         </div>
                         <button class="btn btn-sm m-t-10" onclick="return saveEcommerceConnection('amazon');">Save</button>
@@ -612,14 +612,15 @@
                 
                 <a href="javascript:void(0);" class="modal-title" style="margin-top: 10px;font-size: 14px;cursor: pointer; " id="show_shopify_steps" onclick="doggle_shopify(id)">Steps to generate api credentials 
                     <i class="fa fa-angle-double-up" aria-hidden="true" id="shpy_icn"></i></a>
-                <!--<a href="https://help.shopify.com/api/guides/api-credentials#generate-private-app-credentials" target="_blank" class="pull-right">Reference</a>-->
                 <div id="shopify_steps" style="padding: 15px;border: 1px solid rgba(255, 255, 255, 0.3);margin-top: 15px;display:none;">
-                    <p>Step 1: Log into the store.</p>
-                    <p>Step 2: Click Advanced Settings.</p>
-                    <p>Step 3: Click Create a Legacy API Account.</p>
-                    <p>Step 4: Type the name of the user in the Username box and save.</p>
+                    <p>Step 1: Login to <a href="https://sellercentral.amazon.com/gp/mws/registration/register.html" target="_blank"><u>https://sellercentral.amazon.com/gp/mws/registration/register.html</u></a> using your seller account login credentials.
+                    </p>
+                    <p>Step 2: First select option "I want to access my own Amazon seller account with MWS", and then click on Next. You will have: Seller account identifiers for your store and save those credentials.</p>
+                    <p>Step 3: Then again login to <a href="https://sellercentral.amazon.com/gp/mws/registration/register.html" target="_blank"><u>https://sellercentral.amazon.com/gp/mws/registration/register.html</u></a></p>                    
+                    <p>Step 4: Now, select option "I want to use an application to access my Amazon seller account with MWS". And enter the "Application name" and the "Developer ID" you got from Seller account identifiers to get MWS Auth Token and then Click on Next.</p>
+                    <p>Step 4: After confirmation page you will have "MWS Auth Token" and save this also.</p>
                     <p>Your API credentials will be displayed on screen. Copy 
-                        the Username & API Path & API Token and past here and click the Save button.</p>
+                        the Seller ID & Marketplace ID & AWS Access Key ID & Secret Key & MWS Auth Token and past here and click the Save button.</p>
                 </div>`;
                 $("#loadEcommerceConnBody").html(html);
             } 
@@ -785,7 +786,29 @@
                 } 
             }
             if(ecommerce_plugin == "amazon"){
-                
+                var amazon_merchantId    = $("#amazon_merchantId").val();
+                var amazon_marketplaceId = $("#amazon_marketplaceId").val();
+                var amazon_keyId   = $("#amazon_keyId").val();
+                var amazon_secretKey   = $("#amazon_secretKey").val();
+                var amazon_MWSAuthToken   = $("#amazon_MWSAuthToken").val();
+                if(amazon_merchantId == "" || amazon_merchantId == null){
+                    alert("Please enter amazon seller id");
+                } else if(amazon_marketplaceId == "" || amazon_marketplaceId == null){
+                    alert("Please enter amazon marketplace id");
+                } else if(amazon_keyId == "" || amazon_keyId == null){
+                    alert("Please enter amazon AWS Access Key ID");
+                } else if(amazon_secretKey == "" || amazon_secretKey == null){
+                    alert("Please enter amazon Secret Key");
+                } else if(amazon_MWSAuthToken == "" || amazon_MWSAuthToken == null){
+                    alert("Please enter amazon MWS Auth Token");
+                } else{
+                    $.post("save_ecommerce_credentials", {"ecom_post_sign":"save ecommerce credentials","ecommerce_plugin":ecommerce_plugin,"amazon_merchantId":amazon_merchantId,"amazon_marketplaceId":amazon_marketplaceId,"amazon_keyId":amazon_keyId,"amazon_secretKey":amazon_secretKey,"amazon_MWSAuthToken":amazon_MWSAuthToken}, function(data){ 
+                            if(data == "success"){
+                                alert("Thanks! Your amazon credentials saved successfully.");
+                                $('#addEcommerceCrdentials').modal('hide');
+                            }     
+                     });            
+                }
             }
         }
 
