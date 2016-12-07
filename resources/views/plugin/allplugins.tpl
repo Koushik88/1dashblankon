@@ -58,12 +58,13 @@
     <div class="block-area shortcut-area">
         <span id="loadAllSocialPlugins">
 
+ 
+            
         </span>
-        
-       {* <a class="shortcut tile" href="javascript:void(0);" id="bankbtn">
-            <img alt="" src="{$smarty.const.IMAGESLOCATION}social/googledrive1.svg">
-            <small class="t-overflow">Bank</small></img>
-        </a> *}         
+            <a class="shortcut tile" href="javascript:void(0);" onclick="bankSearchModal();">
+                <span class="icon" style="font-size:33px;">&#61700;</span>
+                <small class="t-overflow">Bank</small></img>
+            </a> 
                         
     </div>
         

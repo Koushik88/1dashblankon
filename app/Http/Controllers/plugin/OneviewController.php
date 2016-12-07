@@ -52,6 +52,43 @@ class OneviewController extends Controller {
 			curl_close($ch);
 		}
 
+                
+                $admin_obj = new Admin;
+                $finicity_credentials = $admin_obj->getAllPluginCredentials('Finicity');
+                $finicity_active_credentials = $admin_obj->getPluginCredentials('Finicity');
+                
+                if($finicity_active_credentials){
+                    $this->addTemplateVar("finicity_active_credentials",json_decode($finicity_active_credentials[0]["data"],true));
+                }
+                
+                if (!$finicity_credentials) {
+                    
+                    $this->addTemplateVar("finicity_error_msg", "quickbook_error_msg");
+		}
+                {
+                    $this->addTemplateVar('finicity_list', $finicity_credentials);
+                }
+                
+                if(isset($_GET['selectType']))
+                {
+                    $this->addTemplateVar('active_list', 'Bank');
+                }
+                else
+                {
+                     $this->addTemplateVar('active_list', 'quickbooks');
+                }
+                
+                if (isset($_SERVER['HTTPS'])) {
+			$protocol = 'https';
+		} else {
+			$protocol = 'http';
+		}
+
+		$server = $_SERVER['HTTP_HOST'];
+		$currPageServer = "$protocol://" . $server;
+                $this->addTemplateVar('currPageServer', $currPageServer.'/widget');
+                
+
 		$query = "date_macro=thisyear&column=quarterly";
 		$this->addTemplateVar('query', $query);
 		$this->addTemplateVar('menus', $menus);
