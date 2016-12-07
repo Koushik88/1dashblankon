@@ -262,6 +262,9 @@ function customPeriodSelection(){
   /*
   * Load default plugin -> report_type Data for widgetPeriod
   */  
+ if((plugin == "amazon") || (plugin == "ebay")){
+    report_type = "orders";
+  }
   $.post("ecommerce_ajax", {"plugin":plugin,"report_type":report_type,"period":widgetPeriod}, function(data){ 
     // console.log(data);
     $("#loadata_ajax").html(data);
