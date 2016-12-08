@@ -127,6 +127,8 @@ class SocialConnectionController extends Controller {
 				$client->setState("widget");
 			} else if ($_GET['source'] == "profile") {
 				$client->setState("profile");
+			} else if ($_GET['source'] == "gmail_up") {
+				$client->setState("gmail_up");
 			}
 			$client->setScopes(array(
 				'https://mail.google.com/',

@@ -13,7 +13,7 @@
 
 
 <div>
-<a href="{$authUrl}"    style="float:right;margin-right:15px;padding-top: 5px; padding-bottom: 5px;">Sign In</a>
+<a href="socialconnection/Google?source=gmail_up"    style="float:right;margin-right:15px;padding-top: 5px; padding-bottom: 5px;">Sign In</a>
 <div class="row">
 <div style="margin-left:20px;">{$email}</div>
 
@@ -26,18 +26,18 @@
             </div>
 
            <div class="list-group m-t-10 list-group-flat">
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=INBOX" class="list-group-item {if $labelIds eq 'INBOX'} active {/if}">Inbox<span class="badge badge-trp" id="inboxunreadCount">{$inboxunreadCount}</span></a>
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=IMPORTANT" class="list-group-item {if $labelIds eq 'IMPORTANT'} active {/if}">Important<span class="badge badge-trp" id="importantunreadCount">{$importantunreadCount}</span></a>
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=STARRED" class="list-group-item {if $labelIds eq 'STARRED'} active {/if}">Starred<span class="badge badge-trp" id="starredunreadCount">{$starredunreadCount}</span></a>
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=DRAFT" class="list-group-item {if $labelIds eq 'DRAFT'} active {/if}">Drafts<span class="badge badge-trp" id="draftunreadCount">{$draftunreadCount}</span></a>
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=SENT" class="list-group-item {if $labelIds eq 'SENT'} active {/if}">Sent Mail<span class="badge badge-trp" id="sentunreadCount">{$sentunreadCount}</span></a>
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds=SPAM" class="list-group-item {if $labelIds eq 'SPAM'} active {/if}">Spam<span class="badge badge-trp" id="spamunreadCount">{$spamunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=INBOX" class="list-group-item {if $labelIds eq 'INBOX'} active {/if}">Inbox<span class="badge badge-trp" id="inboxunreadCount">{$inboxunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=IMPORTANT" class="list-group-item {if $labelIds eq 'IMPORTANT'} active {/if}">Important<span class="badge badge-trp" id="importantunreadCount">{$importantunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=STARRED" class="list-group-item {if $labelIds eq 'STARRED'} active {/if}">Starred<span class="badge badge-trp" id="starredunreadCount">{$starredunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=DRAFT" class="list-group-item {if $labelIds eq 'DRAFT'} active {/if}">Drafts<span class="badge badge-trp" id="draftunreadCount">{$draftunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=SENT" class="list-group-item {if $labelIds eq 'SENT'} active {/if}">Sent Mail<span class="badge badge-trp" id="sentunreadCount">{$sentunreadCount}</span></a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds=SPAM" class="list-group-item {if $labelIds eq 'SPAM'} active {/if}">Spam<span class="badge badge-trp" id="spamunreadCount">{$spamunreadCount}</span></a>
             </div>
 
 
             <div class="list-group list-group-flat m-t-15 table-responsive overflow" style="overflow:auto;height:400px">
                 {foreach from=$listlables_name name='name' item='value' key='key'}
-                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds={$listlables_id[$key]}" class="list-group-item {if $labelIds eq $listlables_id[$key]} active {/if}">{$listlables_name[$key]}</a>
+                <a href="{$smarty.const.CURRENTLOCATION}?labelIds={$listlables_id[$key]}" class="list-group-item {if $labelIds eq $listlables_id[$key]} active {/if}">{$listlables_name[$key]}</a>
                 {/foreach}
                <!--  <a href="#" class="list-group-item"><span class="message-tag progress-bar-danger"></span>Personal</a>
                 <a href="#" class="list-group-item"><span class="message-tag progress-bar-info"></span>Promotions</a>
@@ -66,9 +66,9 @@
                         <ul class="list-inline pull-right m-t-5 m-b-0">
                             <li class="pagin-value hidden-xs">{$msg}-{$msgcount} {$contentof} {$totalcount}</li>
                             <li  id="display"></li>
-                           {if isset($pageTokenprev)}
+                           {if isset($pageTokenprev) && $pageTokenprev == 23}
                             <li>
-                                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds={$labelIds}&pageToken={$pageTokenprev}" title="Previous" >
+                                <a href="{$smarty.const.CURRENTLOCATION}?labelIds={$labelIds}&pageToken={$pageTokenprev}" title="Previous" >
                                     <i class="sa-list-back"></i>
                                 </a>
                             </li>
@@ -76,7 +76,7 @@
                            
                             {if isset($pageTokennext)}
                             <li>
-                                <a id="prtour_navigator" href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&labelIds={$labelIds}&pageToken={$pageTokennext}" title="Next" >
+                                <a id="prtour_navigator" href="{$smarty.const.CURRENTLOCATION}?labelIds={$labelIds}&pageToken={$pageTokennext}" title="Next" >
                                     <i class="sa-list-forwad"></i>
                                 </a>
                             </li>
@@ -117,14 +117,16 @@
 
                   
                 <form method="post" action="{$smarty.server.REQUEST_URI}" name="message">
-                        <input class="input-sm col-md-4 pull-right message-search" type="text" placeholder="Search...." name="mes" value="{$search}" id="prtour_search">
+                  <input type="hidden" name="_token" value="{$csrf_token}">
+                  <input class="input-sm col-md-4 pull-right message-search" type="text" placeholder="Search...." name="mes" value="{$search}" id="prtour_search">
                 </form>
 
                        
                         <div class="clearfix"></div>
                     </header>
-                        {$nosearch}
-
+                    {if isset($nosearch)}
+                       <h3 style="text-align: center;margin: 5% 0;">{$nosearch}</h3> 
+                    {/if}
                     {foreach from=$mergeArrays name='name' item='value' key='key'}
 
                     <div class="media">
@@ -132,7 +134,7 @@
 
                      <input type="checkbox" class="pull-left list-check" value="{$value['messageId']}">
 
-                     <a class="media-body openMessage" href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&msgid={$value['messageId']}&drafid={$value['draftId']}&label={$labelIds}">
+                     <a class="media-body openMessage" href="{$smarty.const.CURRENTLOCATION}?msgid={$value['messageId']}&drafid={$value['draftId']}&label={$labelIds}">
                                            
                        
                            {if $smarty.get.labelIds eq 'SENT'}
@@ -177,7 +179,7 @@
                        
                         <ul class="list-inline list-mass-actions pull-left eml">
                             <li class="m-r-10">
-                                <a href="{$smarty.const.CURRENTLOCATION}?mid={$smarty.get.mid}&nav={$smarty.get.nav}&{if $labelIds eq 'DRAFT' }draft={$labelIds}{else}labelIds={$labelIds}{/if}" >
+                                <a href="{$smarty.const.CURRENTLOCATION}?{if $labelIds eq 'DRAFT' }draft={$labelIds}{else}labelIds={$labelIds}{/if}" >
                                     <i class="sa-list-back"></i>
                                 </a>
                             </li>
@@ -264,7 +266,7 @@
                     </div>
                    
                     <div class="p-15">
-                       <div style="overflow: auto;"> {$bodymessage['decodedMessage']} {assign var="msg" value="{$bodymessage['decodedMessage']}"}</div>
+                       <div class="overflow" style="overflow: auto;max-height: 500px;"> {$bodymessage['decodedMessage']} {assign var="msg" value="{$bodymessage['decodedMessage']}"}</div>
                        
                     </div>
                    
@@ -287,6 +289,7 @@
                             </div>
 
                              <form method="POST" action="{$smarty.server.REQUEST_URI}&send" name="mail" id="composemail" enctype="multipart/form-data">
+                             <input type="hidden" name="_token" value="{$csrf_token}">
                             <div class="modal-header p-0">
                                 <input type="text" class="form-control input-sm input-transparent" name="toaddr" value="{$to}" id="toaddr" placeholder="To..."  required="required">
                             </div>
@@ -351,15 +354,13 @@
                 <div class="modal fade" id="compose-message">
                     <div class="modal-dialog">
                         <div class="modal-content">
-
-                          
-
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="test();">&times;</button>
                                 <h4 class="modal-title">NEW MESSAGE</h4>
                             </div>
 
                              <form method="POST" action="{$smarty.server.REQUEST_URI}&send" name="mail" id="composemail" enctype="multipart/form-data">
+                             <input type="hidden" name="_token" value="{$csrf_token}">
                             <div class="modal-header p-0">
                                 <input type="text" class="form-control input-sm input-transparent" name="toaddr" id="toaddr" placeholder="To..."  required="required">
                             </div>
@@ -395,7 +396,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <form method="POST" id="labels" action="{$smarty.server.REQUEST_URI}&movelable" name="labels" >
-
+                          <input type="hidden" name="_token" value="{$csrf_token}">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                 <h4 class="modal-title">MOVE THE MESSAGE</h4>
@@ -433,13 +434,8 @@
                     <div class="modal-dialog">
 
                         <div class="modal-content">
-
- 
-
                             <form method="POST" action="{$smarty.server.REQUEST_URI}&reply" name="mail" enctype="multipart/form-data">
-
- 
-
+                            <input type="hidden" name="_token" value="{$csrf_token}">
                             <div class="modal-header">
 
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -518,41 +514,51 @@
 </div> 
 </div>
 <form method="POST" id="Preferences" name="Preferences" action="{$smarty.server.REQUEST_URI}&multidelete" >
-      <input type="hidden" class="form-control " value="" name="msgid" id="msgid">  
+  <input type="hidden" name="_token" value="{$csrf_token}">
+  <input type="hidden" class="form-control " value="" name="msgid" id="msgid">  
     
 </form>
        
-<script src="{$smarty.const.JSLOCATION}jquery.loader.js"></script> 
+<script src="{$smarty.const.JSLOCATION}/jquery.loader.js"></script> 
 <link href="{$smarty.const.CSSLOCATION}/jquery.loader.css" rel="stylesheet">
 
 <script type="text/javascript">
      var prtour = "{$smarty.get.prtour}";
-         {literal}
+     var isSocialSuccess = "{$smarty.session.isSocialSuccess}";
+     var SocialMsg = "{$smarty.session.SocialMsg}";
+        
+    {literal}
+         $(document).ready(function(){
+            if(isSocialSuccess == "yes_display"){
+                alert(SocialMsg);
+                // unset session variable since you already showed message
+                 $.post("ecommerce_ajax", {"unsetSocial":"unset social success session"}, function(data)
+                     { 
+                        if(data == "success"){
+                            // alert("Thanks! Your shopify credentials saved successfully."); 
+                        }                               
+                     });
+            }    
+        });
+        /*---------------------------------
+        -----------~~~~~~~~~~~~~~~~~--------
+        -----------*****************----------
+        --------------------------------------*/
             if(prtour === '1')
             {
                  productTour(csslocation);
             }  
             $(document).ready(function(){
-                //Editor
-                
-                 $.post(portalLocation+'module/gmailAjax.php',
-                {
-                     /*"Twitter_Graph_type":"day"*/
-                },
-                function(data){
-                    
-                     
-                    var resultObj = JSON.parse(data);
-                   
-                        // document.getElementById("inboxunreadCount").value = resultObj.inboxunreadCount;
-                        $("#inboxunreadCount").html(resultObj.inboxunreadCount);
-                        $("#importantunreadCount").html(resultObj.importantunreadCount);
-                        $("#starredunreadCount").html(resultObj.starredunreadCount);
-                        $("#sentunreadCount").html(resultObj.sentunreadCount);
-                        $("#draftunreadCount").html(resultObj.draftunreadCount);
-                        $("#spamunreadCount").html(resultObj.spamunreadCount);
-
-                  
+                 $.post('gmailAjax',
+                {}, function(data){    
+                    var resultObj = JSON.parse(data);                   
+                    // document.getElementById("inboxunreadCount").value = resultObj.inboxunreadCount;
+                    $("#inboxunreadCount").html(resultObj.inboxunreadCount);
+                    $("#importantunreadCount").html(resultObj.importantunreadCount);
+                    $("#starredunreadCount").html(resultObj.starredunreadCount);
+                    $("#sentunreadCount").html(resultObj.sentunreadCount);
+                    $("#draftunreadCount").html(resultObj.draftunreadCount);
+                    $("#spamunreadCount").html(resultObj.spamunreadCount);                  
                 });
                 
                 

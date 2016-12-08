@@ -55,10 +55,14 @@ class GoogleController extends Controller {
 				$_SESSION['isSocialSuccess'] = "yes_display";
 				$_SESSION['SocialMsg'] = "Thanks! You have successfully configured your google account.";
 				return redirect('widget');
-			} else {
+			} else if ($_GET['state'] == "profile") {
 				$_SESSION['isSocialSuccess'] = "yes_display";
 				$_SESSION['SocialMsg'] = "Thanks! You have successfully configured your google account.";
 				return redirect('profile');
+			} else if ($_GET['state'] == "gmail_up") {
+				$_SESSION['isSocialSuccess'] = "yes_display";
+				$_SESSION['SocialMsg'] = "Thanks! You have successfully configured your google account.";
+				return redirect('gmail_up');
 			}
 		}
 	}
