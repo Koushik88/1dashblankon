@@ -122,6 +122,14 @@ class finicityAPIController extends Controller {
         $decoded_data = json_decode($transaction_data);
         $customers_transaction = json_decode(json_encode($decoded_data), true);
         
+        if($customers_transaction["success"] == '')
+        {
+           $error_msg = json_decode($customers_transaction["message"],true);
+           echo "<br><div align='center'>".$error_msg["message"]."</div>";
+           exit;
+        }
+        
+        
         $this->addTemplateVar('transactions', $customers_transaction["data"]["transactions"]);
         return view('plugin.widget_ajax', $this->template_vars);
     }
@@ -129,6 +137,9 @@ class finicityAPIController extends Controller {
     {
         $_SESSION["BankAliesname"] = $_POST["bankAliesName"];
     }
-    
+    public function deleteTransaction()
+    {
+       // print_r($_POST);
+    }
 
 }

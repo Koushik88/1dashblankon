@@ -61,6 +61,10 @@
  
             
         </span>
+        
+            <a class="shortcut tile" href="javascript:void(0);" id="pick"> 
+                <img src="img/social/googledrive.svg"> <small class="t-overflow">Drive</small></img> 
+            </a>
             <a class="shortcut tile" href="javascript:void(0);" onclick="bankSearchModal();">
                 <span class="icon" style="font-size:33px;">&#61700;</span>
                 <small class="t-overflow">Bank</small></img>
@@ -107,7 +111,7 @@
         getAllPluginConfig();
         function getAllPluginConfig(){
            $.post('allPluginsConfigCheck', function(data){
-            var html = data+'<a class="shortcut tile" href="javascript:void(0);" id="pick"> <img src="img/social/googledrive.svg"> <small class="t-overflow">Drive</small></img> </a>';
+            var html = data;
                 $("#loadAllSocialPlugins").html(html);
                 //initPicker();
            }); 
