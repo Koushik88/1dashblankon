@@ -60,7 +60,7 @@ class finicityAPIController extends Controller {
         $institution_list_decode = json_decode($institution_list);
         $institutions = json_decode(json_encode($institution_list_decode), true);
         if ($institutions["success"] == '1') {
-            $finicity_credentials = array('user_id' => $_SESSION["finicity_userId"], 'institution_id' => $_SESSION["institutionId"], 'InstitutionName' => $_SESSION["InstitutionName"], 'account_naumber' => $_POST["loginForm"][0]["value"]);
+            $finicity_credentials = array('user_id' => $_SESSION["finicity_userId"], 'institution_id' => $_SESSION["institutionId"], 'InstitutionName' => $_SESSION["InstitutionName"], 'account_naumber' => $_POST["loginForm"][0]["value"],'bank_aliesname'=>$_SESSION["BankAliesname"],"customerId"=>$institutions["data"]["accounts"][0]["customerId"]);
             $result = $admin_obj->saveFinicityPluginCredentials('Finicity', json_encode($finicity_credentials));
             unset($_SESSION["finicity_userId"]);
             unset($_SESSION["institutionId"]);
@@ -79,29 +79,17 @@ class finicityAPIController extends Controller {
 
         if (isset($institutions["data"]["accounts"])) {
             $account_details = array();
-            foreach ($institutions["data"]["accounts"] as $key => $value) {
-                if ($value["type"] == 'investment' || $value["type"] == 'cd') {
-                    $account_details['investment']["id"] = $value["id"];
-                    $account_details['investment']["balance"] = $value["balance"];
-                } elseif ($value["type"] == 'savings' || $value["type"] == 'checking' || $value["type"] == 'unknown') {
 
-                    $account_details['savings']["id"] = $value["id"];
-                    $account_details['savings']["balance"] = $value["balance"];
-                } elseif ($value["type"] == 'creditCard' || $value["type"] == 'lineOfCredit') {
-
-                    $account_details['creditcard']["id"] = $value["id"];
-                    $account_details['creditcard']["balance"] = $value["balance"];
-                } elseif ($value["type"] == 'mortgage' || $value["type"] == 'loan') {
-
-                    $account_details['loan']["id"] = $value["id"];
-                    $account_details['loan']["balance"] = $value["balance"];
-                } elseif ($value["type"] == 'moneyMarket') {
-
-                    $account_details['moneyMarket']["id"] = $value["id"];
-                    $account_details['moneyMarket']["balance"] = $value["balance"];
-                }
+            unset($_SESSION["first_customer_id"]);
+            unset($_SESSION["current_user_id"]);
+            if ($institutions["data"]["accounts"]) {
+                $_SESSION["first_customer_id"] = $institutions["data"]["accounts"][0]["id"];
+                $_SESSION["current_user_id"] = $_POST["current_user_id"];
             }
-            echo json_encode($account_details);
+
+            $this->addTemplateVar("current_user_id", $_POST["current_user_id"]);
+            $this->addTemplateVar('customer_data', $institutions["data"]["accounts"]);
+            return view('plugin.widget_ajax', $this->template_vars);
         } else {
             if (isset($institutions["message"])) {
                 $error_message = json_decode($institutions["message"], true);
@@ -113,6 +101,45 @@ class finicityAPIController extends Controller {
     public function changeFinicityAccount() {
         $admin_obj = new Admin;
         $admin_obj->updateFinicityActiveAcount($_POST["changePluginId"]);
+    }
+
+    public function viewCustomerTransaction() {
+        
+        if ($_POST["account_id"] == '0') {
+            
+            $_POST["account_id"] = $_SESSION["first_customer_id"];
+            $_POST["selected_user_id"] = $_SESSION["current_user_id"];
+        } 
+        
+        //echo date('Y-m-d',$_POST["finicity_startdate"]);
+        $startDate = date("d/m/Y", strtotime($_POST["finicity_startdate"]));
+        $endDate = date("d/m/Y", strtotime($_POST["finicity_enddate"]));
+        $startDate = strtotime($startDate);
+        $endDate = strtotime($endDate);
+        $data = 'http://52.33.102.155/finicity-api/get-transaction-history.php?account_id=' . $_POST["account_id"] . '&user_id=' . $_POST["selected_user_id"].'&from='.$startDate.'&to='.$endDate;
+        
+        $transaction_data = file_get_contents($data);
+        $decoded_data = json_decode($transaction_data);
+        $customers_transaction = json_decode(json_encode($decoded_data), true);
+        
+        if($customers_transaction["success"] == '')
+        {
+           $error_msg = json_decode($customers_transaction["message"],true);
+           echo "<br><div align='center'>".$error_msg["message"]."</div>";
+           exit;
+        }
+        
+        
+        $this->addTemplateVar('transactions', $customers_transaction["data"]["transactions"]);
+        return view('plugin.widget_ajax', $this->template_vars);
+    }
+    public function saveBankAliesname()
+    {
+        $_SESSION["BankAliesname"] = $_POST["bankAliesName"];
+    }
+    public function deleteTransaction()
+    {
+       // print_r($_POST);
     }
 
 }

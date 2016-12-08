@@ -8,6 +8,9 @@
     .picker.modal-dialog-content{
         width:100% !important;
     }
+    .iradio_minimal{
+        margin-right:5px !important;
+    }
 </style>
 
 
@@ -151,7 +154,7 @@
                         </div>
                         <div class="col-md-1 m-b-15">
                             {if !isset($quickbook_error_msg)}  
-                                <select class="switch_company_list_icon pull-right" onchange="switchCompany_info()"  id="switch_company_list" style="padding-left:10px;width:155px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);display:none;">   
+                                <select class="switch_company_list_icon pull-right" onchange="switchCompany_info()"  id="switch_company_list" style="padding-left:10px;width:135px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);display:none;">   
 
                                 </select>
                             {/if}
@@ -192,7 +195,50 @@
             </div>
 
             <div class="tab-pane {if $active_list eq 'Bank'} active {/if}" id="Bank">
-                <div class="table-responsive overflow tile" style="overflow: hidden; height: 270px !important; outline: none;" tabindex="5001">
+                <div class="row">
+                    <div class="col-md-7"> 
+                        <label><span><h5><b id="account_lable"></b></h5></span></label>
+
+                        <div class="tile-config dropdown">   
+                            <a data-toggle="dropdown" href="">
+                                <span class="icon" style="font-size:23px;font-weight:normal;">&#61720;</span>
+                            </a>
+                            <ul class="dropdown-menu pull-right text-right">
+                                <li class="export_hide_txt"><a class="tile-info-toggle" onclick="print_finicity();" href="javascript:void(0)">Print</a></li>
+                                <li class="export_hide_txt"><a onclick="exportExcel_finicity('pdf');" href="javascript:void(0)">Export PDF</a></li>
+                                <li class="export_hide_txt"><a  onclick="exportExcel_finicity('excel');" href="javascript:void(0)">Export Excel</a></li>
+                            </ul>
+                            <a href="#deleteFinicityCredentails" data-toggle="modal">
+                                <span class="icon pull-right" style="font-size:23px;font-weight:normal;">&#61918;</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">    
+                        <div class="input-icon datetime-pick date-only">
+                            <input data-format="dd/MM/yyyy" type="text" id="finicity_startdate" class="form-control input-sm" />
+                            <span class="add-on">
+                                <i class="sa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">    
+                        <div class="input-icon datetime-pick date-only">
+                            <input data-format="dd/MM/yyyy" type="text" id="finicity_enddate" class="form-control input-sm" />
+                            <span class="add-on">
+                                <i class="sa-plus"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">&nbsp;&nbsp;<button class="btn btn-sm" onclick="viewTansactionsDateRange();">Submit</button></div><br/>
+                </div>
+
+                <input id="currentTransaction_customer_id" type="hidden" value="{$smarty.session.first_customer_id}">
+                <input id="currentTransaction_usr_id" type="hidden" value="{$smarty.session.current_user_id}">
+
+                <div class="table-responsive overflow tile" style="overflow: hidden; height: 270px !important; outline: none;" id="transaction_details" tabindex="5001">
+                    <br/>
                     <table class="table table-bordered tile" style="min-width:500px;max-width:1185px;">
                         <thead>
                             <tr>  
@@ -213,72 +259,24 @@
                             </tr>
                         </thead>  
                         <tbody> 
-                            <tr> 
-                                <td colspan="8">
-                                    ----------------
-                                </td>                                                                                                                                                                                         <tr>
-                            </tr>
+                            <tr><td colspan="7" align="center">.................</td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="block-area shortcut-area">
-                    <div class="col-md-9">
-                        <a class="tile report-legend_custom" style="cursor:pointer">
-                            <span class="icon" style="font-size:23px;">&#61817;</span>
-                            Savings Account 
-                             <span id="saving_account_value">
+                    <div class="col-md-9" id="customer_details">
 
-                             </span> 
-                            <input type="hidden" value="" id="saving_account_id">
-                        </a>
-
-                        <a class="tile report-legend_custom" style="cursor:pointer">
-                            <span class="icon" style="font-size:23px;">&#61872;</span>
-                            Investment accounts
-                            <span id="investment_value">
-
-                            </span>
-                            <input type="hidden" value="" id="investment_account_id">
-                            
-                        </a>
-                        <a class="tile report-legend_custom" style="cursor:pointer">
-                            <span class="icon" style="font-size:23px;">&#61938;</span>
-                            Credit accounts 
-                            <span id="credit_account_value">
-
-                            </span>
-                            <input type="hidden" value="" id="credit_account_id">
-
-                        </a>
-                        <a class="tile report-legend_custom" style="cursor:pointer">
-                            <img src="{$smarty.const.IMAGESLOCATION}icons-new/graph-01.png" alt="">
-                            Loans
-                            <span id="loan_account_value">
-
-                            </span>
-                            <input type="hidden" value="" id="loan_account_id">
-
-                        </a>
-                        <a class="tile report-legend_custom" style="cursor:pointer">
-                            <span class="icon" style="font-size:23px;">&#61889;</span>
-                            Market account
-                            <span id="market_account_value">
-
-                            </span>
-                            <input type="hidden" value="" id="market_account_id">
-
-                        </a>
                     </div>
-                        <div class="col-md-3">
-                            <div class="row">
-                                <select class="finicityPeriod pull-right" name="finicityPeriod" onchange="changeFinicityAccount()" id="finicityPeriod" style="padding-left:10px;width:155px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
-                                        {foreach $finicity_list as $keys=>$values}
-                                            {assign var=decoded_value value=$values["data"]|json_decode}
-                                              <option value="{$decoded_value->institution_id}&#&{$decoded_value->user_id}&#&{$values["p_id"]}" {if $finicity_active_credentials['user_id'] eq $decoded_value->user_id} selected {/if}>{$decoded_value->InstitutionName}</option>
-                                        {/foreach}
-                                </select>
-                            </div>
-                        </div>        
+                    <div class="col-md-3">
+                        <div class="row">
+                            <select class="finicityPeriod pull-right" name="finicityPeriod" onchange="changeFinicityAccount()" id="finicityPeriod" style="padding-left:10px;width:220px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
+                                {foreach $finicity_list as $keys=>$values}
+                                    {assign var=decoded_value value=$values["data"]|json_decode}
+                                    <option value="{$decoded_value->institution_id}&#&{$decoded_value->user_id}&#&{$values["p_id"]}" {if $finicity_active_credentials['user_id'] eq $decoded_value->user_id} selected {/if}>{$decoded_value->bank_aliesname}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>        
                 </div>
                 &nbsp;
             </div> 
@@ -762,15 +760,14 @@
             $.post('rssmodal', {
                 "rssmodal": "rssmodal"
             },
-
-            function(data){
-              document.getElementById("rssmodal").innerHTML=data;
-            }); 
-        }    
-    // call at last this social counter update
-    socialMediaCounts();
-    // end
- {/literal}    
+                    function (data) {
+                        document.getElementById("rssmodal").innerHTML = data;
+                    });
+        }
+        // call at last this social counter update
+        socialMediaCounts();
+        // end
+    {/literal}    
 
 </script>
 
@@ -813,6 +810,11 @@
                 <div class="form-group">
                     <label for="Search">Search</label>
                     <input type="text" class="input-sm form-control validate[required]" required name="searchbyname" id="searchbyname" placeholder="..." autocomplete="off">
+                    &nbsp;
+                    <div id="bank_inputBox" style="display:none">
+                        <label for="Search">Nickname</label>
+                        <input type="text" name="bank_name" id="bank_name" class="form-control input-sm" style="width:200px;"> 
+                    </div>
                 </div>
             </div>
 
@@ -853,22 +855,59 @@
     </div>
 </div>
 
+<div class="modal fade in" id="deleteFinicityCredentails" tabindex="-1" role="dialog" aria-hidden="false" style="display: none;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="background-color:rgba(0, 0, 0, 0.99) !important;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Delete Acoount</h4>
+            </div>
+            <div class="modal-body" style="padding-left:30px;">
+                {foreach $finicity_list as $keys=>$values} 
+                    {assign var=decoded_value value=$values["data"]|json_decode}
+                    <div> <input type="radio"  style="opacity:1;" {if $keys eq '0'} checked="checked" {/if} class="acount_list" name="acount_list" value="{$decoded_value->customerId}&#&{$values["p_id"]}"> </div>
+                    <div style="margin-top:14px !important;">&nbsp;{$decoded_value->InstitutionName} </div>
+                    
+                {/foreach}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm" onclick="deleteFinicityAccount('Finicity')">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script type="text/javascript">
     var currPageServer = "{$currPageServer}";
-   
+
     {literal}
+
+        var date = new Date();
+        var d = ("0" + date.getDate()).slice(-2);
+        var m = ("0" + (date.getMonth() + 1)).slice(-2);
+        var stmonth = ("0" + (date.getMonth())).slice(-2);
+        var y = date.getFullYear();
+        var enddate = d + "/" + m + "/" + y;
+        var startDate = d + "/" + stmonth + "/" + y;
+        $("#finicity_enddate").val(enddate);
+        $("#finicity_startdate").val(startDate);
+
+
         function bankSearchModal()
         {
             $('#bank').modal('show');
+            $("#bank_inputBox").hide();
         }
         function SearchBank()
         {
             var searchbyname = $("#searchbyname").val();
-             $('body').addClass('loading').loader('show', {
-                                        overlay: true
-                                    });
-            
+            $('body').addClass('loading').loader('show', {
+                overlay: true
+            });
+
             $.post("InstitutionsList", {"searchbyname": searchbyname}, function (response) {
                 $("#loadBankData_ajax").show();
                 $("#userdata tbody").html(response);
@@ -880,8 +919,11 @@
         function bankLoginform(InstitutionId, InstitutionName)
         {
             $('body').addClass('loading').loader('show', {
-                                        overlay: true
-                                    });
+                overlay: true
+            });
+
+            $("#bank_name").val(InstitutionName);
+            $("#bank_inputBox").show();
             $.post("InstitutionsLoginForm", {"InstitutionId": InstitutionId, "InstitutionName": InstitutionName}, function (response) {
                 $("#loadBankData_ajax").hide();
                 $("#loginform").show();
@@ -891,9 +933,14 @@
         }
         function institutionFormdataAggrication()
         {
-             $('body').addClass('loading').loader('show', {
-                                        overlay: true
-                                    });
+            $('body').addClass('loading').loader('show', {
+                overlay: true
+            });
+            var bankAliesName = $("#bank_name").val();
+            $.post("saveBankAliesname", {"bankAliesName": bankAliesName}, function (response) {
+
+            });
+
             $.ajax({
                 type: "POST",
                 crossOrigin: true,
@@ -904,75 +951,116 @@
                     alert(response);
                     if (response)
                     {
-                        var redirect_url = currPageServer+"?selectType=Bank";
-                        window.location = redirect_url;
+                       var redirect_url = currPageServer + "?selectType=Bank";
+                       window.location = redirect_url;
                     }
                     $('#bank').modal('hide');
                     $('body').removeClass('loading').loader('hide');
                 }
             });
         }
-        
+
         loadBankDetails();
         function loadBankDetails()
         {
-           
+
             var finicityPeriodInof = $("#finicityPeriod option:selected").val();
-            var finicityPeriod = finicityPeriodInof.split("&#&");            
-            $.post("loadBankDetails", {"current_insitiution_id": finicityPeriod[0],"current_user_id":finicityPeriod[1]}, function (response) {
-           
-            
-            if(response === '0')
-            {
-                alert("Customer does not have any accounts associated with institutionId");
-            }
-            else
-            {
-                    var lableValue = JSON.parse(response);   
-                    
-                    if(typeof lableValue.savings != '')
-                    {
-                         $("#saving_account_value").html("<i class='social-count animated'>" + lableValue.savings.balance + "</i>");
-                        $("#saving_account_id").val(lableValue.savings.id);
-                    }
-                    if(typeof lableValue.investment != '')
-                    {
-                     $("#investment_value").html("<i class='social-count animated'>" + lableValue.investment.balance + "</i>");                
-                     $("#investment_account_id").val(lableValue.savings.id);
-                    }
-                 
-                    if(typeof lableValue.creditcard != '')
-                    {
-                        $("#credit_account_value").html("<i class='social-count animated'>" + lableValue.creditcard.balance + "</i>");
-                        $("#credit_account_id").val(lableValue.creditcard.id);
-                    }
-                    if(typeof lableValue.loan != '')
-                    {
-                         $("#loan_account_value").html("<i class='social-count animated'>" + lableValue.loan.balance + "</i>");
-                         $("#loan_account_id").val(lableValue.loan.id);
-                    }
-                    if(typeof lableValue.moneyMarket != '')
-                    {
-                        $("#market_account_value").html("<i class='social-count animated'>" + lableValue.moneyMarket.balance + "</i>");
-                        $("#market_account_id").val(lableValue.moneyMarket.id);
-                    }
-                    
-            }
-               
-                
+            var finicityPeriod = finicityPeriodInof.split("&#&");
+            $.post("loadBankDetails", {"current_insitiution_id": finicityPeriod[0], "current_user_id": finicityPeriod[1]}, function (response) {
+
+
+                if (response === '0')
+                {
+                    alert("Customer does not have any accounts associated with institutionId");
+                } else
+                {
+                    $("#customer_details").html(response);
+
+                    var first_customer_id = $("#first_customer_id").val();
+                    var curr_usr_id = $("#curr_usr_id").val();
+                    viewCustomerTransaction(first_customer_id, curr_usr_id);
+                }
+
+
             });
         }
         function changeFinicityAccount()
         {
-           
-             var finicityPeriodInof = $("#finicityPeriod option:selected").val();
-             var changePluginId = finicityPeriodInof.split("&#&"); 
-                  $.post("changeFinicityAccount", {"changePluginId": changePluginId[2]}, function (response) {
-                   
-                        var redirect_url = currPageServer+"?selectType=Bank";
-                        window.location = redirect_url;
-                  });
+
+            var finicityPeriodInof = $("#finicityPeriod option:selected").val();
+            var changePluginId = finicityPeriodInof.split("&#&");
+            $.post("changeFinicityAccount", {"changePluginId": changePluginId[2]}, function (response) {
+
+                var redirect_url = currPageServer + "?selectType=Bank";
+                window.location = redirect_url;
+            });
         }
+        function viewCustomerTransaction(account_id, current_user_id)
+        {
+            var finicity_startdate = $("#finicity_startdate").val();
+            var finicity_enddate = $("#finicity_enddate").val();
+
+            $("#currentTransaction_customer_id").val();
+            $("#currentTransaction_usr_id").val();
+
+            $("#currentTransaction_customer_id").val(account_id);
+            $("#currentTransaction_usr_id").val(current_user_id);
+
+
+
+            $("#account_lable").html($("#" + account_id + "_account_details").attr('title'));
+            $('body').addClass('loading').loader('show', {
+                overlay: true
+            });
+            $.post("viewCustomerTransaction", {"account_id": account_id, "selected_user_id": current_user_id, "finicity_startdate": finicity_startdate, "finicity_enddate": finicity_enddate}, function (response) {
+                //alert(response);
+                $("#transaction_details").html(response);
+                $('body').removeClass('loading').loader('hide');
+            });
+        }
+        function viewTansactionsDateRange()
+        {
+            var account_id = $("#currentTransaction_customer_id").val();
+            var current_user_id = $("#currentTransaction_usr_id").val();
+            viewCustomerTransaction(account_id, current_user_id);
+        }
+
+        function print_finicity()
+        {
+            var table_height = $("#transaction_details_table").height();
+            var table_height = (table_height + 500 + "px");
+            $("#transaction_details").css("height", table_height);
+            $("#account_lable_info").show();
+            $("#account_lable_info").html($("#account_lable").text());
+            var divToPrint = document.getElementById("transaction_details");
+            newWin = window.open("");
+            newWin.document.write(divToPrint.outerHTML);
+            $("#transaction_details").css("height", "270px");
+            $("#account_lable_info").hide();
+            newWin.print();
+            newWin.close();
+        }
+
+        function exportExcel_finicity(format)
+        {
+            var cmpInfo = $("#account_lable").text();
+            var lablehead = "";
+            $("#transaction_details_table").tableExport({type: format, escape: 'false', cmpInfo: cmpInfo, lablehead: lablehead});
+
+        }
+        function deleteFinicityAccount(pluginName)
+        {
+           var selected_val = $(".acount_list:checked").val();
+           var finicityValue = selected_val.split("&#&");
+           
+            $.post("deleteTransaction", {"deleteCustomerId": finicityValue[0], "delete_pluginId": finicityValue[1]}, function (response) {
+                //alert(response);
+              
+            });
+        }
+
 
     {/literal} 
 </script>
+
+

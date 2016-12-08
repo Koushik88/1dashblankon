@@ -74,10 +74,12 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('InstitutionsLoginForm', 'plugin\finicityAPIController@InstitutionsLoginForm');
 	Route::post('institutionFormdataAggrication', 'plugin\finicityAPIController@institutionFormdataAggrication');
 	Route::post('loadBankDetails', 'plugin\finicityAPIController@loadBankDetails');
-	Route::post('changeFinicityAccount', 'plugin\finicityAPIController@changeFinicityAccount');
-
-	/**
-	 * Social Stream Page
+        Route::post('changeFinicityAccount', 'plugin\finicityAPIController@changeFinicityAccount');
+        Route::post('viewCustomerTransaction', 'plugin\finicityAPIController@viewCustomerTransaction');
+        Route::post('saveBankAliesname', 'plugin\finicityAPIController@saveBankAliesname');
+        Route::post('deleteTransaction', 'plugin\finicityAPIController@deleteTransaction');
+ 
+	 /* Social Stream Page
 	 */
 	Route::get('socialstream', 'socialstream\SocialStreamController@socialstream')->name('socialstream');
 	Route::post('socialstreamAjax', 'socialstream\SocialStreamController@socialstreamAjax');
