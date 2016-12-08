@@ -595,7 +595,74 @@ class EcommerceAjaxController extends Controller {
 					echo "<div style='text-align: center;margin: 10% 0px;font-size: 14px;'>$amazon_msg</div>";
 					exit();
 				}
-				echo "amazon";
+				if ($report_type == "orders") {
+					/**
+					 * [$orders description]
+					 * needs to pass timestamp to get order details
+					 * @var [type]
+					 */
+					$orders = get_amazon_orders($periodindays);
+					$noresults = true;
+					$html = '<table class="table table-bordered tile pltable" style="min-width:600px;/*max-width:1000px;*/">';
+					$html .= '<thead><tr>
+								<th>ORDER DATE</th>
+			                	<th>Order Details</th>
+			                	<th>Shipping</th>
+			                	<th>Shipping address</th>
+			                	<th>Status</th>
+            				</thead></tr><tbody>';
+					foreach ($orders as $value) {
+						$date = strtotime($value['data']['PurchaseDate']);
+						$order_date = date("Y-m-d", $date);
+						$ship_dte = strtotime($value['data']['EarliestShipDate']);
+						$ship_dte = date("M j, Y", $ship_dte);
+						$ear_dlv_dte = strtotime($value['data']['EarliestDeliveryDate']);
+						$lte_dlv_dte = strtotime($value['data']['LatestDeliveryDate']);
+						$ear_dlv_dte = date("M j, Y", $ear_dlv_dte);
+						$lte_dlv_dte = date("M j, Y", $lte_dlv_dte);
+						if (($order_date >= $Since) && ($order_date <= $today)) {
+							$noresults = false;
+							$currency = $value['data']['OrderTotal']['CurrencyCode'];
+							$html .= '<tr>';
+							$html .= '<td>' . date("M j, Y", $date) . '<br/>' . date("h:i:s A", $date) . '</td>';
+							$html .= '<td>' . '<a href="https://sellercentral.amazon.com/hz/orders/details?_encoding=UTF8&orderId=' . $value['data']['AmazonOrderId'] . '&ref_=ag_orddet_cont_myo" target="_blank" title="ORDER ID">#' . $value['data']['AmazonOrderId'] . '</a><br/><br/>
+								Total Items: ' . $value['data']['NumberOfItemsShipped'] . '
+								, Amount: <span title="TOTAL PRICE">' . $currency_symbols["$currency"] . $value['data']['OrderTotal']['Amount'] . '</span><br/>
+								Buyer: <a href="mailto:' . $value['data']['BuyerEmail'] . '" target="_top" title=" CUSTOMER EMAIL">' . $value['data']['BuyerName'] . '</a> <br />
+								Sales Channel: ' . $value['data']['SalesChannel'] . '<br />
+								Fulfillment method: ' . $value['data']['FulfillmentChannel'] . '<br />
+							</td>';
+							$html .= '<td>
+								<span title="Shipment Service Level Category">' . $value['data']['ShipmentServiceLevelCategory'] . '<br/><br/>
+								Expected ship date:<br/>' . $ship_dte . '<br/><br/>
+								Deliver by:<br/>' . $ear_dlv_dte . ' to ' . $lte_dlv_dte . '
+							</td>';
+							$html .= '<td>
+							<span title="Name">' . $value['data']['ShippingAddress']['Name'] . '</span><br/>
+							<span title="AddressLine1">' . $value['data']['ShippingAddress']['AddressLine1'] . '</span><br/>';
+							if ($value['data']['ShippingAddress']['AddressLine2']) {
+								$html .= '<span title="AddressLine2">' . $value['data']['ShippingAddress']['AddressLine2'] . '</span><br/>';
+							}
+							if ($value['data']['ShippingAddress']['AddressLine3']) {
+								$html .= '<span title="AddressLine3">' . $value['data']['ShippingAddress']['AddressLine3'] . '</span><br/>';
+							}
+							$html .= '<span title="City">' . $value['data']['ShippingAddress']['City'] . '</span>, <span title="State Or Region">' . $value['data']['ShippingAddress']['StateOrRegion'] . '</span><br/>';
+							$html .= '<span title="County">' . $value['data']['ShippingAddress']['County'] . '</span>, <span title="CountryCode">' . $value['data']['ShippingAddress']['CountryCode'] . '</span> - <span title="PostalCode">' . $value['data']['ShippingAddress']['PostalCode'] . '</span><br/>';
+							if ($value['data']['ShippingAddress']['Phone']) {
+								$html .= '<span title="Phone">' . $value['data']['ShippingAddress']['Phone'] . '</span><br/>';
+							}
+							$html .= '</td>';
+							$html .= '<td><span title="Order Status">' . $value['data']['OrderStatus'] . '</span></td>';
+							$html .= '</tr>';
+						}
+					}
+					if ($noresults) {
+						$html .= '<tr><td colspan="5" style="text-align: center;">No orders data found for last ' . $periodindays . ' days</td></tr>';
+					}
+					$html .= '</tbody></table>';
+					echo $html;
+					exit();
+				}
 				exit();
 			}
 			/**
@@ -622,80 +689,73 @@ class EcommerceAjaxController extends Controller {
 								</div>";
 						exit();
 					}
-					echo "<pre>";
-					print_r($orders);
-					exit();
 
 					$html = '<table class="table table-bordered tile pltable" style="min-width:600px;/*max-width:1000px;*/">';
 					$html .= '<thead><tr>
-					<th>ORDER ID</th>
+					<th>ORDER Date</th>
                 	<th>Order Details</th>
-                	<th>Product Details</th>
-                	<th>Tracking Info</th>
-                	<th>Payment Status</th>
-
-                	<th>Transaction</th>
-                	<th>Fulfillments</th>
-                	<th>Refunds</th>
+                	<th>Shipping Details</th>
+                	<th>Shipping Address</th>
+                	<th>Tax Details</th>
+                	<th>Status</th>
             		</thead></tr><tbody>';
-
-					foreach ($result['orders'] as $value) {
-						$date = strtotime($value['created_at']);
+					foreach ($orders['OrderArray'] as $value) {
+						$date = strtotime($value['CreatedTime']);
 						$order_date = date("Y-m-d", $date);
+
 						if (($order_date >= $Since) && ($order_date <= $today)) {
 							$noresults = false;
-							$currency = $value['currency'];
+							$currency = $value['TransactionArray']['Transaction']['TransactionSiteID'];
+
 							$html .= '<tr>';
-							$html .= '<td><a href="https://' . HOSTNAME . '/admin/orders/' . $value['id'] . '" target="_blank" title="ORDER ID">' . $value['name'] . '</a></td>';
-							$html .= '<td>
-							<a href="https://' . HOSTNAME . '/admin/orders/' . $value['id'] . '" target="_blank" title="ORDER ID">' . $value['name'] . '</a>
-							, <span title="ORDER DATE: ' . date("Y-m-d H:i:s", $date) . '">' . $order_date . '</span><br/>
-							<span title="TOTAL PRICE">' . $currency_symbols["$currency"] . $value['total_price'] . '</span>
-							, <span title="TOTAL DISCOUNT">' . $currency_symbols["$currency"] . $value['total_discounts'] . ' discount</span><br/>
-							<span title="TOTAL TAX">Tax: ' . $currency_symbols["$currency"] . $value['total_tax'] . '</span><br/>
-							<a href="https://' . HOSTNAME . '/admin/customers/' . $value['customer']['id'] . '" target="_blank" title="CUSTOMER ID">' . $value['customer']['id'] . '</a>
-							, <span title=" CUSTOMER NAME">' . $value['customer']['default_address']['name'] . '</span><br/>
-							<span title=" CUSTOMER ADDRESS">' . $value['customer']['default_address']['address1'] . '<br />' . $value['customer']['default_address']['address2'] . '</span><br />
-							<a href="mailto:' . $value['email'] . '" target="_top" title=" CUSTOMER EMAIL">' . $value['email'] . '</a> <br />
-							<span title=" CUSTOMER PHONE">' . $value['customer']['default_address']['phone'] . '</span>
-							</td>';
-							$html .= '<td><div style="overflow: hidden;max-height: 130px !important;overflow-y: auto;" id="style-3">';
-							foreach ($value['line_items'] as $itemdetail) {
-								$html .= '<a href="https://' . HOSTNAME . '/admin/products/' . $itemdetail['product_id'] . '" target="_blank" title="PRODUCT ID">#' . $itemdetail['product_id'] . '</a> <br />
-							  <span title="PRODUCT NAME">' . $itemdetail['name'] . '</span><br/>
-							  <span title="QUANTITY">Quantity: ' . $itemdetail['quantity'] . '</span>,
-							  <span title="PRICE">' . $currency_symbols["$currency"] . $itemdetail['price'] . '</span><br/>
-							  <span title="TOTAL DISCOUNT">' . $itemdetail['total_discount'] . '% discount</span>
-							  ';
-								if (count($value['line_items']) != 1) {
-									$html .= '<hr>';
-								}
-
-							}
-							$html .= '</div></td>';
-							$html .= '<td>';
-							foreach ($value['fulfillments'] as $trackdetail) {
-								$html .= '
-						<span title="TRACKING COMPANY">' . $trackdetail['tracking_company'] . '</span> -
-						<span title="TRACKING NUMBER">#' . $trackdetail['tracking_number'] . '</span> <br/>
-						<a href="' . $trackdetail['tracking_url'] . '" title="TRACK ORDER">Track <i class="fa fa-external-link"></i></a><br/>';
-								if (count($value['fulfillments']) != 1) {
-									$html .= '<hr>';
-								}
-
+							$html .= '<td>' . date("M j, Y", $date) . '<br/>' . date("h:i:s A", $date) . '</td>';
+							$html .= '<td><span title="Order ID">#' . $value['OrderID'] . '</span><br/><br/>
+								<span title="Total Items">Total Items: ' . $value['TransactionArray']['Transaction']['QuantityPurchased'] . '</span><br>
+								<span title="Item ID">#' . $value['TransactionArray']['Transaction']['Item']['ItemID'] . ', </span>
+								<span title="Item Title">' . $value['TransactionArray']['Transaction']['Item']['Title'] . '</span><br><br/>
+								<span title="Transaction ID">Transaction ID: #' . $value['TransactionArray']['Transaction']['TransactionID'] . '</span><br>Payment Methods:<br/>
+							';
+							foreach ($value['PaymentMethods'] as $vl) {
+								$html .= '<span class="label label-default" style="margin-right: 5px;" title="Payment Methods">' . $vl . '</span>';
 							}
 							$html .= '</td>';
-							$html .= '<td>' . $value['financial_status'] . '</td>';
+							$html .= '<td>
+								<span title="Selling Manager Sales Record Number">Record Number: ' . $value['TransactionArray']['Transaction']['ShippingDetails']['SellingManagerSalesRecordNumber'] . '</span><br>
+								<span title="Shipping Carrier Used">Shipping Carrier: ' . $value['TransactionArray']['Transaction']['ShippingDetails']['ShipmentTrackingDetails']['ShippingCarrierUsed'] . '</span><br>
+								<span title="Shipment Tracking Number">Tracking No: #' . $value['TransactionArray']['Transaction']['ShippingDetails']['ShipmentTrackingDetails']['ShipmentTrackingNumber'] . '</span><br/>
+								</td>';
+							$html .= '<td>
+							<span title="Name">' . $value['ShippingAddress']['Name'] . '</span><br/>
+							<span title="Street1">' . $value['ShippingAddress']['Street1'] . '</span><br/>';
+							if ($value['ShippingAddress']['Street2']) {
+								$html .= '<span title="Street2">' . $value['ShippingAddress']['Street2'] . '</span><br/>';
+							}
+							$html .= '<span title="City">' . $value['ShippingAddress']['CityName'] . '</span>, <span title="State Or Region">' . $value['ShippingAddress']['StateOrProvince'] . '</span><br/>';
+							$html .= '<span title="County">' . $value['ShippingAddress']['CountryName'] . '</span>, <span title="CountryCode">' . $value['ShippingAddress']['Country'] . '</span> - <span title="PostalCode">' . $value['ShippingAddress']['PostalCode'] . '</span><br/>';
+							if ($value['ShippingAddress']['Phone']) {
+								$html .= '<span title="Phone">' . $value['ShippingAddress']['Phone'] . '</span><br/>';
+							}
+							$html .= '</td>';
+							$html .= '<td>
+							<span title="Total Tax Amount">' . $currency_symbols["$currency"] . $value['TransactionArray']['Transaction']['Taxes']['TotalTaxAmount'] . '</span><br/><br/>';
+							foreach ($value['TransactionArray']['Transaction']['Taxes']['TaxDetails'] as $vue) {
+								$html .= '<span title="' . $vue['TaxDescription'] . '">' . $vue['Imposition'] . '</span><br/>';
+								$html .= '<span title="Tax Amount">' . $currency_symbols["$currency"] . $vue['TaxAmount'] . '</span><br/><br/>';
+							}
 
-							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("transactions",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
-							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("fulfillments",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
-							$html .= '<td><a href="#oder_details_model" data-toggle="modal" onclick=getOrderdetails("refunds",' . $value['id'] . ')>View <i class="fa fa-external-link" aria-hidden="true"></i></a></td>';
+							$html .= '</td>';
+							$html .= '<td><span class="label label-primary" title="status">' . $value['OrderStatus'] . '</span></td>';
+
+							echo $html;
+							exit();
+							die();
+
+							$html .= '<td><span title="Order Status">' . $value['data']['OrderStatus'] . '</span></td>';
 							$html .= '</tr>';
 						}
-						$i++;
 					}
 					if ($noresults) {
-						$html .= '<tr><td colspan="8" style="text-align: center;">No orders data found for last ' . $periodindays . ' days</td></tr>';
+						$html .= '<tr><td colspan="6" style="text-align: center;">No orders data found for last ' . $periodindays . ' days</td></tr>';
 					}
 					$html .= '</tbody></table>';
 					echo $html;
@@ -757,9 +817,12 @@ class EcommerceAjaxController extends Controller {
 				}
 				if ($request->input('ecommerce_plugin') == "amazon") {
 					$data = array();
-					// $data['bigcom_username'] = $request->input('bigcom_username');
-					// $data['bigcom_api_path'] = $request->input('bigcom_api_path');
-					// $data['bigcom_api_token'] = $request->input('bigcom_api_token');
+					$data['amazon_merchantId'] = $request->input('amazon_merchantId');
+					$data['amazon_marketplaceId'] = $request->input('amazon_marketplaceId');
+					$data['amazon_keyId'] = $request->input('amazon_keyId');
+					$data['amazon_secretKey'] = $request->input('amazon_secretKey');
+					$data['amazon_serviceUrl'] = "https://mws.amazonservices.com/";
+					$data['amazon_MWSAuthToken'] = $request->input('amazon_MWSAuthToken');
 
 					$admin_obj->savePluginCredentials('Amazon', json_encode($data));
 					echo "success";

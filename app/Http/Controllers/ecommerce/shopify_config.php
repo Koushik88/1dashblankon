@@ -66,9 +66,13 @@ foreach ($dbres as $val) {
 		$amazon_config = "yes";
 		// CREDENTIALS
 		$pluginsData = json_decode($val['data'], true);
-		// define('USERNAME', $pluginsData['bigcom_username']);
-		// define('API_PATH', $pluginsData['bigcom_api_path']);
-		// define('API_TOKEN', $pluginsData['bigcom_api_token']);
+
+		$_SESSION['amazon_merchantId'] = $pluginsData['amazon_merchantId'];
+		$_SESSION['amazon_marketplaceId'] = $pluginsData['amazon_marketplaceId'];
+		$_SESSION['amazon_keyId'] = $pluginsData['amazon_keyId'];
+		$_SESSION['amazon_secretKey'] = $pluginsData['amazon_secretKey'];
+		$_SESSION['amazon_serviceUrl'] = $pluginsData['amazon_serviceUrl'];
+		$_SESSION['amazon_MWSAuthToken'] = $pluginsData['amazon_MWSAuthToken'];
 	}
 	if ($val['name'] == "Ebay") {
 		$ebay_config = "yes";
@@ -322,6 +326,7 @@ $currency_symbols = array(
 	'UAH' => '&#8372;',
 	'UGX' => '&#85;&#83;&#104;',
 	'USD' => '&#36;',
+	'US' => '&#36;',
 	'UYU' => '&#36;&#85;',
 	'UZS' => '&#1083;&#1074;',
 	'VEF' => '&#66;&#115;',

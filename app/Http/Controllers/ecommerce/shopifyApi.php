@@ -3,6 +3,39 @@ include_once 'shopify_config.php';
 
 /*---------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
+--------------------------******Amazon API Calls******------------------------------
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------*/
+/*
+ * Amazon->Orders
+ */
+use AmazonOrderList;
+function get_amazon_orders($periodindays) {
+	$since = "- " . $periodindays . " days";
+	try {
+		//store name matches the array key in the config file
+		$amz = new AmazonOrderList("YourAmazonStore");
+		//accepts either specific timestamps or relative times
+		$amz->setLimits('Modified', $since);
+		// $amz->setFulfillmentChannelFilter("MFN");
+		// no Amazon-fulfilled orders
+		$amz->setOrderStatusFilter(
+			array("Pending", "Unshipped", "PartiallyShipped", "Canceled", "Unfulfillable", "Shipped")
+		);
+		// add order status that should be displayed
+		//tells the object to automatically use tokens right away
+		$amz->setUseToken();
+		//this is what actually sends the request
+		$amz->fetchOrders();
+		return $amz->getList();
+	} catch (Exception $ex) {
+		echo 'There was a problem with the Amazon library. Error: ' . $ex->getMessage();
+	}
+}
+
+/*---------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 ------------------------------******Shopify API Calls******------------------------------
 -----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
