@@ -395,24 +395,33 @@ class GmailController extends Controller {
 					$to = array();
 					$snippet = array();
 					$unreadmsg = array();
+                                        $count = 0;
 					if ($results) {
 						foreach ($results as $key1 => $value1) {
 							$snippet[] = $value1['snippet'];
 							$unreadmsg[] = $value1['labelIds'][0];
 							$messagedetails = $value1->getpayload();
 							$modelData = $messagedetails['modelData'];
-							foreach ($modelData['headers'] as $key2 => $value2) {
+                                                             $from[$count] = '';
+                                                             $Subject[$count] = '';
+                                                             $time[$count] = '';
+                                                             $to[$count] = '';  
+							foreach ($modelData['headers'] as $key2 => $value2) {                                                                                                                       
 								if ($value2['name'] == "From") {
-									$from[] = $value2['value'];
+									$from[$count] = $value2['value'];
 								} elseif ($value2['name'] == "Subject") {
-									$Subject[] = $value2['value'];
+									$Subject[$count] = $value2['value'];
 								} elseif ($value2['name'] == "Date") {
-									$time[] = $value2['value'];
+									$time[$count] = $value2['value'];
 								} elseif ($value2['name'] == "To") {
-									$to[] = $value2['value'];
+									$to[$count] = $value2['value'];
 								}
 							}
+                                                        
+                                                      $count = $count+1; 
 						}
+                                               
+                                              
 					}
 					// asgin values
 					$this->addTemplateVar('labelIds', $labelIds);

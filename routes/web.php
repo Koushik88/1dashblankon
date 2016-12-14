@@ -40,6 +40,11 @@ Route::post('doLogin', 'LoginController@doLogin');
  * Mail Page
  */
 Route::post('user_email', 'page\MailController@user_email');
+Route::post('sendChangePasswordLink', 'page\forgotPasswordController@sendChangePasswordLink');
+Route::post('updateNewPassword', 'page\forgotPasswordController@updateNewPassword');
+Route::get('forgotpasswordform', 'page\forgotPasswordController@forgotpasswordform');
+
+
 
 /**
  * Social Plugings Counter API
@@ -127,7 +132,9 @@ Route::group(['middleware' => 'authCheck'], function () {
 	Route::post('currentPasswordValidation', 'page\settingsController@currentPasswordValidation');
 	Route::post('currentPasswordChange', 'page\settingsController@currentPasswordChange');
 	Route::get('QBSaveCredentials', 'page\HomeController@QBSaveCredentials');
-
+        
+        
+	
 	/*
 		         * Chat Page
 	*/

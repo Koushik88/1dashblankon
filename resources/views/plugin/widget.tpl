@@ -177,7 +177,7 @@
                                 </select>
                             </form>  
                         </div> 
-
+                     </div>             
 
                     {else}
                         <div class="block-area shortcut-area" id="prtour_tables">
@@ -190,11 +190,12 @@
                         </div>            
                     {/if}            
 
-                </div> 
+               
                 &nbsp;
             </div>
 
             <div class="tab-pane {if $active_list eq 'Bank'} active {/if}" id="Bank">
+              {if !isset($finicity_error_msg)}   
                 <div class="row">
                     <div class="col-md-7"> 
                         <label><span><h5><b id="account_lable"></b></h5></span></label>
@@ -279,7 +280,16 @@
                     </div>        
                 </div>
                 &nbsp;
-            </div> 
+                {else}
+                     <div class="block-area shortcut-area" id="prtour_tables">
+                            <div class="tile" style="height: 300px;padding-top:100px;">
+                                <center> 
+                                    <b style="font-size:13px;">Configure your Bank Account</b><br/>
+                                    </center>   
+                            </div> 
+                    </div>  &nbsp;
+                {/if} 
+            </div>  
         </div>
     </div>
     <br/>
@@ -865,9 +875,9 @@
             <div class="modal-body" style="padding-left:30px;">
                 {foreach $finicity_list as $keys=>$values} 
                     {assign var=decoded_value value=$values["data"]|json_decode}
-                    <div> <input type="radio"  style="opacity:1;" {if $keys eq '0'} checked="checked" {/if} class="acount_list" name="acount_list" value="{$decoded_value->customerId}&#&{$values["p_id"]}"> </div>
-                    <div style="margin-top:14px !important;">&nbsp;{$decoded_value->InstitutionName} </div>
-                    
+                    <div> <input type="radio"  style="opacity:1;" {if $keys eq '0'} checked="checked" {/if} class="acount_list" name="acount_list" value="{$decoded_value->customerId}&#&{$values["p_id"]}&#&{$decoded_value->user_id}"> </div>
+                    <div style="margin-top:14px !important;">&nbsp;{$decoded_value->bank_aliesname} </div>
+
                 {/foreach}
             </div>
             <div class="modal-footer">
@@ -882,7 +892,7 @@
 
 <script type="text/javascript">
     var currPageServer = "{$currPageServer}";
-
+    var finicity_active_pluginId = "{$finicity_active_pluginId}";
     {literal}
 
         var date = new Date();
@@ -951,8 +961,8 @@
                     alert(response);
                     if (response)
                     {
-                       var redirect_url = currPageServer + "?selectType=Bank";
-                       window.location = redirect_url;
+                        var redirect_url = currPageServer + "?selectType=Bank";
+                        window.location = redirect_url;
                     }
                     $('#bank').modal('hide');
                     $('body').removeClass('loading').loader('hide');
@@ -1048,15 +1058,24 @@
             $("#transaction_details_table").tableExport({type: format, escape: 'false', cmpInfo: cmpInfo, lablehead: lablehead});
 
         }
+
         function deleteFinicityAccount(pluginName)
         {
-           var selected_val = $(".acount_list:checked").val();
-           var finicityValue = selected_val.split("&#&");
-           
-            $.post("deleteTransaction", {"deleteCustomerId": finicityValue[0], "delete_pluginId": finicityValue[1]}, function (response) {
-                //alert(response);
-              
-            });
+
+            var selected_val = $(".acount_list:checked").val();
+            var finicityValue = selected_val.split("&#&");
+            if (finicityValue[1] != finicity_active_pluginId)
+            {
+
+                $.post("deleteTransaction", {"deleteCustomerId": finicityValue[0], "delete_pluginId": finicityValue[1], "deleteUserId": finicityValue[2]}, function (response) {
+                    alert(response);
+                    var redirect_url = currPageServer + "?selectType=Bank";
+                    window.location = redirect_url;
+                });
+            } else
+            {
+                alert("Cannot delete Active Account!.");
+            }
         }
 
 
