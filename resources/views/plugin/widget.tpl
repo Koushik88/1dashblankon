@@ -177,116 +177,116 @@
                                 </select>
                             </form>  
                         </div> 
-                     </div>             
+                    </div>             
 
-                    {else}
-                        <div class="block-area shortcut-area" id="prtour_tables">
-                            <div class="tile" style="height: 300px;padding-top:100px;">
-                                <center> 
-                                    <b style="font-size:13px;">Configure your Intuit QuickBooks Account</b><br/>
-                                    <a href="{$smarty.const.PORTALLOCATION}page/profile.php?mid=1334&nav=12"><b>Click here</b></a>
-                                </center>   
-                            </div> 
-                        </div>            
-                    {/if}            
+                {else}
+                    <div class="block-area shortcut-area" id="prtour_tables">
+                        <div class="tile" style="height: 300px;padding-top:100px;">
+                            <center> 
+                                <b style="font-size:13px;">Configure your Intuit QuickBooks Account</b><br/>
+                                <a href="{$smarty.const.PORTALLOCATION}page/profile.php?mid=1334&nav=12"><b>Click here</b></a>
+                            </center>   
+                        </div> 
+                    </div>            
+                {/if}            
 
-               
+
                 &nbsp;
             </div>
 
             <div class="tab-pane {if $active_list eq 'Bank'} active {/if}" id="Bank">
-              {if !isset($finicity_error_msg)}   
-                <div class="row">
-                    <div class="col-md-7"> 
-                        <label><span><h5><b id="account_lable"></b></h5></span></label>
+                {if !isset($finicity_error_msg)}   
+                    <div class="row">
+                        <div class="col-md-7"> 
+                            <label><span><h5><b id="account_lable"></b></h5></span></label>
 
-                        <div class="tile-config dropdown">   
-                            <a data-toggle="dropdown" href="">
-                                <span class="icon" style="font-size:23px;font-weight:normal;">&#61720;</span>
-                            </a>
-                            <ul class="dropdown-menu pull-right text-right">
-                                <li class="export_hide_txt"><a class="tile-info-toggle" onclick="print_finicity();" href="javascript:void(0)">Print</a></li>
-                                <li class="export_hide_txt"><a onclick="exportExcel_finicity('pdf');" href="javascript:void(0)">Export PDF</a></li>
-                                <li class="export_hide_txt"><a  onclick="exportExcel_finicity('excel');" href="javascript:void(0)">Export Excel</a></li>
-                            </ul>
-                            <a href="#deleteFinicityCredentails" data-toggle="modal">
-                                <span class="icon pull-right" style="font-size:23px;font-weight:normal;">&#61918;</span>
-                            </a>
+                            <div class="tile-config dropdown">   
+                                <a data-toggle="dropdown" href="">
+                                    <span class="icon" style="font-size:23px;font-weight:normal;">&#61720;</span>
+                                </a>
+                                <ul class="dropdown-menu pull-right text-right">
+                                    <li class="export_hide_txt"><a class="tile-info-toggle" onclick="print_finicity();" href="javascript:void(0)">Print</a></li>
+                                    <li class="export_hide_txt"><a onclick="exportExcel_finicity('pdf');" href="javascript:void(0)">Export PDF</a></li>
+                                    <li class="export_hide_txt"><a  onclick="exportExcel_finicity('excel');" href="javascript:void(0)">Export Excel</a></li>
+                                </ul>
+                                <a href="#deleteFinicityCredentails" data-toggle="modal">
+                                    <span class="icon pull-right" style="font-size:23px;font-weight:normal;">&#61918;</span>
+                                </a>
+
+                            </div>
 
                         </div>
-
-                    </div>
-                    <div class="col-md-2">    
-                        <div class="input-icon datetime-pick date-only">
-                            <input data-format="dd/MM/yyyy" type="text" id="finicity_startdate" class="form-control input-sm" />
-                            <span class="add-on">
-                                <i class="sa-plus"></i>
-                            </span>
+                        <div class="col-md-2">    
+                            <div class="input-icon datetime-pick date-only">
+                                <input data-format="dd/MM/yyyy" type="text" id="finicity_startdate" class="form-control input-sm" />
+                                <span class="add-on">
+                                    <i class="sa-plus"></i>
+                                </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">    
-                        <div class="input-icon datetime-pick date-only">
-                            <input data-format="dd/MM/yyyy" type="text" id="finicity_enddate" class="form-control input-sm" />
-                            <span class="add-on">
-                                <i class="sa-plus"></i>
-                            </span>
+                        <div class="col-md-2">    
+                            <div class="input-icon datetime-pick date-only">
+                                <input data-format="dd/MM/yyyy" type="text" id="finicity_enddate" class="form-control input-sm" />
+                                <span class="add-on">
+                                    <i class="sa-plus"></i>
+                                </span>
+                            </div>
                         </div>
+                        <div class="col-md-1">&nbsp;&nbsp;<button class="btn btn-sm" onclick="viewTansactionsDateRange();">Submit</button></div><br/>
                     </div>
-                    <div class="col-md-1">&nbsp;&nbsp;<button class="btn btn-sm" onclick="viewTansactionsDateRange();">Submit</button></div><br/>
-                </div>
 
-                <input id="currentTransaction_customer_id" type="hidden" value="{$smarty.session.first_customer_id}">
-                <input id="currentTransaction_usr_id" type="hidden" value="{$smarty.session.current_user_id}">
+                    <input id="currentTransaction_customer_id" type="hidden" value="{$smarty.session.first_customer_id}">
+                    <input id="currentTransaction_usr_id" type="hidden" value="{$smarty.session.current_user_id}">
 
-                <div class="table-responsive overflow tile" style="overflow: hidden; height: 270px !important; outline: none;" id="transaction_details" tabindex="5001">
-                    <br/>
-                    <table class="table table-bordered tile" style="min-width:500px;max-width:1185px;">
-                        <thead>
-                            <tr>  
-                                <th style="text-align:center !important;">ID</th>                                                               
+                    <div class="table-responsive overflow tile" style="overflow: hidden; height: 270px !important; outline: none;" id="transaction_details" tabindex="5001">
+                        <br/>
+                        <table class="table table-bordered tile" style="min-width:500px;max-width:1185px;">
+                            <thead>
+                                <tr>  
+                                    <th style="text-align:center !important;">ID</th>                                                               
 
-                                <th style="text-align:center !important;">Amount</th>                                                               
+                                    <th style="text-align:center !important;">Amount</th>                                                               
 
-                                <th style="text-align:center !important;">Status</th>                                                               
+                                    <th style="text-align:center !important;">Status</th>                                                               
 
-                                <th style="text-align:center !important;">Description</th>                                                               
+                                    <th style="text-align:center !important;">Description</th>                                                               
 
-                                <th style="text-align:center !important;">Type</th>                                                               
+                                    <th style="text-align:center !important;">Type</th>                                                               
 
-                                <th style="text-align:center !important;">Posted Date</th>  
-                                <th style="text-align:center !important;">Created Date</th>   
-                                <th style="text-align:center !important;">Action</th>                                                                
+                                    <th style="text-align:center !important;">Posted Date</th>  
+                                    <th style="text-align:center !important;">Created Date</th>   
+                                    <th style="text-align:center !important;">Action</th>                                                                
 
-                            </tr>
-                        </thead>  
-                        <tbody> 
-                            <tr><td colspan="7" align="center">.................</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="block-area shortcut-area">
-                    <div class="col-md-9" id="customer_details">
-
+                                </tr>
+                            </thead>  
+                            <tbody> 
+                                <tr><td colspan="7" align="center">.................</td></tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col-md-3">
-                        <div class="row">
-                            <select class="finicityPeriod pull-right" name="finicityPeriod" onchange="changeFinicityAccount()" id="finicityPeriod" style="padding-left:10px;width:220px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
-                                {foreach $finicity_list as $keys=>$values}
-                                    {assign var=decoded_value value=$values["data"]|json_decode}
-                                    <option value="{$decoded_value->institution_id}&#&{$decoded_value->user_id}&#&{$values["p_id"]}" {if $finicity_active_credentials['user_id'] eq $decoded_value->user_id} selected {/if}>{$decoded_value->bank_aliesname}</option>
-                                {/foreach}
-                            </select>
+                    <div class="block-area shortcut-area">
+                        <div class="col-md-9" id="customer_details">
+
                         </div>
-                    </div>        
-                </div>
-                &nbsp;
+                        <div class="col-md-3">
+                            <div class="row">
+                                <select class="finicityPeriod pull-right" name="finicityPeriod" onchange="changeFinicityAccount()" id="finicityPeriod" style="padding-left:10px;width:220px;height:29px;background-color:transparent;border:1px solid rgba(255, 255, 255, 0.3);">
+                                    {foreach $finicity_list as $keys=>$values}
+                                        {assign var=decoded_value value=$values["data"]|json_decode}
+                                        <option value="{$decoded_value->institution_id}&#&{$decoded_value->user_id}&#&{$values["p_id"]}" {if $finicity_active_credentials['user_id'] eq $decoded_value->user_id} selected {/if}>{$decoded_value->bank_aliesname}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>        
+                    </div>
+                    &nbsp;
                 {else}
-                     <div class="block-area shortcut-area" id="prtour_tables">
-                            <div class="tile" style="height: 300px;padding-top:100px;">
-                                <center> 
-                                    <b style="font-size:13px;">Configure your Bank Account</b><br/>
-                                    </center>   
-                            </div> 
+                    <div class="block-area shortcut-area" id="prtour_tables">
+                        <div class="tile" style="height: 300px;padding-top:100px;">
+                            <center> 
+                                <b style="font-size:13px;">Configure your Bank Account</b><br/>
+                            </center>   
+                        </div> 
                     </div>  &nbsp;
                 {/if} 
             </div>  
