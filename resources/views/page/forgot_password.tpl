@@ -83,7 +83,7 @@
            else
            {
               
-                  $.post(portalLocation+controller+'/forgot_password.php',{"newPsw":newPsw,"userId":userId,"username":chpsd_email},function(data)
+                  $.post('updateNewPassword',{"newPsw":newPsw,"userId":userId,"username":chpsd_email},function(data)
                    { 
                       // alert(data);
                         $("#pswresethdr").show();

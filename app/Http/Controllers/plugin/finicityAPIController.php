@@ -9,7 +9,7 @@ class finicityAPIController extends Controller {
 
     public function InstitutionsList() {
         $search = $_POST["searchbyname"];
-        $data = 'http://52.33.102.155/finicity-api/get-institution-lists.php?user_id={user_id}&search=' . $search;
+        $data = 'http://52.33.102.155/1dash-api/get-institution-lists.php?user_id={user_id}&search=' . $search;
         $banklist = file_get_contents($data);
         $institution = json_decode($banklist);
         $getInstitution = $institution->data->institutions;
@@ -20,7 +20,7 @@ class finicityAPIController extends Controller {
 
     public function InstitutionsLoginForm() {
         $institutionId = $_POST['InstitutionId'];
-        $data = 'http://52.33.102.155/finicity-api/get-institution-login-form.php?user_id={user_id}&institution_id=' . $institutionId;
+        $data = 'http://52.33.102.155/1dash-api/get-institution-login-form.php?user_id={user_id}&institution_id=' . $institutionId;
         $loginform = file_get_contents($data);
         $loginformData = json_decode($loginform);
         $getloginformData = $loginformData->data->loginForm;
@@ -48,14 +48,14 @@ class finicityAPIController extends Controller {
         }
 
         $postFields = array('loginForm' => json_encode($_POST));
-        $ch = curl_init('http://52.33.102.155/finicity-api/institution-login.php?user_id=' . $_SESSION["finicity_userId"] . '&institution_id=' . $_SESSION["institutionId"]);
+        $ch = curl_init('http://52.33.102.155/1dash-api/institution-login.php?user_id=' . $_SESSION["finicity_userId"] . '&institution_id=' . $_SESSION["institutionId"]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($_POST));
         $result = curl_exec($ch);
         curl_close($ch);
 
-        $data = 'http://52.33.102.155/finicity-api/get-institution-accounts.php?user_id=' . $_SESSION["finicity_userId"] . '&institution_id=' . $_SESSION["institutionId"];
+        $data = 'http://52.33.102.155/1dash-api/get-institution-accounts.php?user_id=' . $_SESSION["finicity_userId"] . '&institution_id=' . $_SESSION["institutionId"];
         $institution_list = file_get_contents($data);
         $institution_list_decode = json_decode($institution_list);
         $institutions = json_decode(json_encode($institution_list_decode), true);
@@ -72,7 +72,7 @@ class finicityAPIController extends Controller {
     }
 
     public function loadBankDetails() {
-        $data = 'http://52.33.102.155/finicity-api/get-institution-accounts.php?user_id=' . $_POST["current_user_id"] . '&institution_id=' . $_POST["current_insitiution_id"];
+        $data = 'http://52.33.102.155/1dash-api/get-institution-accounts.php?user_id=' . $_POST["current_user_id"] . '&institution_id=' . $_POST["current_insitiution_id"];
         $institution_list = file_get_contents($data);
         $institution_list_decode = json_decode($institution_list);
         $institutions = json_decode(json_encode($institution_list_decode), true);
@@ -116,7 +116,7 @@ class finicityAPIController extends Controller {
         $endDate = date("d/m/Y", strtotime($_POST["finicity_enddate"]));
         $startDate = strtotime($startDate);
         $endDate = strtotime($endDate);
-        $data = 'http://52.33.102.155/finicity-api/get-transaction-history.php?account_id=' . $_POST["account_id"] . '&user_id=' . $_POST["selected_user_id"].'&from='.$startDate.'&to='.$endDate;
+        $data = 'http://52.33.102.155/1dash-api/get-transaction-history.php?account_id=' . $_POST["account_id"] . '&user_id=' . $_POST["selected_user_id"].'&from='.$startDate.'&to='.$endDate;
         
         $transaction_data = file_get_contents($data);
         $decoded_data = json_decode($transaction_data);
@@ -139,7 +139,22 @@ class finicityAPIController extends Controller {
     }
     public function deleteTransaction()
     {
-       // print_r($_POST);
+         // print_r($_POST);
+        $data = 'http://52.33.102.155/1dash-api/customer-delete.php?user_id='.$_POST["deleteUserId"].'&customerId='.$_POST["deleteCustomerId"];
+        $response = file_get_contents($data);
+        $response = json_decode($response,true);
+        if($response["success"] == 1)
+        {
+            $admin_obj = new Admin;
+            $finicity_CredentialList = $admin_obj->deleteQBPluginInfo("Finicity", $_POST["delete_pluginId"]);
+            echo "Your account has been deleted";
+        }
+        else 
+        {
+            $error_message = json_decode($response["message"],true);
+            print_r($error_message["message"]);
+        }
+        
     }
 
 }

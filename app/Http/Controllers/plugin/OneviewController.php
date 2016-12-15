@@ -59,11 +59,12 @@ class OneviewController extends Controller {
                 
                 if($finicity_active_credentials){
                     $this->addTemplateVar("finicity_active_credentials",json_decode($finicity_active_credentials[0]["data"],true));
+                    $this->addTemplateVar("finicity_active_pluginId",$finicity_active_credentials[0]["p_id"]);
                 }
                 
                 if (!$finicity_credentials) {
                     
-                    $this->addTemplateVar("finicity_error_msg", "quickbook_error_msg");
+                    $this->addTemplateVar("finicity_error_msg", "finicity_error_msg");
 		}
                 {
                     $this->addTemplateVar('finicity_list', $finicity_credentials);
